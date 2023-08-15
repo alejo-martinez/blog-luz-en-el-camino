@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/app.js",
-    "build": "node-sass --include-path ./src/public/sass ./src/public/sass/style.scss ./src/public/css/style.css -w"
+    "build": "node-sass --include-path ./src/public/sass ./src/public/sass/style.scss ./src/public/css/style.css -w",
+    "start": "node src/app.js"
   },
   "keywords": [],
   "author": "",
