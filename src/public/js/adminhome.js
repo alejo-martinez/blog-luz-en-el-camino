@@ -9,4 +9,3 @@ const logout = async()=>{
         window.location = '/';
     }
 }
-
