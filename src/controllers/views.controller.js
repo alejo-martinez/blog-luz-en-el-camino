@@ -35,7 +35,7 @@ const audios = async(req, res)=>{
 }
 
 const withmagic = async(req, res)=>{
-    const escritos = await PdfManager.getByCategory('escritos con magia')
+    const escritos = await PdfManager.getByCategory('escritos con magia');
     res.render("escritosconmagia", {escritos});
 }
 

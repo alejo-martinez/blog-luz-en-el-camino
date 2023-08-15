@@ -1,6 +1,6 @@
 const logout = async()=>{
     // e.preventDefault();
-    const response= await fetch('http://localhost:8007/api/session/login', {
+    const response= await fetch('https://blog-luz-en-el-camino-production.up.railway.app/login', {
         method:'DELETE'
     })
     const json = await response.json();

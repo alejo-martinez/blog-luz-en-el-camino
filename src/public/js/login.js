@@ -19,7 +19,7 @@ btnLogin.addEventListener('click', async (e)=>{
     data.forEach((value,key)=>objeto[key]=value);
     const err = 'Missing credentials';
 
-    const response = await fetch('http://localhost:8007/api/session/login', {
+    const response = await fetch('https://blog-luz-en-el-camino-production.up.railway.app/api/session/login', {
         method:'POST',
         headers:{
             'Content-Type':"application/json",
