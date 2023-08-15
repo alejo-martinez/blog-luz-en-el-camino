@@ -1,0 +1,91 @@
+.container{
+    &-principal{
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &-sing{
+        text-align: center;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        width: 400px;
+    }
+}
+
+.h2sing {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.labelsing {
+    font-size: 14px;
+    display: block;
+    margin-top: 4px;
+}
+
+.inputsing {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.btnsing {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btnsing:hover {
+    background-color: #45a049;
+}
+
+.asing {
+    text-decoration: none;
+    color: #4caf50;
+    font-size: 14px;
+    display: block;
+}
+
+.psing {
+    margin-top: 10px;
+}
+
+.errorsing p{
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.formsing {
+    display: flex;
+    flex-flow: column nowrap;
+    width: fit-content;
+    margin: auto;
+    gap: 6px;
+}
+
+.btn{
+
+    &-submit{
+        margin-top: 1.4rem;
+    }
+}
+
+.title{
+    &-login{
+        margin-bottom: 2.5rem;
+    }
+}

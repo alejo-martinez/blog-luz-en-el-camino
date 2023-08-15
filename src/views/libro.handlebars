@@ -1,0 +1,39 @@
+<div>
+        <nav>
+        <ul class="navbuttons">
+            <li>
+                <button class="btnnav" onclick="navegar('/')"><a href="/" class="btnnav-a">Inicio</a></button>
+            </li>
+            <li class="dropdown">
+                <button class="dropdown-button">Escritos del alma</button>
+                <ul class="dropdown-content">
+                    <li><a href="/escritosconmagia">Escritos con magia</a></li>
+                    <li><a href="/caminodelasanacion">El camino de la sanación</a></li>
+                    <li><a href="/loquesomos">Lo que somos</a></li>
+                    <li><a href="/noblesverdades">Nobles verdades</a></li>
+                </ul>
+            </li>
+            <li>
+                <button class="btnnav" onclick="navegar('/audios')"><a href="/audios" class="btnnav-a">Audios</a></button>
+            </li>
+        </ul>
+    </nav>
+    <div data-path="{{libro.path}}" id="divLibro" class="pdf-libro">
+        <div class="div-btnsnav-pdf">
+            <h2 class="book-title">{{libro.title}}</h2>
+            <button id="prev-page" class="btn-pdf-nav"><i class="bi bi-arrow-left"></i></button>
+            <canvas id="pdf-viewer" class="book"></canvas>
+            <button id="next-page" class="btn-pdf-nav"><i class="bi bi-arrow-right"></i></button>
+        </div>
+        <div id="pdf-error-message" class="pdf-error-message">
+            Tu navegador no puede mostrar este PDF. Puedes <a href="{{libro.path}}">descargarlo aquí</a>.
+        </div>
+    </div>
+</div>
+{{!-- <div class="pdf-libro">
+    <h3>{{libro.title}}</h3>
+    <object data="{{libro.path}}" type="application/pdf">Tu navegador no puede mostrar este PDF. Puedes <a
+            href="{{libro.path}}">descargarlo aquí</a>.</object>
+</div> --}}
+<script src="https://unpkg.com/pdfjs-dist@2.11.338/build/pdf.js"></script>
+<script src="/js/libro.js"></script>

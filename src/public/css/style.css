@@ -1,0 +1,339 @@
+.container-principal {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center; }
+
+.container-sing {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  width: 400px; }
+
+.h2sing {
+  font-size: 24px;
+  margin-bottom: 10px; }
+
+.labelsing {
+  font-size: 14px;
+  display: block;
+  margin-top: 4px; }
+
+.inputsing {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px; }
+
+.btnsing {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease; }
+
+.btnsing:hover {
+  background-color: #45a049; }
+
+.asing {
+  text-decoration: none;
+  color: #4caf50;
+  font-size: 14px;
+  display: block; }
+
+.psing {
+  margin-top: 10px; }
+
+.errorsing p {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 10px; }
+
+.formsing {
+  display: flex;
+  flex-flow: column nowrap;
+  width: fit-content;
+  margin: auto;
+  gap: 6px; }
+
+.btn-submit {
+  margin-top: 1.4rem; }
+
+.title-login {
+  margin-bottom: 2.5rem; }
+
+.btnnav {
+  background-color: #594270;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer; }
+  .btnnav-a {
+    color: white; }
+
+.navbuttons {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: space-evenly;
+  margin-top: 2rem; }
+
+.div {
+  max-height: 20%; }
+  .div-imgnav {
+    object-fit: cover;
+    width: 100%;
+    max-height: 30%; }
+
+.dropdown-button {
+  background-color: #594270;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; }
+
+.actual {
+  background-color: #a6a4b4;
+  padding: 4px;
+  border-radius: 3px; }
+
+.dropdown-content {
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden; }
+  .dropdown-content li {
+    padding: 12px 16px; }
+  .dropdown-content a {
+    color: black;
+    text-decoration: none;
+    display: block; }
+    .dropdown-content a:hover {
+      background-color: #f1f1f1; }
+
+.dropdown-button:hover + .dropdown-content,
+.dropdown-content:hover {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible; }
+
+.icon-menu {
+  margin-left: 1.4rem;
+  display: flex;
+  flex-flow: column;
+  width: fit-content; }
+  .icon-menu i {
+    margin: auto;
+    font-size: 200%; }
+
+.panel-user {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin: 10px;
+  font-size: 16px;
+  color: #333;
+  width: fit-content; }
+  .panel-user button {
+    background-color: #D14D1C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    width: fit-content;
+    margin-top: 3px; }
+  .panel-user button:hover {
+    background-color: #d14c1c81; }
+
+.div-parrafo-pdf {
+  margin-top: 4rem;
+  margin-bottom: 2rem; }
+
+.parrafo {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 50%;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 3rem; }
+  .parrafo-principal {
+    text-align: justify;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 0; }
+  .parrafo-pdf {
+    text-align: center; }
+
+.pdf-libro {
+  margin: auto;
+  text-align: center; }
+
+.div-btnsnav-pdf {
+  text-align: center;
+  justify-items: center; }
+
+.pdf-libro {
+  position: relative; }
+
+.btn-pdf-nav {
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); }
+
+#prev-page {
+  left: 10px; }
+
+#next-page {
+  right: 10px; }
+
+.pdf-error-message {
+  display: none;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px; }
+
+.pdf-error-message a {
+  color: #3498db;
+  text-decoration: underline; }
+
+.pdf-error-message a:hover {
+  text-decoration: none; }
+
+.book {
+  margin-top: 3rem; }
+  .book-title {
+    margin-top: 2rem; }
+
+.img-seccion {
+  object-fit: contain;
+  width: 13%;
+  height: 13%;
+  margin-top: 3rem; }
+
+.div-img {
+  text-align: center; }
+
+.div-uploadpdf {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 3rem; }
+  .div-uploadpdf h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-align: center; }
+  .div-uploadpdf .form-upload label {
+    display: block;
+    margin-top: 10px; }
+  .div-uploadpdf .form-upload input[type="text"],
+  .div-uploadpdf .form-upload select,
+  .div-uploadpdf .form-upload input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; }
+  .div-uploadpdf .form-upload select {
+    height: 32px; }
+  .div-uploadpdf .form-upload input[type="file"] {
+    padding: 6px; }
+
+.btnuploadpdf {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; }
+  .btnuploadpdf:hover {
+    background-color: #45a049; }
+
+.errorpdf span {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 10px; }
+
+.btnuploadaudio {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; }
+  .btnuploadaudio:hover {
+    background-color: #45a049; }
+
+.erroraudio span {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 10px; }
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0; }
+
+body {
+  background-color: #e9e9e9;
+  font-family: 'Nunito', sans-serif; }
+
+a {
+  text-decoration: none; }
+
+h1 {
+  text-align: center;
+  color: #6C8CB9;
+  margin-top: 1rem; }
+
+.pdf-section {
+  display: flex;
+  flex-flow: row wrap; }
+  .pdf-section-each {
+    text-align: center;
+    margin: 7px;
+    background-color: #6C8CB9; }

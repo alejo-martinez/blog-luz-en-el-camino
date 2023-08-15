@@ -1,0 +1,50 @@
+<div>
+    <div class="div"><img src="static/images/cieloatardecer.webp" alt="atardecer" height="150" class="div-imgnav"></div>
+    <h1>Luz en el camino</h1>
+    <nav>
+        <div class="panel-user">
+            <span>Bienvenido/a: {{user.name}} !</span>
+            <button onclick="logout()">Cerrar sesión</button>
+        </div>
+        <ul class="navbuttons">
+            <li>
+                <button class="btnnav" onclick="navegar('/uploadpdf')"><a href="/uploadpdf" class="btnnav-a">Subir pdf</a></button>
+            </li>
+            <li>
+                <button class="btnnav" onclick="navegar('/uploadaudio')"><a href="/uploadaudio" class="btnnav-a">Subir audio</a></button>
+            </li>
+            <li>
+                <button class="btnnav" onclick="navegar('/book')"><a href="/book" class="btnnav-a">Libro</a></button>
+            </li>
+            <li class="dropdown">
+                <button class="dropdown-button">Escritos del alma</button>
+                <ul class="dropdown-content">
+                    <li><a href="/escritosconmagia">Escritos con magia</a></li>
+                    <li><a href="/caminodelasanacion">El camino de la sanación</a></li>
+                    <li><a href="/loquesomos">Lo que somos</a></li>
+                    <li><a href="/noblesverdades">Nobles verdades</a></li>
+                </ul>
+            </li>
+            <li>
+                <button class="btnnav" onclick="navegar('/audios')"><a href="/audios"
+                        class="btnnav-a">Audios</a></button>
+            </li>
+        </ul>
+
+    </nav>
+    <div class="div-parrafo-pdf">
+        <p class="parrafo-pdf">El inicio del camino... <a href="">La noche oscura del alma</a> <i
+                class="bi bi-filetype-pdf"></i></p>
+    </div>
+    <div class="parrafo">
+        <p class="parrafo-principal" id="pBienvenida">Esta página es un espacio que nace de mi corazón, son mis palabras, las que mi alma
+            me trajo
+            como camino de sanación. Hoy deseo compartirlas y hacer de este espacio un lugar nuestro. Hay
+            textos, escritos de mi alma para tu alma si le resuenan, y hay audios, ya que sentí que escuchar
+            una vos amiga muchas veces nos calma. Espero que lo disfrutes y sientas y que lo hagas tu espacio.
+            Te leo, te gradezco y te abrazo.</p>
+    </div>
+            {{!-- <i class="bi bi-pencil-square" id="iconedit"></i> --}}
+</div>
+
+<script src="/js/adminhome.js"></script>

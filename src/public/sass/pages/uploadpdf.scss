@@ -1,0 +1,68 @@
+.div-uploadpdf {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 3rem;
+
+  
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+  
+    .form-upload {
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+  
+      input[type="text"],
+      select,
+      input[type="file"] {
+        width: 100%;
+        padding: 8px;
+        margin: 6px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+  
+      select {
+        height: 32px;
+      }
+  
+      input[type="file"] {
+        padding: 6px;
+      }
+    }
+  }
+
+// .btnuploadpdf {
+//     margin: auto;
+//     text-align: center;
+// }
+
+.btnuploadpdf {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover{
+        background-color: #45a049;
+    }
+}
+
+
+.errorpdf span{
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 10px;
+}

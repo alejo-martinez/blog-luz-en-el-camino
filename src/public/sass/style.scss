@@ -1,0 +1,39 @@
+@import 'pages/login';
+@import 'pages/nav';
+@import 'pages/home';
+@import 'pages/book';
+@import 'pages/audios';
+@import 'pages/uploadpdf';
+@import 'pages/uploadaudio';
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: rgba(233, 233, 233, 1);
+    font-family: 'Nunito', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1{
+    text-align: center;
+    color: #6C8CB9;
+    margin-top: 1rem;
+}
+
+.pdf-section {
+    display: flex;
+    flex-flow: row wrap;
+
+    &-each{
+        text-align: center;
+        margin: 7px;
+        background-color: #6C8CB9;
+    }
+}

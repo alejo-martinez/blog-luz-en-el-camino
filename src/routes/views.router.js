@@ -1,0 +1,20 @@
+import { Router } from "express";
+import viewsController from "../controllers/views.controller.js";
+import { authToken, adminUser, noUser } from "../middlewares/auth.middleware.js";
+
+const router = Router();
+
+router.get('/login', viewsController.login);
+router.get('/register', viewsController.register);
+router.get('/', authToken, viewsController.home);
+router.get('/detalles', viewsController.detalles);
+router.get('/book', viewsController.book);
+router.get('/audios', viewsController.audios);
+router.get('/escritosconmagia', viewsController.withmagic);
+router.get('/caminodelasanacion', viewsController.roadsanity);
+router.get('/loquesomos', viewsController.weare);
+router.get('/noblesverdades', viewsController.trues);
+router.get('/uploadpdf', authToken, adminUser, viewsController.uploadpdf);
+router.get('/uploadaudio', authToken, adminUser, viewsController.uploadaudio);
+
+export default router;
