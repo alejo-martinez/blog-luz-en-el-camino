@@ -8,6 +8,8 @@ const divComents = document.getElementById('divComents');
 
 const socket = io();
 
+console.log(pdfPath);
+
 let currentPage = 1;
 
 const sendComment = (name, text, id) => {
