@@ -1,0 +1,108 @@
+<div>
+    <nav class="nav">
+        <ul class="navbuttons">
+            <div class="navbuttons-bar">
+                <li>
+                    <button class="btnnav" onclick="navegar('/')"><a href="/" class="btnnav-a">Inicio</a></button>
+                </li>
+                {{#if adminUser}}
+                <li>
+                    <button class="btnnav" onclick="navegar('/uploadpdf')"><a href="/uploadpdf" class="btnnav-a">Subir
+                            pdf</a></button>
+                </li>
+                <li>
+                    <button class="btnnav" onclick="navegar('/uploadaudio')"><a href="/uploadaudio"
+                            class="btnnav-a">Subir
+                            audio</a></button>
+                </li>
+                {{/if}}
+                <li>
+                    <button class="btnnav" onclick="navegar('/book')">
+                        <a href="/book" class="btnnav-a">Libro</a>
+                    </button>
+                </li>
+                <li class="dropdown">
+                    <button class="dropdown-button">Escritos del alma</button>
+                    <ul class="dropdown-content">
+                        <li><a href="/escritosconmagia">Escritos con magia</a></li>
+                        <li><a href="/caminodelasanacion">El camino de la sanación</a></li>
+                        <li><a href="/loquesomos">Lo que somos</a></li>
+                        <li><a href="/noblesverdades">Nobles verdades</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="btnnav" onclick="navegar('/audios')"><a href="/audios"
+                            class="btnnav-a">Audios</a></button>
+                </li>
+            </div>
+            {{#if userlogued}}
+            <div>
+                <li>
+                    <div class="panel-user">
+                        <span>{{userlogued.name}}</span>
+                        <button onclick="logout()"><i class="bi bi-box-arrow-left"></i></button>
+                    </div>
+                </li>
+            </div>
+            {{else}}
+            <li>
+                <div class="panel-user">
+                    <a class="panel-user-link" href="/login">Iniciar sesión</a>
+                    <a class="panel-user-link" href="/register">Registrarse</a>
+                </div>
+            </li>
+            {{/if}}
+        </ul>
+    </nav>
+    <div data-path="{{pdf.path}}" id="divPdf" class="pdf-libro">
+        <h2 class="book-title">{{pdf.title}}</h2>
+        <div class="div-btnsnav-pdf">
+            <button id="prev-page" class="btn-pdf-nav"><i class="bi bi-arrow-left"></i></button>
+            <div>
+                <canvas id="pdf-viewer" class="book"></canvas>
+                <div class="div-download">
+                    <p><a class="panel-user-link" href="{{pdf.path}}">Descargar</a></p>
+                </div>
+            </div>
+            <button id="next-page" class="btn-pdf-nav"><i class="bi bi-arrow-right"></i></button>
+        </div>
+
+        <div id="pdf-error-message" class="pdf-error-message">
+            Tu navegador no puede mostrar este PDF. Puedes <a class="panel-user-link" href="{{libro.path}}">descargarlo aquí.</a>.
+        </div>
+        {{#if pdf.comments}}
+        <div class="div-coments" id="divComents">
+        {{#each pdf.comments}}
+        <div class="pdf-section-coments-all">
+            <p><strong class="coment-name">{{this.name}}</strong>: {{this.coment}}
+            </p>
+            <p class="coment-date">{{this.created_at}}</p>
+        </div>
+        {{/each}}
+        </div>
+        {{else}}
+        <div class="p-nocoments">
+            <p>Todavia no hay comentarios</p>
+        </div>
+        {{/if}}
+        <div class="div-form-coment-details">
+            <form id="formComent{{pdf._id}}" class="form-coment-details">
+                <div>
+                    <label>Nombre: </label>
+                    <input type="text" name="name" placeholder="(opcional)" id="name{{pdf._id}}" />
+                </div>
+                <div>
+                    <label>Comentario: </label>
+                    <input type="text" name="text" id="txt{{pdf._id}}" />
+                </div>
+                <div class="btn-coment">
+                    <button type="button" onclick="comentar('{{pdf._id}}')">Comentar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/pdfjs-dist@2.11.338/build/pdf.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/details.js"></script>

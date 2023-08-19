@@ -4,7 +4,7 @@ const prevButton = document.getElementById("prev-page");
 const nextButton = document.getElementById("next-page");
 const divPath = document.getElementById('divLibro').getAttribute('data-path');
 const pdfErrorMessage = document.getElementById("pdf-error-message");
-// console.log(divPath);
+const divPages = document.getElementById('divPages');
 
 let currentPage = 1;
 

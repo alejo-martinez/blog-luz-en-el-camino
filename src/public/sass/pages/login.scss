@@ -1,6 +1,7 @@
 .container{
     &-principal{
         display: flex;
+        flex-flow: column;
         height: 100vh;
         align-items: center;
         justify-content: center;
@@ -82,10 +83,18 @@
     &-submit{
         margin-top: 1.4rem;
     }
+
+    &-inicio{
+        margin-top: 0.2rem;
+    }
 }
 
 .title{
     &-login{
         margin-bottom: 2.5rem;
     }
+}
+
+.arrow-back{
+    margin-right: 3px;
 }

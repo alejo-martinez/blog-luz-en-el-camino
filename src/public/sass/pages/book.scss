@@ -9,33 +9,42 @@
 }
 
 .div-btnsnav-pdf{
-    text-align: center;
-    justify-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
 }
 
-.pdf-libro {
-    position: relative;
-  }
-  
+
   .btn-pdf-nav {
-    background-color: #3498db;
+    background-color: #5429b9bd;
     color: white;
     padding: 10px;
     border: none;
+    border-radius: 14px;
     cursor: pointer;
-    font-size: 24px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    transition: all 0.4s;
+
+    &:hover{
+      background-color: #5429b93b;
+    }
+  }
+
+  .div-download{
+    justify-items: flex-end;
+    background-color: #ffffffe3;
+    padding: 4px;
+    border-radius: 4px;
+    width: fit-content;
+    margin-bottom: 3rem;
+    margin-left: 1rem;
+
+    &-p{
+      text-align: end;
+    }
   }
   
-  #prev-page {
-    left: 10px;
-  }
-  
-  #next-page {
-    right: 10px;
-  }
 
   .pdf-error-message {
     display: none;
@@ -54,10 +63,16 @@
   }
 
   .book{
-    margin-top: 3rem;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    // margin: 20px 0;
+    max-width: 100%;
+    // display: block;
 
     &-title{
       margin-top: 2rem;
+      color: $colorTitle;
     }
   }
   

@@ -1,25 +1,90 @@
 <div>
-    <nav>
+    <nav class="nav">
         <ul class="navbuttons">
-            <li>
+            <div class="navbuttons-bar">
+                <li>
                     <button class="btnnav" onclick="navegar('/')"><a href="/" class="btnnav-a">Inicio</a></button>
                 </li>
+                {{#if adminUser}}
+                <li>
+                    <button class="btnnav" onclick="navegar('/uploadpdf')"><a href="/uploadpdf" class="btnnav-a">Subir
+                            pdf</a></button>
+                </li>
+                <li>
+                    <button class="btnnav" onclick="navegar('/uploadaudio')"><a href="/uploadaudio"
+                            class="btnnav-a">Subir
+                            audio</a></button>
+                </li>
+                {{/if}}
+                <li>
+                    <button class="btnnav" onclick="navegar('/book')">
+                        <a href="/book" class="btnnav-a">Libro</a>
+                    </button>
+                </li>
+                <li class="dropdown">
+                    <button class="dropdown-button">Escritos del alma</button>
+                    <ul class="dropdown-content">
+                        <li><a href="/escritosconmagia">Escritos con magia</a></li>
+                        <li><a class="actual" href="/caminodelasanacion">El camino de la sanación</a></li>
+                        <li><a href="/loquesomos">Lo que somos</a></li>
+                        <li><a href="/noblesverdades">Nobles verdades</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="btnnav" onclick="navegar('/audios')"><a href="/audios"
+                            class="btnnav-a">Audios</a></button>
+                </li>
+            </div>
+            {{#if userlogued}}
+            <div>
+                <li>
+                    <div class="panel-user">
+                        <span>{{userlogued.name}}</span>
+                        <button onclick="logout()"><i class="bi bi-box-arrow-left"></i></button>
+                    </div>
+                </li>
+            </div>
+            {{else}}
             <li>
-                <button class="btnnav" onclick="navegar('/book')"><a href="/book" class="btnnav-a">Libro</a></button>
+                <div class="panel-user">
+                    <a class="panel-user-link" href="/login">Iniciar sesión</a>
+                    <a class="panel-user-link" href="/register">Registrarse</a>
+                </div>
             </li>
-            <li class="dropdown">
-                <button class="dropdown-button">Escritos del alma</button>
-                <ul class="dropdown-content">
-                    <li><a href="/escritosconmagia">Escritos con magia</a></li>
-                    <li><a href="/caminodelasanacion" class="actual">El camino de la sanación</a></li>
-                    <li><a href="/loquesomos">Lo que somos</a></li>
-                    <li><a href="/noblesverdades">Nobles verdades</a></li>
-                </ul>
-            </li>
-            <li>
-                <button class="btnnav" onclick="navegar('/audios')"><a href="/audios" class="btnnav-a">Audios</a></button>
-            </li>
+            {{/if}}
         </ul>
     </nav>
-    CAMINO DE LA SANACION
+        <div class="pdf-section">
+        {{#if escritos}}
+        <div class="pdf-section-show">
+            {{#each escritos}}
+            <div class="pdf-section-each">
+                <div class="pdf-section-each-header">
+                    <h5>{{this.title}}</h5>
+                    <p>Ver pdf <a href="/details/{{this._id}}">{{this.title}}</a></p>
+                </div>
+                {{#if this.comments}}
+                {{#each this.comments}}
+                <div class="pdf-section-coments">
+                    <p><strong class="coment-name">{{this.name}}</strong>: <span
+                            class="coment-text">{{this.coment}}</span>
+                    </p>
+                    <p class="coment-date">{{this.created_at}}</p>
+                </div>
+                {{/each}}
+                {{else}}
+                <div class="p-nocoments">
+                    <p>Todavia no hay comentarios</p>
+                </div>
+                {{/if}}
+            </div>
+            {{/each}}
+            {{else}}
+            <div class="p-nopdf">
+                <p>Todavia no hay pdfs</p>
+            </div>
+            {{/if}}
+        </div>
+        <div class="container-img"><img src="/static/images/mirandoalcielo.webp"  alt=""></div>
+    </div>
 </div>

@@ -2,8 +2,13 @@
     background-color: rgb(89, 66, 112);
     padding: 10px;
     border: none;
-    border-radius: 7px;
+    // border-radius: 7px;
     cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover{
+        background-color: rgba(89, 66, 112, 0.377);
+    }
 
     &-a{
         color: white;
@@ -14,8 +19,13 @@
     display: flex;
     list-style: none;
     padding: 0;
-    justify-content: space-evenly;
-    margin-top: 2rem;
+    justify-content: space-between;
+    align-items: center;
+
+    &-bar{
+        display: flex;
+        margin-left: 5rem;
+    }
   }
 
 .div {
@@ -34,7 +44,7 @@
     color: white;
     padding: 10px;
     border: none;
-    border-radius: 7px;
+    // border-radius: 7px;
     cursor: pointer;
     transition: background-color 0.3s ease; 
 }
@@ -43,7 +53,16 @@
     background-color: #a6a4b4;
     padding: 4px;
     border-radius: 3px;
+
+    &-principal{
+        background-color: rgba(89, 66, 112, 0.404);
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
 }
+
+
 
 .dropdown-content {
     position: absolute;
@@ -67,9 +86,11 @@
         color: black;
         text-decoration: none;
         display: block;
+        transition: all 0.3s;
 
         &:hover{
             background-color: #f1f1f1;
+            border-radius: 3px;
         }
     }
 }
@@ -101,11 +122,15 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    // justify-content: space-between;
+    justify-content: end;
     margin: 10px;
     font-size: 16px;
     color: #333;
     width: fit-content;
+
+    & a{
+        font-size: 90%;
+    }
     
     button {
         background-color: #D14D1C;

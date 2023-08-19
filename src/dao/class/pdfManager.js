@@ -14,7 +14,7 @@ export class PdfManager {
 
     static async getByCategory(category){
         const pdfs = await pdfModel.find({category: category}).lean();
-        if (pdfs.length === 0) return undefined;//throw new CustomError('No data', 'No se encontraron los pdfs o no existen', 5);
+        if (pdfs.length === 0) return undefined;
         try {
             return pdfs;
         } catch (error) {
@@ -49,6 +49,17 @@ export class PdfManager {
             throw new CustomError('Error desconocido', error, -999);
         }
     };
+
+    static async coment(name, text, id){
+        if(!text) throw new CustomError('No data', 'Debes proporcionar un comentario', 2);
+        try {
+            const date = new Date();
+            const comentario = {name: name? name:'Anónimo', coment: text, created_at: date};
+            await pdfModel.updateOne({_id: id}, {$push: {comments: comentario}});
+        } catch (error) {
+            throw new CustomError('Error desconocido', error, -999);
+        }
+    }
 
     static async update(id, prop, value) {
         try {

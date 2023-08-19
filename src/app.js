@@ -25,6 +25,7 @@ import suggestRouter from './routes/suggest.router.js';
 import viewsRouter from './routes/views.router.js';
 
 import handleErrors from './middlewares/error.middleware.js';
+import { PdfManager } from './dao/class/pdfManager.js';
 
 
 const app = express();
@@ -76,8 +77,14 @@ app.set('view engine', 'handlebars');
 
 io.on('connection', async(socket)=>{
     console.log("Conectado al servidor");
-});
 
+    socket.on('comment', async(data)=>{
+        const date = new Date();
+        const newData = {name: data.name, text: data.text, created_at: utils.formatDate(date)};
+        await PdfManager.coment(data.name, data.text, data.id);
+        io.emit('comment', newData)
+    })
+});
 mongoose.connect(config.mongoURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true

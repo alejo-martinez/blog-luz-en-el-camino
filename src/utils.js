@@ -87,6 +87,10 @@ const transporte = nodemailer.createTransport({
     }
 })
 
+const formatDate = (date)=> {
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
+}
+
 const __dirname = dirname(__filename);
 
-export default { generateToken, createHash, isValidPassword, cookieExtractor, transporte, uploadPdf, uploadAudio, __dirname };
+export default { generateToken, createHash, isValidPassword, cookieExtractor, formatDate, transporte, uploadPdf, uploadAudio, __dirname };

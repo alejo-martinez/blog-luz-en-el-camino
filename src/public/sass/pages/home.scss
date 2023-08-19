@@ -1,13 +1,18 @@
-// .parrafo {
-//     margin-top: 3rem;
+.panel-user {
+    background-color: #f9f9f9;
+    padding: 3px;
+    border-radius: 4px;
 
-//     &-principal {
-//         width: 50%;
-//         text-align: center;
-//         margin: auto;
-//     }
-// }
-.div-parrafo-pdf{
+    &-link {
+        color: $colorLinks;
+        transition: all 0.3s;
+        &:hover{
+            color: $colorLinksHover;
+        }
+    }
+}
+
+.div-parrafo-pdf {
     margin-top: 4rem;
     margin-bottom: 2rem;
 }
@@ -22,7 +27,7 @@
     margin: auto;
     margin-top: 2rem;
     margin-bottom: 3rem;
-    
+
     &-principal {
         text-align: justify;
         font-family: 'Lato', sans-serif;
@@ -35,4 +40,10 @@
     &-pdf {
         text-align: center;
     }
+}
+
+.icon-menu {
+    background-color: #f9f9f9;
+    padding: 3px;
+    border-radius: 4px;
 }

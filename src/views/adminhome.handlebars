@@ -2,16 +2,20 @@
     <div class="div"><img src="static/images/cieloatardecer.webp" alt="atardecer" height="150" class="div-imgnav"></div>
     <h1>Luz en el camino</h1>
     <nav>
-        <div class="panel-user">
-            <span>Bienvenido/a: {{user.name}} !</span>
-            <button onclick="logout()">Cerrar sesión</button>
-        </div>
         <ul class="navbuttons">
             <li>
-                <button class="btnnav" onclick="navegar('/uploadpdf')"><a href="/uploadpdf" class="btnnav-a">Subir pdf</a></button>
+                <div class="panel-user">
+                    <span>{{user.name}}</span>
+                    <button onclick="logout()"><i class="bi bi-box-arrow-left"></i></button>
+                </div>
             </li>
             <li>
-                <button class="btnnav" onclick="navegar('/uploadaudio')"><a href="/uploadaudio" class="btnnav-a">Subir audio</a></button>
+                <button class="btnnav" onclick="navegar('/uploadpdf')"><a href="/uploadpdf" class="btnnav-a">Subir
+                        pdf</a></button>
+            </li>
+            <li>
+                <button class="btnnav" onclick="navegar('/uploadaudio')"><a href="/uploadaudio" class="btnnav-a">Subir
+                        audio</a></button>
             </li>
             <li>
                 <button class="btnnav" onclick="navegar('/book')"><a href="/book" class="btnnav-a">Libro</a></button>
@@ -37,14 +41,15 @@
                 class="bi bi-filetype-pdf"></i></p>
     </div>
     <div class="parrafo">
-        <p class="parrafo-principal" id="pBienvenida">Esta página es un espacio que nace de mi corazón, son mis palabras, las que mi alma
+        <p class="parrafo-principal" id="pBienvenida">Esta página es un espacio que nace de mi corazón, son mis
+            palabras, las que mi alma
             me trajo
             como camino de sanación. Hoy deseo compartirlas y hacer de este espacio un lugar nuestro. Hay
             textos, escritos de mi alma para tu alma si le resuenan, y hay audios, ya que sentí que escuchar
             una vos amiga muchas veces nos calma. Espero que lo disfrutes y sientas y que lo hagas tu espacio.
             Te leo, te gradezco y te abrazo.</p>
     </div>
-            {{!-- <i class="bi bi-pencil-square" id="iconedit"></i> --}}
+    {{!-- <i class="bi bi-pencil-square" id="iconedit"></i> --}}
 </div>
 
 <script src="/js/home.js"></script>

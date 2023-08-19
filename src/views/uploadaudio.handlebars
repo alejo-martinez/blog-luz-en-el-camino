@@ -1,32 +1,46 @@
 <div>
-    <nav>
-        <div class="panel-user">
-            <span>Bienvenido/a: {{user.name}} !</span>
-            <button onclick="logout()">Cerrar sesión</button>
-        </div>
+       <nav class="nav">
         <ul class="navbuttons">
-            <li>
-                <button class="btnnav" onclick="navegar('/')"><a href="/" class="btnnav-a">Inicio</a></button>
-            </li>
-            <li>
-                <button class="btnnav" onclick="navegar('/uploadpdf')"><a href="/uploadpdf" class="btnnav-a">Subir pdf</a></button>
-            </li>
-            <li>
-                <button class="btnnav" onclick="navegar('/book')"><a href="/book" class="btnnav-a">Libro</a></button>
-            </li>
-            <li class="dropdown">
-                <button class="dropdown-button">Escritos del alma</button>
-                <ul class="dropdown-content">
-                    <li><a href="/escritosconmagia">Escritos con magia</a></li>
-                    <li><a href="/caminodelasanacion">El camino de la sanación</a></li>
-                    <li><a href="/loquesomos">Lo que somos</a></li>
-                    <li><a href="/noblesverdades">Nobles verdades</a></li>
-                </ul>
-            </li>
-            <li>
-                <button class="btnnav" onclick="navegar('/audios')"><a href="/audios"
-                        class="btnnav-a">Audios</a></button>
-            </li>
+            <div class="navbuttons-bar">
+                <li>
+                    <button class="btnnav" onclick="navegar('/')"><a href="/" class="btnnav-a">Inicio</a></button>
+                </li>
+                <li>
+                    <button class="btnnav" onclick="navegar('/uploadpdf')"><a href="/uploadpdf" class="btnnav-a">Subir
+                            pdf</a></button>
+                </li>
+                <li>
+                    <button class="btnnav actual-principal" onclick="navegar('/uploadaudio')"><a href="/uploadaudio"
+                            class="btnnav-a">Subir
+                            audio</a></button>
+                </li>
+                <li>
+                    <button class="btnnav" onclick="navegar('/book')">
+                        <a href="/book" class="btnnav-a">Libro</a>
+                    </button>
+                </li>
+                <li class="dropdown">
+                    <button class="dropdown-button">Escritos del alma</button>
+                    <ul class="dropdown-content">
+                        <li><a href="/escritosconmagia">Escritos con magia</a></li>
+                        <li><a href="/caminodelasanacion">El camino de la sanación</a></li>
+                        <li><a href="/loquesomos">Lo que somos</a></li>
+                        <li><a href="/noblesverdades">Nobles verdades</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="btnnav" onclick="navegar('/audios')"><a href="/audios"
+                            class="btnnav-a">Audios</a></button>
+                </li>
+            </div>
+            <div>
+                <li>
+                    <div class="panel-user">
+                        <span>{{user.name}}</span>
+                        <button onclick="logout()"><i class="bi bi-box-arrow-left"></i></button>
+                    </div>
+                </li>
+            </div>
         </ul>
     </nav>
     <div class="div-uploadpdf">
