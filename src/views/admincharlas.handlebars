@@ -1,5 +1,10 @@
 <div>
-    <nav class="nav">
+    <div class="nav-hamburger" id="navHamburger">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+    <nav class="nav" id="navMenu">
         <ul class="navbuttons">
             <div class="navbuttons-bar">
                 <li>
@@ -45,8 +50,8 @@
     </nav>
     <div class="div-chats-admin">
         {{#if usersFiltred}}
-            {{#each usersFiltred}}
-            {{#if this.chat}}
+        {{#each usersFiltred}}
+        {{#if this.chat}}
         <div class="div-all-chats-admin">
             <div class="div-chats-users-admin">
                 <h2>Conversación con {{this.name}}:</h2>
@@ -63,16 +68,19 @@
                     <div>
                         <label>Mensaje: </label>
                         <input type="text" name="text" id="message{{this._id}}" />
-                        <button type="button" id="btnmsgadmin" class="btn-msg" onclick="sendMessage('{{this._id}}')">Enviar</button>
+                        <button type="button" id="btnmsgadmin" class="btn-msg"
+                            onclick="sendMessage('{{this._id}}')">Enviar</button>
                     </div>
                 </form>
             </div>
         </div>
-            {{/if}}
-            {{/each}}
-            {{else}}
-            <div><p>Todavía no hay conversaciones</p></div>
-            {{/if}}
+        {{/if}}
+        {{/each}}
+        {{else}}
+        <div>
+            <p>Todavía no hay conversaciones</p>
+        </div>
+        {{/if}}
     </div>
 </div>
 

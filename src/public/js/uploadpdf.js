@@ -6,7 +6,7 @@ btnPdf.addEventListener('click', async(e)=>{
     e.preventDefault();
     const formData = new FormData(formPdf);
 
-    const response = await fetch('https://blog-luz-en-el-camino-production.up.railway.app/api/pdf', {
+    const response = await fetch('http://localhost:8007/api/pdf', {
         method:'POST',
         body: formData,
     })
@@ -23,7 +23,7 @@ btnPdf.addEventListener('click', async(e)=>{
 })
 
 const borrarpdf = async(id)=>{
-    const response = await fetch(`https://blog-luz-en-el-camino-production.up.railway.app/api/pdf/${id}`,{
+    const response = await fetch(`http://localhost:8007/api/pdf/${id}`,{
         method:'DELETE'
     })
 
@@ -34,6 +34,11 @@ const borrarpdf = async(id)=>{
             text: json.message,
             duration: 3000,
             callback: location.reload()
+            }).showToast();
+    } else{
+        Toastify({
+            text: json.error,
+            duration: 3000,
             }).showToast();
     }
 }

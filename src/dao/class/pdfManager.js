@@ -64,7 +64,6 @@ export class PdfManager {
     static async deleteComent(id, index){
         try {
             const pdf = await pdfModel.findOne({_id: id});
-            console.log(pdf);
             pdf.comments.splice(index, 1);
             await pdfModel.updateOne({_id: id}, {$set:{comments: pdf.comments}});
         } catch (error) {

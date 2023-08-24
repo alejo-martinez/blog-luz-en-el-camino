@@ -1,5 +1,10 @@
 <div>
-    <nav class="nav">
+    <div class="nav-hamburger" id="navHamburger">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+    <nav class="nav" id="navMenu">
         <ul class="navbuttons">
             <div class="navbuttons-bar">
                 <li>
@@ -68,7 +73,7 @@
                             class="bi bi-x-circle"></i></button>
                     {{/if}}
                     <h5>{{this.title}}</h5>
-                    <p>Ver pdf <a href="/details/{{this._id}}">{{this.title}}</a></p>
+                    <p>Ver pdf <a href="/details/{{this._id}}">Ver pdf <i class="bi bi-filetype-pdf"></i></a></p>
                 </div>
                 {{#if this.comments}}
                 {{#each this.comments}}
@@ -95,5 +100,3 @@
         <div class="container-img"><img src="/static/images/mandalaazul.webp" alt=""></div>
     </div>
 </div>
-
-<script src="/js/conmagia.js"></script>

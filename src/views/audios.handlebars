@@ -1,5 +1,10 @@
 <div>
-    <nav class="nav">
+        <div class="nav-hamburger" id="navHamburger">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+    <nav class="nav" id="navMenu">
         <ul class="navbuttons">
             <div class="navbuttons-bar">
                 <li>
@@ -68,16 +73,21 @@
                 propias. Hay meditaciones que te guían para activar tu luz y fortaleza.</p>
         </div>
         <div class="container-audios">
-        {{#if audios}}
-        {{#each audios}}
-        <div class="div-audio">
-            <h3>{{this.title}}</h3>
-            <audio controls><source src="{{this.path}}">Tu navegador no soporta el audio, descargalo acá: <a href="{{this.path}}">Descargar</a></audio>
-        </div>
-        {{/each}}
-        {{else}}
-        <div><p>Todavía no hay audios</p></div>
-        {{/if}}
+            {{#if audios}}
+            {{#each audios}}
+            <div class="div-audio">
+                <h3>{{this.title}}</h3>
+                <audio controls>
+                    <source src="{{this.path}}">Tu navegador no soporta el audio, descargalo acá: <a
+                        href="{{this.path}}">Descargar</a>
+                </audio>
+            </div>
+            {{/each}}
+            {{else}}
+            <div>
+                <p>Todavía no hay audios</p>
+            </div>
+            {{/if}}
         </div>
     </div>
 </div>

@@ -75,7 +75,7 @@ socket.on('comment', (data)=>{
 })
 
 const borrarcoment = async(index)=>{
-    const response = await fetch('https://blog-luz-en-el-camino-production.up.railway.app/api/pdf/coment', {
+    const response = await fetch('http://localhost:8007/api/pdf/coment', {
         method:'DELETE',
         body: JSON.stringify({id: pdfId, index: index}),
         headers:{
@@ -84,5 +84,15 @@ const borrarcoment = async(index)=>{
     })
 
     const json = await response.json();
-    console.log(json);
+    if(json.status === 'succes'){
+        Toastify({
+            text: json.message,
+            duration: 3000,
+            }).showToast();
+    } else{
+        Toastify({
+            text: json.error,
+            duration: 3000,
+            }).showToast();
+    }
 }

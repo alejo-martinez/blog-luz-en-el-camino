@@ -1,5 +1,10 @@
 <div>
-       <nav class="nav">
+    <div class="nav-hamburger" id="navHamburger">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div>
+    <nav class="nav" id="navMenu">
         <ul class="navbuttons">
             <div class="navbuttons-bar">
                 <li>
@@ -51,16 +56,17 @@
             <label>Audio:</label>
             <input type="file" name="file">
         </form>
-            <button id="btnaudio" class="btnuploadaudio">Subir audio</button>
+        <button id="btnaudio" class="btnuploadaudio">Subir audio</button>
         <div id="erroraudio" class="erroraudio"></div>
     </div>
-        <div class="panel-delete">
+    <div class="panel-delete">
         <div class="div-delete">
-        <h2>Eliminar audio</h2>
+            <h2>Eliminar audio</h2>
             {{#each audios}}
             <div class="div-delete-pdf">
                 <p>{{this.title}}</p>
-                <button class="btn-delete-pdf" onclick="borraraudio('{{this._id}}')"><i class="bi bi-x-circle"></i></button>
+                <button class="btn-delete-pdf" onclick="borraraudio('{{this._id}}')"><i
+                        class="bi bi-x-circle"></i></button>
             </div>
             {{/each}}
         </div>

@@ -1,6 +1,11 @@
 <div>
     <div class="div"><img src="static/images/cieloatardecer.webp" alt="atardecer" height="150" class="div-imgnav"></div>
-    <nav class="nav">
+            <div class="nav-hamburger" id="navHamburger">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+    <nav class="nav" id="navMenu">
         <ul class="navbuttons">
             <div class="navbuttons-bar">
                 {{#if adminUser}}
@@ -58,7 +63,7 @@
     <h1>Luz en el camino</h1>
     <div class="div-parrafo-pdf">
         <p class="parrafo-pdf">El inicio del camino... <a class="panel-user-link"
-                href="">La noche oscura del alma <i
+                href="https://luzenelcaminopdfs.s3.us-east-2.amazonaws.com/La+noche+oscura+del+alma.pdf">La noche oscura del alma <i
                     class="bi bi-filetype-pdf"></i></a>
         </p>
     </div>
@@ -73,5 +78,3 @@
 
     <div class="div-footer"><img src="static/images/piespiedras.webp" width="200" height="150" alt=""></div>
 </div>
-
-<script src="/js/home.js"></script>

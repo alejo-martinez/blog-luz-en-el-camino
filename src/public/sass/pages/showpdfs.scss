@@ -104,7 +104,7 @@
 
 .coment {
     &-name {
-        color: #838383;
+        color: #575757;
     }
 
     &-date {
@@ -144,8 +144,11 @@
 }
 
 .p-nocoments {
-    text-align: center;
-    margin: auto;
+    // text-align: start;
+    // margin: auto;
+    & p {
+        text-align: center;
+    }
 }
 
 .p-nopdf {

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .container-principal {
   display: flex;
   flex-flow: column;
@@ -309,7 +310,9 @@
   flex-flow: row wrap; }
 
 .div-audio {
-  margin: 8px; }
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px; }
   .div-audio h3 {
     text-align: center;
     color: #594270;
@@ -483,7 +486,7 @@
           color: #484ad83b; }
 
 .coment-name {
-  color: #838383; }
+  color: #575757; }
 
 .coment-date {
   font-size: 60%;
@@ -510,9 +513,8 @@
     .btn-coment button:hover {
       background-color: #0056b3; }
 
-.p-nocoments {
-  text-align: center;
-  margin: auto; }
+.p-nocoments p {
+  text-align: center; }
 
 .p-nopdf {
   text-align: center;
@@ -578,6 +580,7 @@
     margin: 0 8px;
     width: 400px;
     height: 300px;
+    background-color: #f3f3f3;
     padding: 4px;
     border-radius: 7px;
     overflow: auto; }
@@ -603,7 +606,7 @@
     white-space: normal; }
     .div-chats-user-all {
       text-align: justify;
-      background-color: #f1f0f0d3;
+      background-color: #ccc;
       padding: 3px;
       border-radius: 5px;
       margin: auto;
@@ -618,7 +621,11 @@
   flex-flow: row wrap;
   justify-items: center; }
   .div-all-chats-admin {
-    width: 30%; }
+    width: 30%;
+    background-color: #f3f3f3;
+    margin: 0 1rem;
+    padding: 4px;
+    border-radius: 4px; }
 
 .div-form-chat {
   background-color: #f1eded;
@@ -641,6 +648,121 @@
   border-radius: 5px; }
   .btn-msg:hover {
     cursor: pointer; }
+
+.nav-hamburger {
+  display: none;
+  cursor: pointer; }
+
+.hamburger-line {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 5px 0;
+  transition: background-color 0.3s ease; }
+
+@media screen and (max-width: 723px) {
+  .navbuttons-bar {
+    flex-flow: column nowrap;
+    margin-left: 0; }
+  .div-audio h3 {
+    font-size: 60%; }
+  .parrafo-principal {
+    font-size: 60%; }
+  .nav-hamburger {
+    display: block; }
+  #navMenu {
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease; }
+  /* Estilos para el menú visible */
+  #navMenu.open {
+    display: block;
+    opacity: 1;
+    transform: translateY(0); } }
+
+@media screen and (max-width: 701px) {
+  .pdf-section {
+    display: flex;
+    flex-flow: column;
+    flex-direction: column-reverse; }
+    .pdf-section-show {
+      margin: auto; }
+  .container-img {
+    width: 40%;
+    height: 40%;
+    margin: auto; } }
+
+@media screen and (max-width: 666px) {
+  .div-form-chat {
+    margin: auto; }
+  .div-chats {
+    display: flex;
+    flex-flow: column wrap;
+    margin: auto; }
+    .div-chats-form {
+      width: unset;
+      margin: 7px; }
+    .div-chats-user {
+      width: unset; }
+  .div-all-chats {
+    margin: auto;
+    margin-top: 3rem; }
+  .div-chats-admin {
+    flex-flow: column wrap;
+    margin: auto; }
+  .div-all-chats-admin {
+    width: unset;
+    margin: 15px 0; } }
+
+@media screen and (max-width: 478px) {
+  .form-coment-details {
+    font-size: 70%;
+    margin: auto;
+    width: unset; }
+  .pdf-section-each {
+    margin: 0; }
+  .p-nocoments {
+    font-size: 70%;
+    text-align: center; }
+  .pdf-section-coments {
+    font-size: 70%; }
+    .pdf-section-coments p {
+      text-align: unset; } }
+
+@media screen and (max-width: 456px) {
+  .pdf-section-show {
+    grid-template-columns: 50% 50%; } }
+
+@media screen and (max-width: 408px) {
+  .pdf-section-coments {
+    font-size: 50%; }
+  .pdf-section-each-header h5 {
+    font-size: 90%; }
+  .pdf-section-each-header a {
+    font-size: 80% !important; }
+  .p-nocoments {
+    font-size: 55%; }
+  .parrafo-pdf {
+    font-size: 60%; }
+  .parrafo {
+    padding: 5px; } }
+
+@media screen and (max-width: 336px) {
+  .btn-message {
+    text-align: center; } }
+
+@media screen and (max-width: 320px) {
+  .div-all-chats {
+    margin-top: 10px; }
+  .pdf-section-show {
+    flex-flow: column wrap; }
+  .pdf-section-each {
+    margin: auto;
+    width: 100%;
+    flex-flow: column wrap;
+    margin-top: 8px;
+    margin-bottom: 8px; } }
 
 * {
   box-sizing: border-box;
