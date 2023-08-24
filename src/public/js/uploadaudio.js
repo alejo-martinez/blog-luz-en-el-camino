@@ -6,7 +6,7 @@ btnaudio.addEventListener('click', async(e)=>{
     e.preventDefault();
     const formData = new FormData(formaudio);
 
-    const response = await fetch('http://localhost:8007/api/audio', {
+    const response = await fetch('https://blog-luz-en-el-camino-production.up.railway.app/api/audio', {
         method:'POST',
         body: formData,
     })
@@ -24,7 +24,7 @@ btnaudio.addEventListener('click', async(e)=>{
 })
 
 const borraraudio = async(id)=>{
-    const response = await fetch(`http://localhost:8007/api/audio/${id}`,{
+    const response = await fetch(`https://blog-luz-en-el-camino-production.up.railway.app/audio/${id}`,{
         method:'DELETE'
     })
 
