@@ -7,6 +7,7 @@
 @import 'pages/uploadpdf';
 @import 'pages/uploadaudio';
 @import 'pages/showpdfs';
+@import 'pages/chats';
 
 * {
     box-sizing: border-box;
@@ -15,7 +16,8 @@
 }
 
 body {
-    background-color: #4e72a12f;
+    // background-color: #524b7a44;
+    background-color: #2e004d2c;
     font-family: 'Nunito', sans-serif;
 }
 

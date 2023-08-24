@@ -24,6 +24,12 @@ const schema = new mongoose.Schema({
         type: String,
         default: 'client'
     },
+    chat:{
+        type:[
+            {user:{type:String}, text: {type:String}, created_at: String}
+        ],
+        default: []
+    }
 
 });
 

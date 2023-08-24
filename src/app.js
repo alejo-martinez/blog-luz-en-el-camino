@@ -10,7 +10,6 @@ import passport from 'passport';
 import {Server} from 'socket.io';
 import MongoStore from 'connect-mongo';
 
-
 //CONFIG
 import config from './config/config.js';
 import initPassport from './config/passport.config.js';
@@ -23,6 +22,7 @@ import audioRouter from './routes/audio.router.js';
 import messageRouter from './routes/message.router.js';
 import suggestRouter from './routes/suggest.router.js';
 import viewsRouter from './routes/views.router.js';
+import userRouter from './routes/user.router.js';
 
 import handleErrors from './middlewares/error.middleware.js';
 import { PdfManager } from './dao/class/pdfManager.js';
@@ -45,6 +45,8 @@ app.use(session({
     saveUninitialized: false
 }))
 
+
+
 initPassport();
 
 app.use(passport.initialize());
@@ -65,6 +67,7 @@ app.use('/api/audio', audioRouter);
 app.use('/api/message', messageRouter);
 app.use('/api/session', sessionRouter);
 app.use('/api/suggest', suggestRouter);
+app.use('/api/user', userRouter);
 app.use('/', viewsRouter);
 
 
@@ -73,7 +76,11 @@ app.engine('handlebars', handlebars.engine());
 app.set('views', utils.__dirname + '/views');
 app.set('view engine', 'handlebars');
 
-
+// aws.config.update({
+//     accessKeyId: config.awsacceskey,
+//     secretAccessKey: config.awssecretkey,
+//     region:'us-east-2'
+// })
 
 io.on('connection', async(socket)=>{
     console.log("Conectado al servidor");

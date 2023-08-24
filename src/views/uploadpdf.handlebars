@@ -6,7 +6,8 @@
                     <button class="btnnav" onclick="navegar('/')"><a href="/" class="btnnav-a">Inicio</a></button>
                 </li>
                 <li>
-                    <button class="btnnav actual-principal" onclick="navegar('/uploadpdf')"><a href="/uploadpdf" class="btnnav-a">Subir
+                    <button class="btnnav actual-principal" onclick="navegar('/uploadpdf')"><a href="/uploadpdf"
+                            class="btnnav-a">Subir
                             pdf</a></button>
                 </li>
                 <li>
@@ -61,6 +62,18 @@
         </form>
         <button id="btnPdf" class="btnuploadpdf">Subir pdf</button>
         <div id="errorPdf" class="errorpdf"></div>
+    </div>
+
+    <div class="panel-delete">
+        <div class="div-delete">
+        <h2>Eliminar pdf</h2>
+            {{#each pdfs}}
+            <div class="div-delete-pdf">
+                <p>{{this.title}}</p>
+                <button class="btn-delete-pdf" onclick="borrarpdf('{{this._id}}')"><i class="bi bi-x-circle"></i></button>
+            </div>
+            {{/each}}
+        </div>
     </div>
 </div>
 

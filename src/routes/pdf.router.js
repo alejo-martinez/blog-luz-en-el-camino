@@ -7,6 +7,7 @@ const router = Router();
 
 router.get('/', pdfController.getAll);
 router.post('/', authToken, adminUser, utils.uploadPdf.single('file'), pdfController.createPdf);
+router.delete('/coment', authToken, adminUser, pdfController.deleteComentPdf);
 
 router.get('/:pid', pdfController.getById);
 router.post('/:pid', pdfController.comentarPdf);

@@ -34,6 +34,9 @@
                     <button class="btnnav" onclick="navegar('/audios')"><a href="/audios"
                             class="btnnav-a">Audios</a></button>
                 </li>
+                <li>
+                    <button class="btnnav" onclick="navegar('/chat')"><a href="/chat" class="btnnav-a">Chat</a></button>
+                </li>
             </div>
             {{#if userlogued}}
             <div>
@@ -54,12 +57,16 @@
             {{/if}}
         </ul>
     </nav>
-        <div class="pdf-section">
+    <div class="pdf-section">
         {{#if escritos}}
         <div class="pdf-section-show">
             {{#each escritos}}
             <div class="pdf-section-each">
                 <div class="pdf-section-each-header">
+                    {{#if adminUser}}
+                    <button class="btn-delete-pdf" onclick="borrarpdf('{{this._id}}')"><i
+                            class="bi bi-x-circle"></i></button>
+                    {{/if}}
                     <h5>{{this.title}}</h5>
                     <p>Ver pdf <a href="/details/{{this._id}}">{{this.title}}</a></p>
                 </div>
@@ -85,6 +92,8 @@
             </div>
             {{/if}}
         </div>
-        <div class="container-img"><img src="/static/images/dosmanos.webp"  alt=""></div>
+        <div class="container-img"><img src="/static/images/dosmanos.webp" alt=""></div>
     </div>
 </div>
+
+<script src="/js/conmagia.js"></script>

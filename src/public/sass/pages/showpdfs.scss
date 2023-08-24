@@ -25,7 +25,7 @@
 
     &-coments {
         text-align: justify;
-        background-color: #f1f0f0d3;
+        background-color: #e2e2ec;
         padding: 3px;
         border-radius: 5px;
         margin: 4px;
@@ -35,21 +35,18 @@
         & p{
             max-width: 100%;
             word-wrap: break-word;
-
-            & strong {
-                max-width: 100%;
-            }
         }
 
         &-all{
             text-align: justify;
-            background-color: #f1f0f0d3;
+            background-color: #c3c3c334;
             padding: 3px;
             border-radius: 5px;
             margin: auto;
             margin-top: 4px;
             margin-bottom: 4px;
-            max-width: 30%;
+            // max-width: 30%;
+            width: 100%;
             white-space: normal;
             
             & p{
@@ -70,7 +67,7 @@
         border: 1px solid #ccc;
         box-shadow: 1px 1px 2px #494949;
         padding: 15px;
-        background-color: #f9f9f9;
+        background-color: #f3f3f3;
         border-radius: 5px;
         width: 25%;
         margin: 10px;
@@ -79,25 +76,35 @@
         &-header{
             text-align: center;
             margin: auto;
+            font-size: 67%;
         }
 
         h5 {
             margin: 0;
             font-size: 18px;
+            // color: #561C7B ;
+            color: #2e0b44 ;
         }
 
-        p a {
-            color: #43178f;
+        p{
+            text-align: end;
+         & a {
+            color: #3c3ead;
+            transition: all 0.3s;
+            font-size: 112%;
             font-weight: bold;
-        }
+
+            &:hover{
+                color: #484ad83b;
+            }
+        }}
     }
 }
 
 
 .coment {
-
-    &-text {
-        max-width: 100%;
+    &-name {
+        color: #838383;
     }
 
     &-date {
@@ -171,7 +178,6 @@
           }
     }
         &-div{
-            // text-align: $alingtext;
             display: flex;
         }
 }
@@ -183,4 +189,25 @@
     padding: 10px 15px;
     cursor: pointer;
     font-size: 1rem;
+}
+
+.btn-delete-pdf {
+    border: none;
+    border-radius: 10px;
+    font-size: 120%;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    & i{
+        color: red;
+    }
+}
+
+.container-coments {
+    background-color: #f3f3f3;
+    padding: 12px;
+    margin: auto;
+    width: 500px;
 }

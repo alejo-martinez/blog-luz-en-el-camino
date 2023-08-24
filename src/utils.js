@@ -1,10 +1,12 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import multer from 'multer';
+import multer, { memoryStorage } from 'multer';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from './config/config.js';
 import nodemailer from 'nodemailer';
+import AWS from 'aws-sdk';
+
 
 
 const cookieExtractor = (req) => {
@@ -30,16 +32,42 @@ const __filename = fileURLToPath(import.meta.url);
 
 //MULTER CONFIG
 
+AWS.config.update({
+    accessKeyId: config.awsacceskey,
+    secretAccessKey: config.awssecretkey,
+    region: 'us-east-2'
+})
+
+export const s3 = new AWS.S3();
+
+
+
+// const s3client = new S3Client({
+//     region:'us-east-2',
+//     credentials:{
+//         accessKeyId: config.awsacceskey,
+//         secretAccessKey: config.awssecretkey,
+//     }
+// })
+
+// aws.config.update({
+//     accessKeyId: config.awsacceskey,
+//     secretAccessKey: config.awssecretkey,
+//     region:'us-east-2'
+// })
+
+// const s3 = new aws.S3();
+// console.log(s3);
 
 // PDF
-const pdfStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, `${__dirname}/public/pdfs`)
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
-    }
-})
+// const pdfStorage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, `${__dirname}/public/pdfs`)
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, file.originalname)
+//     }
+// })
 
 const pdfFileFilter = (req, file, cb) => {
     if (file.mimetype === 'application/pdf') {
@@ -50,40 +78,56 @@ const pdfFileFilter = (req, file, cb) => {
   };
 
 const uploadPdf = multer({
-    storage: pdfStorage,
+    storage: multer.memoryStorage(),//pdfStorage,
     fileFilter: pdfFileFilter
 });
 
 // AUDIO
-const audioStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, `${__dirname}/public/audios`);
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
-    }
-})
+// const audioStorage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, `${__dirname}/public/audios`);
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, file.originalname)
+//     }
+// })
 
 const audioFileFilter = (req, file, cb)=>{
-    if(file.mimetype === 'audio/mpeg' || file.mimetype === 'audio/wav' || file.mimetype === 'audio/x-wav'){
+    if(file.mimetype === 'audio/mp4a-latm' || file.mimetype === 'audio/mpeg' || file.mimetype === 'audio/wav' || file.mimetype === 'audio/x-wav'){
         cb(null, true)
     } else{
         cb(new Error('El archivo debe ser un audio en formato MP3 o WAV.'), false);
     }
 }
 
+// const uploadAudio = multer({
+//     storage : multerS3({
+//         s3: s3,
+//         bucket:'luzenelcamino',
+//         acl: 'public-read',
+//         // metadata: function (req, file, cb) {
+//         //     console.log(file.fieldname);
+//         //     cb(null, {fieldName: file.fieldname});
+//         //   },
+//         contentType: multerS3.AUTO_CONTENT_TYPE,
+//           key: function (req, file, cb) {
+//             cb(null, Date.now().toString() + '-' + file.originalname);
+//           }
+//     }),
+//     //fileFilter: audioFileFilter
+// })
+
 const uploadAudio = multer({
-    storage : audioStorage,
+    storage : multer.memoryStorage(),//audioStorage,
     fileFilter: audioFileFilter
 })
-
 
 const transporte = nodemailer.createTransport({
     service:'gmail',
     port: 587,
     auth:{
         user: config.adminEmail,
-        pass: config.adminPassword
+        pass: config.nodemailerPass
     }
 })
 

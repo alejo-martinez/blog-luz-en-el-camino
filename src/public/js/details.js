@@ -1,5 +1,6 @@
 const pdfjsLib = window['pdfjs-dist/build/pdf'];
-const pdfPath = "/" + document.getElementById('divPdf').getAttribute('data-path');
+const pdfPath = document.getElementById('divPdf').getAttribute('data-path');
+const pdfId = document.getElementById('divPdf').getAttribute('data-id')
 const pdfViewer = document.getElementById("pdf-viewer");
 const prevButton = document.getElementById("prev-page");
 const nextButton = document.getElementById("next-page");
@@ -7,8 +8,6 @@ const pdfErrorMessage = document.getElementById("pdf-error-message");
 const divComents = document.getElementById('divComents');
 
 const socket = io();
-
-console.log(pdfPath);
 
 let currentPage = 1;
 
@@ -63,7 +62,6 @@ const comentar = async (id) => {
     const inptTxt = document.getElementById(`txt${id}`);
     const inptName = document.getElementById(`name${id}`);
     const name = inptName.value;
-    const date = new Date()
     sendComment(name, inptTxt.value, id);
     inptTxt.value = ''
 }
@@ -75,3 +73,16 @@ socket.on('comment', (data)=>{
     <p class="coment-date">${data.created_at}</p>
 </div>`
 })
+
+const borrarcoment = async(index)=>{
+    const response = await fetch('http://localhost:8007/api/pdf/coment', {
+        method:'DELETE',
+        body: JSON.stringify({id: pdfId, index: index}),
+        headers:{
+            'Content-Type':"application/json",
+        }
+    })
+
+    const json = await response.json();
+    console.log(json);
+}

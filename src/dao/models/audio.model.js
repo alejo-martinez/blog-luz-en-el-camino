@@ -4,7 +4,8 @@ const collection = 'audio';
 
 const schema = new mongoose.Schema({
     title: String,
-    path: String
+    path: String,
+    key: String
 });
 
 export const audioModel = mongoose.model(collection, schema);

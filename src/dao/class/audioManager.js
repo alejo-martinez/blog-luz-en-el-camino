@@ -4,7 +4,7 @@ import CustomError from "../../errors/custom.error.js";
 export class AudioManager {
     static async getAll() {
         const audios = await audioModel.find().lean();
-        if (audios.length === 0) throw new CustomError('No data', 'No se encontraron audios', 5);
+        // if (audios.length === 0) throw new CustomError('No data', 'No se encontraron audios', 5);
         try {
             return audios;
         } catch (error) {

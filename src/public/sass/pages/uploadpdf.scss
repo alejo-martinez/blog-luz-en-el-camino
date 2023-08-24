@@ -4,6 +4,7 @@
     width: 300px;
     margin: 0 auto;
     margin-top: 3rem;
+    background-color: #f3f3f3;
 
   
     h3 {
@@ -65,4 +66,27 @@
     color: #f44336;
     font-size: 14px;
     margin-top: 10px;
+}
+
+.div-delete {
+  width: 60%;
+  margin: auto;
+  background-color: #f3f3f3;
+  padding: 10px;
+  &-pdf {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    text-align: justify;
+    margin: 5px 0;
+    padding: 12px;
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+}
+
+.panel-delete {
+  text-align: center;
+  margin-top: 5rem;
+
 }

@@ -1,5 +1,7 @@
+import { AudioManager } from "../dao/class/audioManager.js";
 import { MessageManager } from "../dao/class/messageManager.js";
 import { PdfManager } from "../dao/class/pdfManager.js";
+import { UserManager } from "../dao/class/userManager.js";
 import { pdfModel } from "../dao/models/pdf.model.js";
 import utils from "../utils.js";
 
@@ -71,15 +73,17 @@ const audios = async(req, res)=>{
     const admin = 'admin';
     const client = 'client';
 
-    if(!userlogued) res.render('audios');
+    const audios = await AudioManager.getAll();
+
+    if(!userlogued) res.render('audios', {audios});
     else{
         if(req.user.rol === client ){
             const user = req.user;
-            res.render('audios', {userlogued});
+            res.render('audios', {userlogued, audios});
         } 
         if(req.user.rol === admin){
             const adminUser = req.user;
-            res.render('audios', {adminUser, userlogued});
+            res.render('audios', {adminUser, userlogued, audios});
         } 
     }
 }
@@ -141,7 +145,8 @@ const roadsanity = async(req, res)=>{
         } 
         if(req.user.rol === admin){
             const adminUser = req.user;
-            res.render('caminodelasanacion', {adminUser, userlogued, escritos});
+            const admin = true
+            res.render('caminodelasanacion', {adminUser, userlogued, escritos, admin});
         } 
     }
 }
@@ -210,12 +215,14 @@ const trues = async(req, res)=>{
 
 const uploadpdf = async(req, res)=>{
     const user = req.user;
-    res.render("uploadpdf", {user});
+    const pdfs = await PdfManager.getAll();
+    res.render("uploadpdf", {user, pdfs});
 }
 
 const uploadaudio = async(req, res)=>{
     const user = req.user;
-    res.render("uploadaudio", {user});
+    const audios = await AudioManager.getAll();
+    res.render("uploadaudio", {user, audios});
 }
 
 const pdfdetails = async(req, res)=>{
@@ -236,10 +243,30 @@ const pdfdetails = async(req, res)=>{
             res.render('details', {userlogued, pdf});
         } 
         if(req.user.rol === admin){
+            let position = 0;
+            const adminLogued = pdf.comments.map(coment => ({
+                ...coment,
+                admin: true,
+                posicion: position++
+            }))
+            pdf.comments = adminLogued;
             const adminUser = req.user;
             res.render('details', {adminUser, userlogued, pdf});
         } 
     }
 }
 
-export default {register, login, home, detalles, book, audios, withmagic, roadsanity, weare, trues, uploadpdf, uploadaudio, pdfdetails};
+const charlas = async(req, res)=>{
+    const users = await UserManager.getAll();
+    const usersFiltred = users.filter(user => user.email !== req.user.email);
+    if(req.user.rol === 'client'){
+        const user = await UserManager.getById(req.user._id);
+        const myChats = user.chat
+        res.render('charlas', {user, myChats, usersFiltred})
+    } else {
+        const user = req.user;
+        res.render('admincharlas', {user, usersFiltred});
+    }
+}
+
+export default {register, login, home, detalles, book, audios, withmagic, roadsanity, weare, trues, uploadpdf, uploadaudio, pdfdetails, charlas};

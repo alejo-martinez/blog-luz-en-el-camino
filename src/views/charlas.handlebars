@@ -1,18 +1,9 @@
 <div>
-       <nav class="nav">
+    <nav class="nav">
         <ul class="navbuttons">
             <div class="navbuttons-bar">
                 <li>
                     <button class="btnnav" onclick="navegar('/')"><a href="/" class="btnnav-a">Inicio</a></button>
-                </li>
-                <li>
-                    <button class="btnnav" onclick="navegar('/uploadpdf')"><a href="/uploadpdf" class="btnnav-a">Subir
-                            pdf</a></button>
-                </li>
-                <li>
-                    <button class="btnnav actual-principal" onclick="navegar('/uploadaudio')"><a href="/uploadaudio"
-                            class="btnnav-a">Subir
-                            audio</a></button>
                 </li>
                 <li>
                     <button class="btnnav" onclick="navegar('/book')">
@@ -43,28 +34,49 @@
             </div>
         </ul>
     </nav>
-    <div class="div-uploadpdf">
-        <h3>Subir audio</h3>
-        <form class="form-upload" id="formAudio">
-            <label>Título:</label>
-            <input type="text" name="title">
-            <label>Audio:</label>
-            <input type="file" name="file">
-        </form>
-            <button id="btnaudio" class="btnuploadaudio">Subir audio</button>
-        <div id="erroraudio" class="erroraudio"></div>
-    </div>
-        <div class="panel-delete">
-        <div class="div-delete">
-        <h2>Eliminar audio</h2>
-            {{#each audios}}
-            <div class="div-delete-pdf">
-                <p>{{this.title}}</p>
-                <button class="btn-delete-pdf" onclick="borraraudio('{{this._id}}')"><i class="bi bi-x-circle"></i></button>
+    <div class="div-chats">
+        <div class="div-chats-form">
+            {{#if myChats}}
+            {{#each myChats}}
+            <div class="div-chats-user">
+                <p><strong>{{this.user}}</strong>: {{this.text}}
+                </p>
+                <p class="coment-date">{{this.created_at}}</p>
             </div>
+            {{/each}}
+
+            {{else}}
+            <div>
+                <p>No hay mensajes, envía uno!</p>
+            </div>
+            {{/if}}
+            <div class="div-form-chat">
+                <form class="form-chat">
+                    <div>
+                        <label>Mensaje: </label>
+                        <input type="text" name="text" id="message" />
+                        <button id="btnmsg" class="btn-msg">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="div-all-chats">
+            {{#each usersFiltred}}
+            {{#if this.chat}}
+            <div class="div-chats-users">
+                <h2>Conversación con {{this.name}}:</h2>
+                {{#each this.chat}}
+                <div class="div-chats-user-all">
+                    <p><strong class="coment-name">{{this.user}}</strong>: {{this.text}}
+                    </p>
+                    <p class="coment-date">{{this.created_at}}</p>
+                </div>
+                {{/each}}
+            </div>
+            {{/if}}
             {{/each}}
         </div>
     </div>
 </div>
 
-<script src="/js/uploadaudio.js"></script>
+<script src="/js/charlas.js"></script>

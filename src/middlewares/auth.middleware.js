@@ -4,8 +4,8 @@ import utils from '../utils.js';
 import CustomError from '../errors/custom.error.js';
 
 export const noUser = (req, res, next) => {
-    const token = utils.cookieExtractor(req);
-    if(!token) return res.status(401).send({ status: 'error', error: 'Not authenticated, login please.'}).redirect('/login');
+    const token = utils.cookieExtractor(req); 
+    if(!token) return res.status(401).redirect('/login');
     else{
         jwt.verify(token, config.privateKey, (error, credentials) => {
             if (error) return res.status(403).send({status:'error', error: 'not authorized' })

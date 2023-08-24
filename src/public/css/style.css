@@ -231,6 +231,11 @@
   padding: 3px;
   border-radius: 4px; }
 
+.div-footer {
+  text-align: center; }
+  .div-footer img {
+    object-fit: contain; }
+
 .pdf-libro {
   margin: auto;
   text-align: center; }
@@ -243,7 +248,7 @@
   padding: 20px; }
 
 .btn-pdf-nav {
-  background-color: #5429b9bd;
+  background-color: #2e004d9c;
   color: white;
   padding: 10px;
   border: none;
@@ -286,6 +291,10 @@
     margin-top: 2rem;
     color: #594270; }
 
+.div-audios {
+  display: flex;
+  flex-flow: column nowrap; }
+
 .img-seccion {
   object-fit: contain;
   width: 13%;
@@ -295,12 +304,35 @@
 .div-img {
   text-align: center; }
 
+.container-audios {
+  display: flex;
+  flex-flow: row wrap; }
+
+.div-audio {
+  margin: 8px; }
+  .div-audio h3 {
+    text-align: center;
+    color: #594270;
+    margin-bottom: 4px; }
+  .div-audio audio {
+    padding: 3px; }
+
+.btn-delete-audio {
+  border: none;
+  border-radius: 10px;
+  font-size: 100%; }
+  .btn-delete-audio:hover {
+    cursor: pointer; }
+  .btn-delete-audio i {
+    color: red; }
+
 .div-uploadpdf {
   border: 1px solid #ccc;
   padding: 20px;
   width: 300px;
   margin: 0 auto;
-  margin-top: 3rem; }
+  margin-top: 3rem;
+  background-color: #f3f3f3; }
   .div-uploadpdf h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
@@ -340,6 +372,25 @@
   font-size: 14px;
   margin-top: 10px; }
 
+.div-delete {
+  width: 60%;
+  margin: auto;
+  background-color: #f3f3f3;
+  padding: 10px; }
+  .div-delete-pdf {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    text-align: justify;
+    margin: 5px 0;
+    padding: 12px;
+    background-color: #ccc;
+    border-radius: 8px; }
+
+.panel-delete {
+  text-align: center;
+  margin-top: 5rem; }
+
 .btnuploadaudio {
   display: block;
   margin: 20px auto;
@@ -378,7 +429,7 @@
     flex-flow: row wrap; }
   .pdf-section-coments {
     text-align: justify;
-    background-color: #f1f0f0d3;
+    background-color: #e2e2ec;
     padding: 3px;
     border-radius: 5px;
     margin: 4px;
@@ -387,17 +438,15 @@
     .pdf-section-coments p {
       max-width: 100%;
       word-wrap: break-word; }
-      .pdf-section-coments p strong {
-        max-width: 100%; }
     .pdf-section-coments-all {
       text-align: justify;
-      background-color: #f1f0f0d3;
+      background-color: #c3c3c334;
       padding: 3px;
       border-radius: 5px;
       margin: auto;
       margin-top: 4px;
       margin-bottom: 4px;
-      max-width: 30%;
+      width: 100%;
       white-space: normal; }
       .pdf-section-coments-all p {
         max-width: 100%;
@@ -410,23 +459,31 @@
     border: 1px solid #ccc;
     box-shadow: 1px 1px 2px #494949;
     padding: 15px;
-    background-color: #f9f9f9;
+    background-color: #f3f3f3;
     border-radius: 5px;
     width: 25%;
     margin: 10px;
     justify-items: center; }
     .pdf-section-each-header {
       text-align: center;
-      margin: auto; }
+      margin: auto;
+      font-size: 67%; }
     .pdf-section-each h5 {
       margin: 0;
-      font-size: 18px; }
-    .pdf-section-each p a {
-      color: #43178f;
-      font-weight: bold; }
+      font-size: 18px;
+      color: #2e0b44; }
+    .pdf-section-each p {
+      text-align: end; }
+      .pdf-section-each p a {
+        color: #3c3ead;
+        transition: all 0.3s;
+        font-size: 112%;
+        font-weight: bold; }
+        .pdf-section-each p a:hover {
+          color: #484ad83b; }
 
-.coment-text {
-  max-width: 100%; }
+.coment-name {
+  color: #838383; }
 
 .coment-date {
   font-size: 60%;
@@ -490,13 +547,108 @@
   cursor: pointer;
   font-size: 1rem; }
 
+.btn-delete-pdf {
+  border: none;
+  border-radius: 10px;
+  font-size: 120%; }
+  .btn-delete-pdf:hover {
+    cursor: pointer; }
+  .btn-delete-pdf i {
+    color: red; }
+
+.container-coments {
+  background-color: #f3f3f3;
+  padding: 12px;
+  margin: auto;
+  width: 500px; }
+
+.div-chats {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  margin: 8px; }
+  .div-chats-admin {
+    display: flex;
+    flex-flow: row wrap; }
+  .div-chats-form {
+    margin: auto;
+    margin-right: 2rem; }
+  .div-chats-users {
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 0 8px;
+    width: 400px;
+    height: 300px;
+    padding: 4px;
+    border-radius: 7px;
+    overflow: auto; }
+    .div-chats-users h2 {
+      text-align: justify;
+      font-family: 'Playfair Display', serif;
+      font-size: 98%; }
+    .div-chats-users-admin {
+      height: 300px;
+      overflow: auto; }
+      .div-chats-users-admin h2 {
+        text-align: justify;
+        font-family: 'Playfair Display', serif;
+        font-size: 98%; }
+  .div-chats-user {
+    text-align: justify;
+    background-color: #f1f0f0d3;
+    padding: 3px;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    white-space: normal; }
+    .div-chats-user-all {
+      text-align: justify;
+      background-color: #f1f0f0d3;
+      padding: 3px;
+      border-radius: 5px;
+      margin: auto;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      white-space: normal;
+      width: 80%;
+      font-size: 90%; }
+
+.div-all-chats {
+  display: flex;
+  flex-flow: row wrap;
+  justify-items: center; }
+  .div-all-chats-admin {
+    width: 30%; }
+
+.div-form-chat {
+  background-color: #f1eded;
+  padding: 3px;
+  width: fit-content;
+  border-radius: 9px; }
+  .div-form-chat-admin {
+    width: fit-content;
+    margin: auto;
+    background-color: #f1eded;
+    padding: 3px;
+    margin-top: 0.7rem;
+    border-radius: 9px; }
+
+.btn-msg {
+  border: none;
+  padding: 4px;
+  background-color: #361bd1;
+  color: #ffffff;
+  border-radius: 5px; }
+  .btn-msg:hover {
+    cursor: pointer; }
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0; }
 
 body {
-  background-color: #4e72a12f;
+  background-color: #2e004d2c;
   font-family: 'Nunito', sans-serif; }
 
 a {

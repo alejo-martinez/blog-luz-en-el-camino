@@ -17,5 +17,6 @@ router.get('/noblesverdades', authToken, viewsController.trues);
 router.get('/uploadpdf', authToken, adminUser, viewsController.uploadpdf);
 router.get('/uploadaudio', authToken, adminUser, viewsController.uploadaudio);
 router.get('/details/:pid', authToken, viewsController.pdfdetails);
+router.get('/chat', noUser, viewsController.charlas);
 
 export default router;

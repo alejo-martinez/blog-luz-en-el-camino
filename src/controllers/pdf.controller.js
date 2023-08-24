@@ -1,8 +1,9 @@
-import utils from "../utils.js";
+import utils,{s3} from "../utils.js";
 import path from 'path';
 import fs from 'fs';
 import { PdfManager } from "../dao/class/pdfManager.js";
 import CustomError from "../errors/custom.error.js";
+import config from "../config/config.js";
 
 
 const getAll = async (req, res, next) => {
@@ -34,8 +35,14 @@ const createPdf = async (req, res, next) => {
             const titulo = await PdfManager.getOne('title', title);
             if (titulo) throw new CustomError('Argumento en uso', 'Ya existe un pdf con el mismo título', 6)
             else {
-                filePath = `static/pdfs/${req.file.filename}`;
-                await PdfManager.create({ title: title, path: filePath, category: category })
+                filePath = `https://${config.awsbucketpdfs}.s3.${config.awsregion}.amazonaws.com/${req.file.originalname}`;
+                const params = {
+                    Bucket: config.awsbucketpdfs,
+                    Key: req.file.originalname,
+                    Body: req.file.buffer
+                }
+                s3.upload(params).promise();
+                await PdfManager.create({ title: title, path: filePath, category: category, key: req.file.originalname })
                 return res.status(200).send({ status: 'succes', message: 'Pdf subido !' });
             }
         }
@@ -52,6 +59,16 @@ const comentarPdf = async(req, res, next)=> {
         res.status(200).send({status:'succes', message: 'Pdf comentado !'})
     } catch (error) {
         next(error);
+    }
+}
+
+const deleteComentPdf = async(req, res, next)=>{
+    try {
+        const {id, index} = req.body;
+        await PdfManager.deleteComent(id, index);
+        res.status(200).send({status:'succes', message: 'Comentario borrado!'})
+    } catch (error) {
+        next(error)
     }
 }
 
@@ -89,13 +106,19 @@ const deletePdf = async (req, res, next) => {
     try {
         const { pid } = req.params;
         const pdf = await PdfManager.getById(pid);
-        const ruta = path.join(utils.__dirname, pdf.path);
-        fs.unlinkSync(ruta);
+        const params = {Bucket: config.awsbucketpdfs, Key: pdf.key}
         await PdfManager.delete(pid);
+        s3.deleteObject(params, (err, data)=>{
+            if(err){
+                throw new CustomError('Error en la bdd', `Error al borrar el archivo: ${err}`, 5)
+            } else {
+                res.status(200).send({ status: 'succes', message: 'Audio eliminado !' });
+            }
+        })
         res.status(200).send({ status: 'succes', message: 'Pdf eliminado con éxito !' });
     } catch (error) {
         next(error)
     }
 }
 
-export default { getAll, getById, createPdf, updatePdf, deletePdf, comentarPdf }
+export default { getAll, getById, createPdf, updatePdf, deletePdf, comentarPdf, deleteComentPdf }

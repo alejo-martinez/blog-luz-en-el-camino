@@ -11,6 +11,7 @@ btnaudio.addEventListener('click', async(e)=>{
         body: formData,
     })
     const json = await response.json();
+    console.log(json);
     if(json.status === 'succes'){
         Toastify({
             text: json.message,
@@ -21,3 +22,18 @@ btnaudio.addEventListener('click', async(e)=>{
         erroraudio.innerHTML = `<span>${json.error}</span>`;
     }
 })
+
+const borraraudio = async(id)=>{
+    const response = await fetch(`http://localhost:8007/api/audio/${id}`,{
+        method:'DELETE'
+    })
+
+    const json = await response.json();
+    if(json.status === 'succes'){
+        Toastify({
+            text: json.message,
+            duration: 3000,
+            callback: location.reload()
+            }).showToast();
+    }
+}

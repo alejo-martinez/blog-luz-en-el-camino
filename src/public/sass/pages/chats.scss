@@ -1,0 +1,109 @@
+.div-chats {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    margin: 8px;
+
+    &-admin {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    &-form{
+        margin: auto;
+        margin-right: 2rem;
+        // height: 300px;
+        // overflow: scroll;
+    }
+
+    &-users{
+        display: flex;
+        flex-flow: column nowrap;
+        margin: 0 8px;
+        width: 400px;
+        height: 300px;
+        // background-color: #e7e2e2;
+        padding: 4px;
+        border-radius: 7px;
+        overflow: auto;
+
+        & h2{
+            text-align: justify;
+            font-family: 'Playfair Display', serif;
+            font-size: 98%;
+        }
+
+        &-admin {
+            height: 300px;
+            overflow: auto;
+
+            & h2{
+                text-align: justify;
+                font-family: 'Playfair Display', serif;
+                font-size: 98%;
+            }
+        }
+    }
+
+    &-user {
+        text-align: justify;
+        background-color: #f1f0f0d3;
+        padding: 3px;
+        border-radius: 5px;
+        margin: auto;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        white-space: normal;
+
+        &-all {
+            text-align: justify;
+            background-color: #f1f0f0d3;
+            padding: 3px;
+            border-radius: 5px;
+            margin: auto;
+            margin-top: 4px;
+            margin-bottom: 4px;
+            white-space: normal;
+            width: 80%;
+            font-size: 90%;
+        }
+    }
+}
+
+.div-all-chats {
+    display: flex;
+    flex-flow: row wrap;
+    justify-items: center;
+
+    &-admin {
+        width: 30%;
+    }
+}
+
+.div-form-chat {
+    background-color: #f1eded;
+    padding: 3px;
+    width: fit-content;
+    border-radius: 9px;
+
+    &-admin {
+        width: fit-content;
+        margin: auto;
+        background-color: #f1eded;
+        padding: 3px;
+        margin-top: 0.7rem;
+        border-radius: 9px;
+    }
+}
+
+.btn-msg{
+    border: none;
+    padding: 4px;
+    background-color: #361bd1;
+    color: #ffffff;
+    border-radius: 5px;
+
+    &:hover{
+        cursor: pointer;
+        // background-color: ;
+    }
+}

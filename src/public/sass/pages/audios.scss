@@ -1,3 +1,8 @@
+.div-audios {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
 .img-seccion{
     object-fit: contain;
     width: 13%;
@@ -7,4 +12,36 @@
 
 .div-img{
     text-align: center;
+}
+
+.container-audios{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.div-audio{
+    margin: 8px;
+    & h3 {
+        text-align: center;
+        color: $colorTitle;
+        margin-bottom: 4px;
+    }
+
+    & audio {
+        padding: 3px;
+    }
+}
+
+.btn-delete-audio{
+    border: none;
+    border-radius: 10px;
+    font-size: 100%;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    & i{
+        color: red;
+    }
 }

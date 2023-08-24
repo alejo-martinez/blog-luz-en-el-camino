@@ -21,3 +21,19 @@ btnPdf.addEventListener('click', async(e)=>{
         errorPdf.innerHTML = `<span>${json.error}</span>`;
     }
 })
+
+const borrarpdf = async(id)=>{
+    const response = await fetch(`http://localhost:8007/api/pdf/${id}`,{
+        method:'DELETE'
+    })
+
+    const json = await response.json();
+    console.log(json);
+    if(json.status === 'succes'){
+        Toastify({
+            text: json.message,
+            duration: 3000,
+            callback: location.reload()
+            }).showToast();
+    }
+}
