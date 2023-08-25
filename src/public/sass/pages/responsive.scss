@@ -23,14 +23,9 @@
     }
 
     .div-audio{
-        // width: 60%;
 
         & h3{
             font-size: 60%;
-        }
-
-        & audio {
-            // width: 60%;
         }
     }
 
@@ -50,7 +45,6 @@
         
     }
     
-    /* Estilos para el menú visible */
     #navMenu.open {
         display: block;
         opacity: 1;
