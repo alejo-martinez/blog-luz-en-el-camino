@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .container-principal {
   display: flex;
   flex-flow: column;
@@ -77,6 +76,17 @@
 
 .arrow-back {
   margin-right: 3px; }
+
+.errorreset {
+  margin-top: 9px; }
+  .errorreset span {
+    color: red; }
+
+.span-error-pass {
+  color: red; }
+
+.span-succes-pass {
+  color: #08c908; }
 
 .btnnav {
   background-color: #594270;
@@ -675,7 +685,6 @@
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease; }
-  /* Estilos para el menú visible */
   #navMenu.open {
     display: block;
     opacity: 1;

@@ -269,4 +269,13 @@ const charlas = async(req, res)=>{
     }
 }
 
-export default {register, login, home, detalles, book, audios, withmagic, roadsanity, weare, trues, uploadpdf, uploadaudio, pdfdetails, charlas};
+const enviarMail = async(req, res)=>{
+    res.render('sendmailreset')
+}
+
+const resetPassword = async(req, res)=>{
+    const uid = req.params;
+    res.render('resetpassword', {uid});
+}
+
+export default {register, login, home, detalles, book, audios, withmagic, roadsanity, weare, trues, uploadpdf, uploadaudio, pdfdetails, charlas, enviarMail, resetPassword};

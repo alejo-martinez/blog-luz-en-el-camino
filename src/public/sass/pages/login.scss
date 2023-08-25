@@ -98,3 +98,19 @@
 .arrow-back{
     margin-right: 3px;
 }
+
+.errorreset {
+    margin-top: 9px;
+
+    & span {
+        color: red;
+    }
+}
+
+.span-error-pass {
+    color: red;
+}
+
+.span-succes-pass {
+    color: rgb(8, 201, 8);
+}

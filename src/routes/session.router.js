@@ -11,4 +11,10 @@ router.post('/register', strategyPassport('register'), sessionController.createU
 
 router.get('/current', strategyPassport('jwt'), sessionController.current);
 
+router.post('/reset', sessionController.sendMail);
+
+router.get('/reset/:uid', sessionController.resetPassword);
+
+router.put('/update/:uid', sessionController.updatePassword);
+
 export default router;

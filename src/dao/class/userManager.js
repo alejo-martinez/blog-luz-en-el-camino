@@ -58,4 +58,20 @@ export class UserManager {
             throw new CustomError('Error desconocido', error, -999);
         }
     }
+
+    static async resetPassword(id){
+        try {
+            await userModel.updateOne({_id: id}, {$set: {password:''}})
+        } catch (error) {
+            throw new CustomError('Error desconocido', error, -999);
+        }
+    }
+
+    static async updatePassword(id, password){
+        try {
+            await userModel.updateOne({_id: id}, {$set: {password: utils.createHash(password)}});
+        } catch (error) {
+            throw new CustomError('Error desconocido', error, -999);
+        }
+    }
 }

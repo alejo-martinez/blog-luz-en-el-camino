@@ -18,5 +18,7 @@ router.get('/uploadpdf', authToken, adminUser, viewsController.uploadpdf);
 router.get('/uploadaudio', authToken, adminUser, viewsController.uploadaudio);
 router.get('/details/:pid', authToken, viewsController.pdfdetails);
 router.get('/chat', noUser, viewsController.charlas);
+router.get('/sendreset', viewsController.enviarMail);
+router.get('/resetpassword/:uid', viewsController.resetPassword);
 
 export default router;

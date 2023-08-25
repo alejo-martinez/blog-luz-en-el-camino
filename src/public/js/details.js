@@ -75,7 +75,7 @@ socket.on('comment', (data)=>{
 })
 
 const borrarcoment = async(index)=>{
-    const response = await fetch('https://blog-luz-en-el-camino-production.up.railway.app/api/pdf/coment', {
+    const response = await fetch('https://luzenelcamino.up.railway.app/api/pdf/coment', {
         method:'DELETE',
         body: JSON.stringify({id: pdfId, index: index}),
         headers:{
