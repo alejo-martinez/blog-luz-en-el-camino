@@ -715,6 +715,10 @@
     width: unset;
     margin: 15px 0; } }
 
+@media screen and (max-width: 516px) {
+  .container-coments {
+    width: unset; } }
+
 @media screen and (max-width: 478px) {
   .form-coment-details {
     font-size: 70%;
