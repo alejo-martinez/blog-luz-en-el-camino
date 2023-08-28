@@ -1,7 +1,7 @@
 const sendMessage = async (id) => {
     const input = document.getElementById(`message${id}`);
     const data = input.value;
-    const response = await fetch('https://luzenelcamino.up.railway.app/api/user/admin', {
+    const response = await fetch('https://luzenelcamino.com.ar/api/user/admin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

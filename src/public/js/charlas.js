@@ -3,7 +3,7 @@ const texto = document.getElementById('message');
 
 const enviarMsg = async()=>{
     const data = texto.value;
-    const response = await fetch('https://luzenelcamino.up.railway.app/api/user/', {
+    const response = await fetch('https://luzenelcamino.com.ar/api/user/', {
         method:'POST',
         body:JSON.stringify({text: data}),
         headers:{

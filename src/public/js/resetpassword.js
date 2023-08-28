@@ -23,7 +23,7 @@ btnReset.addEventListener('click', async (e) => {
     const password = inputPass.value;
     const uid = container.getAttribute('data-uid');
 
-    const response = await fetch(`https://luzenelcamino.up.railway.app/api/session/update/${uid}`, {
+    const response = await fetch(`https://luzenelcamino.com.ar/api/session/update/${uid}`, {
         method: 'PUT',
         body: JSON.stringify({ password: password }),
         headers: {

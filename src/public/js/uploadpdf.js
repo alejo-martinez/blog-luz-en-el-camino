@@ -6,7 +6,7 @@ btnPdf.addEventListener('click', async(e)=>{
     e.preventDefault();
     const formData = new FormData(formPdf);
 
-    const response = await fetch('https://luzenelcamino.up.railway.app/api/pdf', {
+    const response = await fetch('https://luzenelcamino.com.ar/api/pdf', {
         method:'POST',
         body: formData,
     })
@@ -23,7 +23,7 @@ btnPdf.addEventListener('click', async(e)=>{
 })
 
 const borrarpdf = async(id)=>{
-    const response = await fetch(`https://luzenelcamino.up.railway.app/api/pdf/${id}`,{
+    const response = await fetch(`https://luzenelcamino.com.ar/api/pdf/${id}`,{
         method:'DELETE'
     })
 
