@@ -6,5 +6,6 @@ const router = Router();
 
 router.post('/', noUser, userController.createComent);
 router.post('/admin', authToken, adminUser, userController.comentAdmin);
+router.delete('/chat/:uid', authToken, adminUser, userController.deleteChat);
 
 export default router;

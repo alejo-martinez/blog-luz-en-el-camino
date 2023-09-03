@@ -53,8 +53,11 @@
         {{#each usersFiltred}}
         {{#if this.chat}}
         <div class="div-all-chats-admin">
+            <button class="boton-eliminar" onclick="deleteChat('{{this._id}}')">
+                <span class="cruz-roja">X</span>
+            </button>
+            <h2 class="titlename">Conversación con {{this.name}}:</h2>
             <div class="div-chats-users-admin">
-                <h2>Conversación con {{this.name}}:</h2>
                 {{#each this.chat}}
                 <div class="div-chats-user-all">
                     <p><strong class="coment-name">{{this.user}}</strong>: {{this.text}}

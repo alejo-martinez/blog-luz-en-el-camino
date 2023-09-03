@@ -96,3 +96,33 @@ const borrarcoment = async(index)=>{
             }).showToast();
     }
 }
+
+const abrirComent = (id)=>{
+    const div = document.getElementById(`divResp${id}`);
+    div.innerHTML = `<input type='text' id='inptResp${id}' />
+    <button onclick="sendResponse('${id}', '${pdfId}')">Enviar</button>`;
+    div.classList.remove('div-response');
+    div.classList.add('div-response-input');
+}
+
+const sendResponse = async(cid, pid) =>{
+    const input = document.getElementById(`inptResp${cid}`);
+    const response = await fetch(`https://luzenelcamino.com.ar/api/pdf/coment/${pid}/${cid}`, {
+        method:'POST',
+        body:JSON.stringify({coment: input.value}),
+        headers:{
+            'Content-type':'application/json'
+        }
+    });
+    const json = await response.json();
+    console.log(json);
+    if(json.status === 'succes') {
+        setTimeout(() => {
+            window.location.href = window.location.href;
+        }, 2100);
+        Toastify({
+            text: json.message,
+            duration: 2000,
+            }).showToast();
+    }
+}

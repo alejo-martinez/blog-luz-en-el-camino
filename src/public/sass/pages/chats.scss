@@ -11,8 +11,6 @@
     &-form{
         margin: auto;
         margin-right: 2rem;
-        // height: 300px;
-        // overflow: scroll;
     }
 
     &-users{
@@ -27,9 +25,7 @@
         overflow: auto;
 
         & h2{
-            text-align: justify;
-            font-family: 'Playfair Display', serif;
-            font-size: 98%;
+
         }
 
         &-admin {
@@ -108,6 +104,30 @@
 
     &:hover{
         cursor: pointer;
-        // background-color: ;
     }
 }
+
+.boton-eliminar {
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+  }
+  
+  .cruz-roja {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .titlename {
+    text-align: justify;
+    font-family: 'Playfair Display', serif;
+    font-size: 98%;
+  }

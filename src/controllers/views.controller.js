@@ -1,8 +1,6 @@
 import { AudioManager } from "../dao/class/audioManager.js";
-import { MessageManager } from "../dao/class/messageManager.js";
 import { PdfManager } from "../dao/class/pdfManager.js";
 import { UserManager } from "../dao/class/userManager.js";
-import { pdfModel } from "../dao/models/pdf.model.js";
 import utils from "../utils.js";
 
 const register = async(req, res)=>{

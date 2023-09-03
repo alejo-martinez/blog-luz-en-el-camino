@@ -79,6 +79,14 @@ export class PdfManager {
         }
     };
 
+    static async responseComent(pid, cid, coment) {
+        try {
+            await pdfModel.findOneAndUpdate({_id: pid, 'comments._id': cid}, {$set:{'comments.$.response': coment}});
+        } catch (error) {
+            throw new CustomError('Error desconocido', error, -999);
+        }
+    }
+
     static async delete(id) {
         try {
             await pdfModel.deleteOne({ _id: id });

@@ -85,12 +85,31 @@
                 {{#each pdf.comments}}
                 <div class="pdf-section-coments-all">
                     {{#if this.admin}}
-                    <button class="btn-delete-pdf" onclick="borrarcoment('{{this.posicion}}')"><i
-                            class="bi bi-x-circle"></i></button>
-                    {{/if}}
+                    <div class="div-response">
+                        <button class="btn-delete-pdf" onclick="borrarcoment('{{this.posicion}}')"><i
+                                class="bi bi-x-circle"></i></button>
+                    </div>
                     <p><strong class="coment-name">{{this.name}}</strong>: {{this.coment}}
                     </p>
                     <p class="coment-date">{{this.created_at}}</p>
+                    {{#if this.response}}
+                    <div class="div-response-text">
+                        <p><strong>{{this.response.name}}</strong>: {{this.response.text}}</p>
+                    </div>
+                    {{/if}}
+                    <div class="div-response" id="divResp{{this._id}}">
+                        <button class="btn-response" onclick="abrirComent('{{this._id}}')">Responder</button>
+                    </div>
+                    {{else}}
+                    <p><strong class="coment-name">{{this.name}}</strong>: {{this.coment}}
+                    </p>
+                    <p class="coment-date">{{this.created_at}}</p>
+                    {{#if this.response}}
+                    <div class="div-response-text">
+                        <p>{{this.response.name}}: {{this.response.text}}</p>
+                    </div>
+                    {{/if}}
+                    {{/if}}
                 </div>
                 {{/each}}
             </div>

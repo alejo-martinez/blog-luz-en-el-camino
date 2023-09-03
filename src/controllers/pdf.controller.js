@@ -62,6 +62,18 @@ const comentarPdf = async(req, res, next)=> {
     }
 }
 
+const responseComent = async(req, res, next)=>{
+    try {
+        const {pid, cid} = req.params;
+        const {coment} = req.body;
+        const comentario = {text: coment, name: 'Luz en el camino'}
+        await PdfManager.responseComent(pid, cid, comentario);
+        res.status(200).send({status:"succes",message:"Respuesta enviada!"});
+    } catch (error) {
+        next(error)
+    }
+}
+
 const deleteComentPdf = async(req, res, next)=>{
     try {
         const {id, index} = req.body;
@@ -121,4 +133,4 @@ const deletePdf = async (req, res, next) => {
     }
 }
 
-export default { getAll, getById, createPdf, updatePdf, deletePdf, comentarPdf, deleteComentPdf }
+export default { getAll, getById, createPdf, updatePdf, deletePdf, comentarPdf, deleteComentPdf, responseComent }

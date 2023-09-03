@@ -27,4 +27,14 @@ const comentAdmin = async(req, res, next)=>{
     }
 }
 
-export default {createComent, comentAdmin};
+const deleteChat = async(req, res, next)=>{
+    try {
+        const {uid} = req.params;
+        await UserManager.deleteChat(uid);
+        return res.status(200).send({status:'succes', message:'Chat eliminado!'});
+    } catch (error) {
+        next(error)
+    }
+}
+
+export default {createComent, comentAdmin, deleteChat};

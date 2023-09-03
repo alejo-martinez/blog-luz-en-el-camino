@@ -74,4 +74,12 @@ export class UserManager {
             throw new CustomError('Error desconocido', error, -999);
         }
     }
+
+    static async deleteChat(id){
+        try {
+            await userModel.updateOne({_id: id}, {$set: {chat: []}});
+        } catch (error) {
+            throw new CustomError('Error desconocido', error, -999);
+        }
+    }
 }

@@ -5,7 +5,7 @@ const formRegister = document.getElementById('formregister');
 const navegar = ()=>{
     setTimeout(()=>{
         window.location.replace('/login')
-    }, 3000)
+    }, 2000)
 }
 
 btnSigin.addEventListener('click', async(e)=>{

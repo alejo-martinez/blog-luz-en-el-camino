@@ -88,6 +88,9 @@
 .span-succes-pass {
   color: #08c908; }
 
+.inicio-redirect {
+  margin-top: 6px; }
+
 .btnnav {
   background-color: #594270;
   padding: 10px;
@@ -485,15 +488,13 @@
       margin: 0;
       font-size: 18px;
       color: #2e0b44; }
-    .pdf-section-each p {
-      text-align: end; }
-      .pdf-section-each p a {
-        color: #3c3ead;
-        transition: all 0.3s;
-        font-size: 112%;
-        font-weight: bold; }
-        .pdf-section-each p a:hover {
-          color: #484ad83b; }
+    .pdf-section-each p a {
+      color: #3c3ead;
+      transition: all 0.3s;
+      font-size: 112%;
+      font-weight: bold; }
+      .pdf-section-each p a:hover {
+        color: #484ad83b; }
 
 .coment-name {
   color: #575757; }
@@ -523,8 +524,8 @@
     .btn-coment button:hover {
       background-color: #0056b3; }
 
-.p-nocoments p {
-  text-align: center; }
+.p-nocoments {
+  margin: auto; }
 
 .p-nopdf {
   text-align: center;
@@ -574,6 +575,40 @@
   margin: auto;
   width: 500px; }
 
+.btn-response {
+  border: none;
+  background-color: #e7dede;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 60%;
+  align-content: end; }
+
+.div-response {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 6px;
+  margin-top: 6px; }
+  .div-response-input {
+    display: flex;
+    padding: 9px; }
+    .div-response-input input {
+      width: 100%; }
+    .div-response-input button {
+      border: none;
+      padding: 4px;
+      border-radius: 5px;
+      background-color: #27be27;
+      color: #f3f3f3;
+      cursor: pointer; }
+  .div-response-text {
+    background-color: #e6e0e0;
+    max-width: fit-content;
+    padding: 5px;
+    border-radius: 4px; }
+    .div-response-text p {
+      font-size: 90%; }
+
 .div-chats {
   display: grid;
   grid-template-columns: 30% 70%;
@@ -594,10 +629,6 @@
     padding: 4px;
     border-radius: 7px;
     overflow: auto; }
-    .div-chats-users h2 {
-      text-align: justify;
-      font-family: 'Playfair Display', serif;
-      font-size: 98%; }
     .div-chats-users-admin {
       height: 300px;
       overflow: auto; }
@@ -658,6 +689,28 @@
   border-radius: 5px; }
   .btn-msg:hover {
     cursor: pointer; }
+
+.boton-eliminar {
+  background-color: red;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto; }
+
+.cruz-roja {
+  font-size: 20px;
+  font-weight: bold; }
+
+.titlename {
+  text-align: justify;
+  font-family: 'Playfair Display', serif;
+  font-size: 98%; }
 
 .nav-hamburger {
   display: none;

@@ -45,7 +45,6 @@
             margin: auto;
             margin-top: 4px;
             margin-bottom: 4px;
-            // max-width: 30%;
             width: 100%;
             white-space: normal;
             
@@ -82,12 +81,11 @@
         h5 {
             margin: 0;
             font-size: 18px;
-            // color: #561C7B ;
             color: #2e0b44 ;
         }
 
         p{
-            text-align: end;
+            // text-align: end;
          & a {
             color: #3c3ead;
             transition: all 0.3s;
@@ -144,11 +142,7 @@
 }
 
 .p-nocoments {
-    // text-align: start;
-    // margin: auto;
-    & p {
-        text-align: center;
-    }
+    margin: auto;
 }
 
 .p-nopdf {
@@ -213,4 +207,51 @@
     padding: 12px;
     margin: auto;
     width: 500px;
+}
+
+.btn-response {
+    border: none;
+    background-color: #e7dede;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 60%;
+    align-content: end;
+}
+
+.div {
+    &-response{
+        display: flex;
+        flex-direction: row-reverse;
+        margin-right: 6px;
+        margin-top: 6px;
+
+        &-input {
+            display: flex;
+            padding: 9px;
+            & input {
+                width: 100%;
+            }
+
+            & button {
+                border: none;
+                padding: 4px;
+                border-radius: 5px;
+                background-color: rgb(39, 190, 39);
+                color: #f3f3f3;
+                cursor: pointer;
+            }
+        }
+
+        &-text {
+            background-color: #e6e0e0;
+            max-width: fit-content;
+            padding: 5px;
+            border-radius: 4px;
+
+            & p {
+                font-size: 90%;
+            }
+        }
+    }
 }

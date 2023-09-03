@@ -5,10 +5,11 @@ const formLogin = document.getElementById('formlogin');
 const error = 'error';
 
 function redireccionarAPaginaAnterior() {
-    if (document.referrer.includes('/register') || !document.referrer.includes('localhost')) {
+  const referrer = document.referrer;
+    if (referrer.includes('/register') || !referrer.includes('localhost')) {
       window.location.href = '/';
     } else {
-      window.location.replace(document.referrer);
+      window.location.replace(referrer);
     }
   }
 
