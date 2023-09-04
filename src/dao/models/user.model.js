@@ -13,6 +13,13 @@ const schema = new mongoose.Schema({
         lowercase: true,
         trim: true,
         type: String,
+        validate: {
+            validator: function (value) {
+                // Puedes personalizar la lógica de validación aquí, por ejemplo, utilizando una expresión regular
+                return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+            },
+            message: 'El formato del correo electrónico no es válido',
+        },
     },
     password:{
         required:[true,'Debe ingresar una contraseña.'],

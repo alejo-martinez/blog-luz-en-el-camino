@@ -31,7 +31,7 @@ export default (err, req, res, next) => {
             break;
 
         default:
-            sendErrorResponse(res, 500, `Error desconocido en el servidor: ${err}`);
+            sendErrorResponse(res, 500, `${err}`);
             break;
     }
 };

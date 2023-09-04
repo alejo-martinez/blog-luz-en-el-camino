@@ -2,9 +2,9 @@ import passport from "passport";
 import local from 'passport-local';
 import jwt from 'passport-jwt';
 import utils from "../utils.js";
-import { userModel } from "../dao/models/user.model.js";
 import config from "./config.js";
 import { UserManager } from "../dao/class/userManager.js";
+import CustomError from "../errors/custom.error.js";
 
 const JWTstrategy = jwt.Strategy;
 const localStrategy = local.Strategy;
@@ -29,7 +29,10 @@ const initPassport = ()=> {
         const {name, email, password} = req.body;
         try {
             const user = await UserManager.getByField('email', email);
-            if(user) done(null, false,{message:'Usuario registrado con el email ingresado'});
+            if(user){
+                const err = new CustomError('Email en uso', 'Ya existe un usuario registrado con el email ingresado')
+                done(err);
+            } 
             else {
                 const usuario = {name: name, email: email, password: utils.createHash(password)};
                 await UserManager.create(usuario);
