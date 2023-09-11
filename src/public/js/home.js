@@ -1,5 +1,5 @@
 const logout = async () => {
-    const response = await fetch('https://luzenelcamino.com.ar/api/session/login', {
+    const response = await fetch('/api/session/login', {
         method: 'DELETE'
     })
     const json = await response.json();

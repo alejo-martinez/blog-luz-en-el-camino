@@ -63,6 +63,10 @@ const comentar = async (id) => {
     const inptName = document.getElementById(`name${id}`);
     const name = inptName.value;
     sendComment(name, inptTxt.value, id);
+    Toastify({
+        text: 'Pdf comentado!',
+        duration: 3000,
+        }).showToast();
     inptTxt.value = ''
 }
 
@@ -75,7 +79,7 @@ socket.on('comment', (data)=>{
 })
 
 const borrarcoment = async(index)=>{
-    const response = await fetch('https://luzenelcamino.com.ar/api/pdf/coment', {
+    const response = await fetch('/api/pdf/coment', {
         method:'DELETE',
         body: JSON.stringify({id: pdfId, index: index}),
         headers:{
@@ -107,7 +111,7 @@ const abrirComent = (id)=>{
 
 const sendResponse = async(cid, pid) =>{
     const input = document.getElementById(`inptResp${cid}`);
-    const response = await fetch(`https://luzenelcamino.com.ar/api/pdf/coment/${pid}/${cid}`, {
+    const response = await fetch(`/api/pdf/coment/${pid}/${cid}`, {
         method:'POST',
         body:JSON.stringify({coment: input.value}),
         headers:{

@@ -5,7 +5,7 @@ const input = document.getElementById('inputsend');
 btnSend.addEventListener('click', async(e)=>{
     e.preventDefault();
     const email = input.value;
-    const response = await fetch('https://luzenelcamino.com.ar/api/session/reset', {
+    const response = await fetch('/api/session/reset', {
         method:'POST',
         body: JSON.stringify({email: email}),
         headers:{

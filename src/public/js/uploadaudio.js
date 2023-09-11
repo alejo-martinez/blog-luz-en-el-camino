@@ -6,7 +6,7 @@ btnaudio.addEventListener('click', async(e)=>{
     e.preventDefault();
     const formData = new FormData(formaudio);
 
-    const response = await fetch('https://luzenelcamino.com.ar/api/audio', {
+    const response = await fetch('/api/audio', {
         method:'POST',
         body: formData,
     })
@@ -24,7 +24,7 @@ btnaudio.addEventListener('click', async(e)=>{
 })
 
 const borraraudio = async(id)=>{
-    const response = await fetch(`https://luzenelcamino.com.ar/api/audio/${id}`,{
+    const response = await fetch(`/api/audio/${id}`,{
         method:'DELETE'
     })
 

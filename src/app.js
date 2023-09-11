@@ -76,11 +76,6 @@ app.engine('handlebars', handlebars.engine());
 app.set('views', utils.__dirname + '/views');
 app.set('view engine', 'handlebars');
 
-// aws.config.update({
-//     accessKeyId: config.awsacceskey,
-//     secretAccessKey: config.awssecretkey,
-//     region:'us-east-2'
-// })
 
 io.on('connection', async(socket)=>{
     console.log("Conectado al servidor");
@@ -89,6 +84,8 @@ io.on('connection', async(socket)=>{
         const date = new Date();
         const newData = {name: data.name, text: data.text, created_at: utils.formatDate(date)};
         await PdfManager.coment(data.name, data.text, data.id);
+        const pdf = await PdfManager.getById(data.id);
+        await utils.transporte.sendMail({to:config.adminEmail, sender:config.adminEmail, subject:'Un pdf ha sido comentado', text:`El pdf "${pdf.title}" recibió un comentario.`})
         io.emit('comment', newData)
     })
 });

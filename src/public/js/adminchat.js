@@ -7,7 +7,7 @@ const recargar = ()=>{
 const sendMessage = async (id) => {
     const input = document.getElementById(`message${id}`);
     const data = input.value;
-    const response = await fetch('https://luzenelcamino.com.ar/api/user/admin', {
+    const response = await fetch('/api/user/admin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ const sendMessage = async (id) => {
 }
 
 const deleteChat = async(id)=>{
-    const response = await fetch(`https://luzenelcamino.com.ar/api/user/chat/${id}`, {
+    const response = await fetch(`/api/user/chat/${id}`, {
         method:'DELETE'
     });
     const json = await response.json();

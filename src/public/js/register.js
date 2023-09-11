@@ -15,7 +15,7 @@ btnSigin.addEventListener('click', async(e)=>{
     data.forEach((value,key)=>objeto[key]=value);
     const err = 'Missing credentials';
 
-    const response = await fetch('https://luzenelcamino.com.ar/api/session/register', {
+    const response = await fetch('/api/session/register', {
         method:'POST',
         body : JSON.stringify(objeto),
         headers:{
