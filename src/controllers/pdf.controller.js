@@ -88,9 +88,7 @@ const updatePdf = async (req, res, next) => {
     try {
         const { pid } = req.params;
         const { title, category } = req.body;
-        let filePath;
         let updatedFields = [];
-        const pdf = await PdfManager.getById(pid);
         if (title) {
             await PdfManager.update(pid, 'title', title);
             updatedFields.push(`Título actualizado en: ${title}`) ;
@@ -99,14 +97,7 @@ const updatePdf = async (req, res, next) => {
             await PdfManager.update(pid, 'category', category);;
             updatedFields.push(`Categoría actualizada en: ${category}`)  
         }
-        if (req.file) {
-            filePath = `public/pdfs/${req.file.filename}`;
-            const ruta = path.join(utils.__dirname, pdf.path);
-            fs.unlinkSync(ruta);
-            await PdfManager.update(pid, 'path', filePath);
-            updatedFields.push('Archivo actualizado')   
-        }
-        if(!title && !category && !req.file) throw new CustomError('Faltan argumentos', 'Debes actualizar algun campo', 2);
+        if(!title && !category) throw new CustomError('Faltan argumentos', 'Debes actualizar algun campo', 2);
         let fieldsReponse = updatedFields.join(', ');
         return res.status(200).send({status:'succes', message: updatedFields.length > 1? `Campos actualizados: ${fieldsReponse}`: fieldsReponse});
     } catch (error) {
