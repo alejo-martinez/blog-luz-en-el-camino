@@ -1,7 +1,5 @@
 <div>
 
-    {{> navbar adminUser=adminUser userlogued=userlogued}}
-
     <div class="pdf-section">
         {{#if escritos}}
         <div class="pdf-section-show">
@@ -34,6 +32,6 @@
             </div>
             {{/if}}
         </div>
-        <div class="container-img"><img src="/static/images/duendesobremano.webp" alt="" width="300" height="700"></div>
+        <div class="container-img"><img src={{categoryImage}} alt="" width="300" height="700"></div>
     </div>
 </div>

@@ -86,129 +86,38 @@ const audios = async(req, res)=>{
     }
 }
 
-const withmagic = async(req, res)=>{
+const renderPdfByCategory = async(req, res)=>{
     const userlogued = req.user;
+    const {cat} = req.params;
     const admin = 'admin';
     const client = 'client';
-    const param = 'escritos con magia'
-    const allpdfs = await PdfManager.getByCategory(param);
-    const formatDate = allpdfs.map(pdf => ({
+    const pdfs = await PdfManager.getByCategory(cat);
+    const categoryImgs = {'lo-que-somos': '/static/images/dosmanos.webp', 'el-camino-de-la-sanacion': '/static/images/mirandoalcielo.webp', 'nobles-verdades': '/static/images/mandalaazul.webp', 'escritos-con-magia': '/static/images/duendesobremano.webp'};
+
+    const categoryImage = categoryImgs[cat];
+
+    const formatDate = pdfs.map(pdf => ({
         ...pdf,
         comments: pdf.comments.map(coment => ({
             ...coment,
-            created_at:`${coment.created_at.getDate()}/${coment.created_at.getMonth() + 1}/${coment.created_at.getFullYear()} ${String(coment.created_at.getHours()).padStart(2, '0')}:${String(coment.created_at.getMinutes()).padStart(2, '0')}`
+            created_at: utils.newFormDate(coment)
         }))
     }))
     const escritos = formatDate.map(pdf => ({
         ...pdf,
         comments: pdf.comments.slice(-3)
       }));
-  
-      if(!userlogued) res.render('escritosconmagia', {escritos});
+
+      if(!userlogued) res.render('showpdfs',{escritos, categoryImage});
       else{
           if(req.user.rol === client ){
-              const user = req.user;
-              res.render('escritosconmagia', {userlogued, escritos});
+              res.render('showpdfs', {userlogued, escritos, categoryImage});
           } 
           if(req.user.rol === admin){
               const adminUser = req.user;
-              res.render('escritosconmagia', {adminUser, userlogued, escritos});
+              res.render('showpdfs', {adminUser, userlogued, escritos, categoryImage});
           } 
       }
-}
-
-const roadsanity = async(req, res)=>{
-    const userlogued = req.user;
-    const admin = 'admin';
-    const client = 'client';
-    const param = 'camino de la sanacion'
-    const allpdfs = await PdfManager.getByCategory(param);
-    const formatDate = allpdfs.map(pdf => ({
-        ...pdf,
-        comments: pdf.comments.map(coment => ({
-            ...coment,
-            created_at:`${coment.created_at.getDate()}/${coment.created_at.getMonth() + 1}/${coment.created_at.getFullYear()} ${String(coment.created_at.getHours()).padStart(2, '0')}:${String(coment.created_at.getMinutes()).padStart(2, '0')}`
-        }))
-    }))
-    const escritos = formatDate.map(pdf => ({
-        ...pdf,
-        comments: pdf.comments.slice(-3)
-      }));
-
-    if(!userlogued) res.render('caminodelasanacion', {escritos});
-    else{
-        if(req.user.rol === client ){
-            const user = req.user;
-            res.render('caminodelasanacion', {userlogued, escritos});
-        } 
-        if(req.user.rol === admin){
-            const adminUser = req.user;
-            const admin = true
-            res.render('caminodelasanacion', {adminUser, userlogued, escritos, admin});
-        } 
-    }
-}
-
-const weare = async(req, res)=>{
-    const userlogued = req.user;
-    const admin = 'admin';
-    const client = 'client';
-    const param = 'lo que somos'
-    const allpdfs = await PdfManager.getByCategory(param);
-    const formatDate = allpdfs.map(pdf => ({
-        ...pdf,
-        comments: pdf.comments.map(coment => ({
-            ...coment,
-            created_at:`${coment.created_at.getDate()}/${coment.created_at.getMonth() + 1}/${coment.created_at.getFullYear()} ${String(coment.created_at.getHours()).padStart(2, '0')}:${String(coment.created_at.getMinutes()).padStart(2, '0')}`
-        }))
-    }))
-    const escritos = formatDate.map(pdf => ({
-        ...pdf,
-        comments: pdf.comments.slice(-3)
-      }));
-
-    if(!userlogued) res.render('loquesomos', {escritos});
-    else{
-        if(req.user.rol === client ){
-            const user = req.user;
-            res.render('loquesomos', {userlogued, escritos});
-        } 
-        if(req.user.rol === admin){
-            const adminUser = req.user;
-            res.render('loquesomos', {adminUser, userlogued, escritos});
-        } 
-    }
-}
-
-const trues = async(req, res)=>{
-    const userlogued = req.user;
-    const admin = 'admin';
-    const client = 'client';
-    const param = 'nobles verdades'
-    const allpdfs = await PdfManager.getByCategory(param);
-    const formatDate = allpdfs.map(pdf => ({
-        ...pdf,
-        comments: pdf.comments.map(coment => ({
-            ...coment,
-            created_at:`${coment.created_at.getDate()}/${coment.created_at.getMonth() + 1}/${coment.created_at.getFullYear()} ${String(coment.created_at.getHours()).padStart(2, '0')}:${String(coment.created_at.getMinutes()).padStart(2, '0')}`
-        }))
-    }))
-    const escritos = formatDate.map(pdf => ({
-        ...pdf,
-        comments: pdf.comments.slice(-3)
-      }));
-
-    if(!userlogued) res.render('noblesverdades',{escritos});
-    else{
-        if(req.user.rol === client ){
-            const user = req.user;
-            res.render('noblesverdades', {userlogued, escritos});
-        } 
-        if(req.user.rol === admin){
-            const adminUser = req.user;
-            res.render('noblesverdades', {adminUser, userlogued, escritos});
-        } 
-    }
 }
 
 const uploadpdf = async(req, res)=>{
@@ -276,4 +185,4 @@ const resetPassword = async(req, res)=>{
     res.render('resetpassword', {uid});
 }
 
-export default {register, login, home, detalles, book, audios, withmagic, roadsanity, weare, trues, uploadpdf, uploadaudio, pdfdetails, charlas, enviarMail, resetPassword};
+export default {register, login, home, detalles, book, audios, uploadpdf, uploadaudio, pdfdetails, charlas, enviarMail, resetPassword, renderPdfByCategory};

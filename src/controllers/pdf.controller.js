@@ -4,6 +4,7 @@ import fs from 'fs';
 import { PdfManager } from "../dao/class/pdfManager.js";
 import CustomError from "../errors/custom.error.js";
 import config from "../config/config.js";
+import { pdfModel } from "../dao/models/pdf.model.js";
 
 
 const getAll = async (req, res, next) => {
@@ -123,5 +124,20 @@ const deletePdf = async (req, res, next) => {
         next(error)
     }
 }
+
+// const fastUpdate = async(req, res, next)=>{
+//     console.log('entro')
+//     try {
+//         const {body} = req.body;
+//         console.log(body)
+//         await pdfModel.updateMany({category: 'camino de la sanacion'}, {$set:{category: 'el-camino-de-la-sanacion'}});
+//         await pdfModel.updateMany({category: 'escritos con magia'}, {$set:{category: 'escritos-con-magia'}})
+//         await pdfModel.updateMany({category: 'lo que somos'}, {$set:{category: 'lo-que-somos'}})
+//         await pdfModel.updateMany({category: 'nobles verdades'}, {$set:{category: 'nobles-verdades'}})
+//         res.status(200).send({status:'succes', message:'updated'})
+//     } catch (error) {
+//         next(error)
+//     }
+// }
 
 export default { getAll, getById, createPdf, updatePdf, deletePdf, comentarPdf, deleteComentPdf, responseComent }

@@ -4,64 +4,7 @@
         <div class="hamburger-line"></div>
         <div class="hamburger-line"></div>
     </div>
-    <nav class="nav" id="navMenu">
-        <ul class="navbuttons">
-            <div class="navbuttons-bar">
-                <li>
-                    <button class="btnnav" onclick="navegar('/')"><a href="/" class="btnnav-a">Inicio</a></button>
-                </li>
-                {{#if adminUser}}
-                <li>
-                    <button class="btnnav" onclick="navegar('/uploadpdf')"><a href="/uploadpdf" class="btnnav-a">Subir
-                            pdf</a></button>
-                </li>
-                <li>
-                    <button class="btnnav" onclick="navegar('/uploadaudio')"><a href="/uploadaudio"
-                            class="btnnav-a">Subir
-                            audio</a></button>
-                </li>
-                {{/if}}
-                <li>
-                    <button class="btnnav actual-principal" onclick="navegar('/book')">
-                        <a href="/book" class="btnnav-a">Libro</a>
-                    </button>
-                </li>
-                <li class="dropdown">
-                    <button class="dropdown-button">Escritos del alma</button>
-                    <ul class="dropdown-content">
-                        <li><a href="/escritosconmagia">Escritos con magia</a></li>
-                        <li><a href="/caminodelasanacion">El camino de la sanación</a></li>
-                        <li><a href="/loquesomos">Lo que somos</a></li>
-                        <li><a href="/noblesverdades">Nobles verdades</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <button class="btnnav" onclick="navegar('/audios')"><a href="/audios"
-                            class="btnnav-a">Audios</a></button>
-                </li>
-                <li>
-                    <button class="btnnav" onclick="navegar('/chat')"><a href="/chat" class="btnnav-a">Chat</a></button>
-                </li>
-            </div>
-            {{#if userlogued}}
-            <div>
-                <li>
-                    <div class="panel-user">
-                        <span>{{userlogued.name}}</span>
-                        <button onclick="logout()"><i class="bi bi-box-arrow-left"></i></button>
-                    </div>
-                </li>
-            </div>
-            {{else}}
-            <li>
-                <div class="panel-user">
-                    <a class="panel-user-link" href="/login">Iniciar sesión</a>
-                    <a class="panel-user-link" href="/register">Registrarse</a>
-                </div>
-            </li>
-            {{/if}}
-        </ul>
-    </nav>
+        {{> navbar adminUser=adminUser userlogued=userlogued}}
     <div data-path="{{libro.path}}" id="divLibro" class="pdf-libro">
         <h2 class="book-title">{{libro.title}}</h2>
         <div class="div-btnsnav-pdf">

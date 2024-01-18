@@ -8,11 +8,13 @@ const router = Router();
 router.get('/', pdfController.getAll);
 router.post('/', authToken, adminUser, utils.uploadPdf.single('file'), pdfController.createPdf);
 router.delete('/coment', authToken, adminUser, pdfController.deleteComentPdf);
+// router.put('/fastupdate', authToken, adminUser, pdfController.fastUpdate)
 
 router.get('/:pid', pdfController.getById);
 router.post('/:pid', pdfController.comentarPdf);
 router.put('/:pid', authToken, adminUser, utils.uploadPdf.single('file'), pdfController.updatePdf);
 router.delete('/:pid', authToken, adminUser, pdfController.deletePdf);
 router.post('/coment/:pid/:cid', authToken, adminUser, pdfController.responseComent);
+
 
 export default router;

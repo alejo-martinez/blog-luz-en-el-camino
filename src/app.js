@@ -2,6 +2,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import path from 'path';
+import fs from 'fs';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import handlebars from 'express-handlebars';
