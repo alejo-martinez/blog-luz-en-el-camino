@@ -1,26 +1,31 @@
-
 .container-img{
         display: flex;
+        justify-content: flex-start;
         justify-content: center;
-        align-items: center;
-        height: auto;
-        max-height: 80vh;
+        width: 30%;
         overflow: hidden;
         & img{
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
         }
-    }
+}
+
+.p-coment{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 
 .pdf-section {
-    display: grid;
-    grid-template-columns: 80% 20%;
+    display: flex;
 
     &-show {
         display: flex;
         flex-flow: row wrap;
+        width: 70%;
+        justify-content: center;
     }
 
     &-coments {
@@ -29,7 +34,10 @@
         padding: 3px;
         border-radius: 5px;
         margin: 4px;
-        max-width: 100%;
+        // height: 85px;
+        width: 100%;
+        // max-width: 100%;
+        // height: 70%;
         white-space: normal;
 
         & p{
@@ -62,13 +70,14 @@
 
     &-each {
         display: flex;
-        flex-flow: row wrap;
+        flex-flow: column nowrap;
         border: 1px solid #ccc;
         box-shadow: 1px 1px 2px #494949;
         padding: 5px;
         background-color: #f3f3f3;
         border-radius: 5px;
-        width: 25%;
+        width: 400px;
+        height: 250px;
         margin: 10px;
         justify-items: center;
 
@@ -76,6 +85,7 @@
             text-align: center;
             margin: auto;
             font-size: 67%;
+            height: 20%;
         }
 
         h5 {
@@ -102,7 +112,7 @@
 
 .coment {
     &-name {
-        color: #575757;
+        color: #180918;
     }
 
     &-date {
@@ -143,6 +153,10 @@
 
 .p-nocoments {
     margin: auto;
+
+    & p{
+        text-align: center;
+    }
 }
 
 .p-nopdf {

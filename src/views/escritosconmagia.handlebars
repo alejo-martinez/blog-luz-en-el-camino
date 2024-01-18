@@ -73,13 +73,15 @@
                     <p><a class="" href="/details/{{this._id}}">Ver pdf <i class="bi bi-filetype-pdf"></i></a></p>
                 </div>
                 {{#if this.comments}}
-                {{#each this.comments}}
-                <div class="pdf-section-coments">
-                    <p><strong class="coment-name">{{this.name}}</strong>: {{this.coment}}
-                    </p>
-                    <p class="coment-date">{{this.created_at}}</p>
-                </div>
+                <div class="div-pdf-coments">
+                    {{#each this.comments}}
+                    <div class="pdf-section-coments">
+                        <p class="p-coment"><strong class="coment-name">{{this.name}}</strong>: {{this.coment}}
+                        </p>
+                        <p class="coment-date">{{this.created_at}}</p>
+                    </div>
                 {{/each}}
+                </div>
                 {{else}}
                 <div class="p-nocoments">
                     <p>Todavia no hay comentarios</p>
@@ -93,6 +95,6 @@
             </div>
             {{/if}}
         </div>
-        <div class="container-img"><img src="/static/images/duendesobremano.webp" alt=""></div>
+        <div class="container-img"><img src="/static/images/duendesobremano.webp" alt="" width="300" height="700"></div>
     </div>
 </div>
