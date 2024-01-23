@@ -1,5 +1,4 @@
 <div>
-
     <div class="pdf-section">
         {{#if escritos}}
         <div class="pdf-section-show">
@@ -13,9 +12,9 @@
                 <div class="div-pdf-coments">
                     {{#each this.comments}}
                     <div class="pdf-section-coments">
-                        <p class="p-coment"><strong class="coment-name">{{this.name}}</strong>: {{this.coment}}
+                        <p class="p-coment"><strong class="coment-name">{{this.comment.author}}</strong>: {{this.comment.text}}
                         </p>
-                        <p class="coment-date">{{this.created_at}}</p>
+                        <p class="coment-date">{{this.comment.created_at}}</p>
                     </div>
                 {{/each}}
                 </div>

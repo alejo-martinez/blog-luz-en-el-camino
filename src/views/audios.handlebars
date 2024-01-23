@@ -1,9 +1,9 @@
 <div>
-        <div class="nav-hamburger" id="navHamburger">
-            <div class="hamburger-line"></div>
-            <div class="hamburger-line"></div>
-            <div class="hamburger-line"></div>
-        </div>
+    {{!-- <div class="nav-hamburger" id="navHamburger">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+    </div> --}}
     {{> navbar adminUser=adminUser userlogued=userlogued}}
     <div class="div-audios">
         <div class="div-img">
@@ -24,6 +24,24 @@
                     <source src="{{this.path}}">Tu navegador no soporta el audio, descargalo acá: <a
                         href="{{this.path}}">Descargar</a>
                 </audio>
+                {{#if this.comments}}
+                <div class="div-pdf-coments">
+                    {{#each this.comments}}
+                    <div class="pdf-section-coments">
+                        <p class="p-coment"><strong class="coment-name">{{this.name}}</strong>: {{this.coment}}
+                        </p>
+                        <p class="coment-date">{{this.created_at}}</p>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <div class="p-nocoments">
+                    <p>Todavia no hay comentarios</p>
+                </div>
+                {{/if}}
+                <div class="btn-coment" id="audio{{this._id}}">
+                    <a href="/audios/{{this._id}}">Ir a comentar</a>
+                </div>
             </div>
             {{/each}}
             {{else}}

@@ -24,16 +24,19 @@ import messageRouter from './routes/message.router.js';
 import suggestRouter from './routes/suggest.router.js';
 import viewsRouter from './routes/views.router.js';
 import userRouter from './routes/user.router.js';
+import comentRouter from './routes/coment.router.js';
 
 import handleErrors from './middlewares/error.middleware.js';
 import { PdfManager } from './dao/class/pdfManager.js';
+import { AudioManager } from './dao/class/audioManager.js';
+import { ComentManager } from './dao/class/comentManager.js';
 
 
 const app = express();
 
 const httpServer = app.listen(parseFloat(config.port), ()=> console.log(`server arriba en el puerto: ${config.port}`))
 
-const io = new Server(httpServer);
+export const io = new Server(httpServer);
 
 app.use(session({
     store: MongoStore.create({
@@ -45,8 +48,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
-
-
 
 initPassport();
 
@@ -68,6 +69,7 @@ app.use('/api/audio', audioRouter);
 app.use('/api/message', messageRouter);
 app.use('/api/session', sessionRouter);
 app.use('/api/suggest', suggestRouter);
+app.use('/api/comment', comentRouter);
 app.use('/api/user', userRouter);
 app.use('/', viewsRouter);
 
@@ -89,7 +91,18 @@ io.on('connection', async(socket)=>{
         await utils.transporte.sendMail({to:config.adminEmail, sender:config.adminEmail, subject:'Un pdf ha sido comentado', text:`El pdf "${pdf.title}" recibió un comentario.`})
         io.emit('comment', newData)
     })
+
+    socket.on('audiocomment', async(data)=>{
+        const date = new Date();
+        // const newData = {name: data.name, text: data.text, created_at: utils.formatDate(date)};
+        await AudioManager.coment(data.name, data.text, data.id);
+        const audio = await AudioManager.getById(data.id);
+        // await utils.transporte.sendMail({to: config.adminEmail, sender: config.adminEmail, subject: 'Un audio ha sido comentado', text: `El audio "${audio.title}" recibió un comentario`});
+        io.emit('audiocomment', newData);
+    })
 });
+
+
 mongoose.connect(config.mongoURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true

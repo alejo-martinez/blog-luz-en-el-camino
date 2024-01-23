@@ -1,0 +1,75 @@
+{{> navbar adminUser=adminUser userlogued=userlogued}}
+<div data-path="{{audio.path}}" data-id="{{audio._id}}" id="divAudio" class="pdf-libro">
+    <h2 class="book-title">{{audio.title}}</h2>
+    <div class="div-btnsnav-pdf">
+        <div>
+            <audio controls>
+                <source src="{{audio.path}}">Tu navegador no soporta el audio, descargalo acá: <a
+                    href="{{audio.path}}">Descargar</a>
+            </audio>
+        </div>
+    </div>
+
+    <div id="pdf-error-message" class="pdf-error-message">
+        Tu navegador no puede mostrar este Audio. Puedes <a class="panel-user-link" href="{{audio.path}}">descargarlo
+            aquí.</a>.
+    </div>
+    <div class="container-coments">
+        {{#if audio.comments}}
+        <div class="div-coments" id="divComents">
+            {{#each audio.comments}}
+            <div class="pdf-section-coments-all">
+                {{#if adminUser}}
+                <div class="div-response">
+                    <button class="btn-delete-pdf" onclick="borrarcoment('{{this.comment._id}}')"><i
+                            class="bi bi-x-circle"></i></button>
+                </div>
+                <p><strong class="coment-name">{{this.comment.author}}</strong>: {{this.comment.text}}
+                </p>
+                <p class="coment-date">{{this.comment.created_at}}</p>
+                {{#if this.comment.response}}
+                <div class="div-response-text">
+                    <p><strong>{{this.comment.response.author}}</strong>: {{this.comment.response.text}}</p>
+                </div>
+                {{/if}}
+                <div class="div-response" id="divResp{{this._id}}">
+                    <button class="btn-response" onclick="abrirComent('{{this._id}}')">Responder</button>
+                </div>
+                {{else}}
+                <p><strong class="coment-name">{{this.comment.name}}</strong>: {{this.comment.text}}
+                </p>
+                <p class="coment-date">{{this.comment.created_at}}</p>
+                {{#if this.comment.response}}
+                <div class="div-response-text">
+                    <p>{{this.comment.response.author}}: {{this.comment.response.text}}</p>
+                </div>
+                {{/if}}
+                {{/if}}
+            </div>
+            {{/each}}
+        </div>
+        {{else}}
+        <div class="p-nocoments">
+            <p>Todavia no hay comentarios</p>
+        </div>
+        {{/if}}
+        <div class="div-form-coment-details">
+            <form id="formComent{{audio._id}}" class="form-coment-details">
+                <div>
+                    <label>Nombre: </label>
+                    <input type="text" name="name" placeholder="(opcional)" id="name{{audio._id}}" />
+                </div>
+                <div>
+                    <label>Comentario: </label>
+                    <input type="text" name="text" id="txt{{audio._id}}" />
+                </div>
+                <div class="btn-coment">
+                    <button type="button" onclick="comentar('{{audio._id}}')">Comentar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/audioDetails.js"></script>

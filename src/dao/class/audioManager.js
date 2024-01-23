@@ -3,8 +3,7 @@ import CustomError from "../../errors/custom.error.js";
 
 export class AudioManager {
     static async getAll() {
-        const audios = await audioModel.find().lean();
-        // if (audios.length === 0) throw new CustomError('No data', 'No se encontraron audios', 5);
+        const audios = await audioModel.find().populate('comments.comment').lean();
         try {
             return audios;
         } catch (error) {
@@ -13,7 +12,7 @@ export class AudioManager {
     };
 
     static async getById(id) {
-        const audio = await audioModel.findById(id);
+        const audio = await audioModel.findById(id).populate('comments.comment').lean();
         if (!audio) throw new CustomError('No data', 'No se encontró el audio', 5);
         try {
             return audio;
@@ -25,7 +24,7 @@ export class AudioManager {
 
     static async getOne(prop, value) {
         try {
-            const audio = await audioModel.findOne({[prop]: value});
+            const audio = await audioModel.findOne({[prop]: value}).populate('comments.comment').lean();
             if(!audio) return undefined;
             return audio;
         } catch (error) {
@@ -56,4 +55,38 @@ export class AudioManager {
             throw new CustomError('Error desconocido', error, -999);
         }
     };
+
+    static async coment(aid, cid){
+        try {
+            await audioModel.updateOne({_id: aid}, {$push: {comments: cid}});
+        } catch (error) {
+            return error;
+        }
+        // if(!text) throw new CustomError('No data', 'Debes proporcionar un comentario', 2);
+        // try {
+        //     const date = new Date();
+        //     const comentario = {name: name? name:'Anónimo', coment: text, created_at: date};
+        //     await audioModel.updateOne({_id: id}, {$push: {comments: comentario}});
+        // } catch (error) {
+        //     throw new CustomError('Error desconocido', error, -999);
+        // }
+    }
+
+    static async deleteComent(id, index){
+        try {
+            const audio = await audioModel.findOne({_id: id});
+            audio.comments.splice(index, 1);
+            await audioModel.updateOne({_id: id}, {$set:{comments: audio.comments}});
+        } catch (error) {
+            return error;
+        }
+    }
+
+    static async responseComent(pid, cid, coment) {
+        try {
+            await audioModel.findOneAndUpdate({_id: pid, 'comments._id': cid}, {$set:{'comments.$.response': coment}});
+        } catch (error) {
+            throw new CustomError('Error desconocido', error, -999);
+        }
+    }
 }

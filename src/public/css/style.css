@@ -320,18 +320,24 @@
 
 .container-audios {
   display: flex;
-  flex-flow: row wrap; }
+  flex-flow: row wrap;
+  justify-content: space-around; }
 
 .div-audio {
-  margin: auto;
+  display: flex;
+  flex-flow: column nowrap;
   margin-top: 5px;
-  margin-bottom: 5px; }
+  margin-bottom: 5px;
+  width: 350px;
+  background-color: #fff;
+  padding: 4px;
+  border-radius: 6px; }
   .div-audio h3 {
     text-align: center;
     color: #594270;
     margin-bottom: 4px; }
   .div-audio audio {
-    padding: 3px; }
+    margin: auto; }
 
 .btn-delete-audio {
   border: none;
@@ -453,9 +459,11 @@
     background-color: #e2e2ec;
     padding: 3px;
     border-radius: 5px;
-    margin: 4px;
     width: 100%;
-    white-space: normal; }
+    white-space: normal;
+    margin: auto;
+    margin-top: 6px;
+    margin-bottom: 6px; }
     .pdf-section-coments p {
       max-width: 100%;
       word-wrap: break-word; }

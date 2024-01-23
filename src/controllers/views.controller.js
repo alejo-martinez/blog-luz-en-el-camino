@@ -71,7 +71,12 @@ const audios = async(req, res)=>{
     const admin = 'admin';
     const client = 'client';
 
-    const audios = await AudioManager.getAll();
+    const allAudios = await AudioManager.getAll();
+
+    const audios = allAudios.map(audio => ({
+        ...audio,
+        comments: audio.comments?.slice(-3)
+      }));
 
     if(!userlogued) res.render('audios', {audios});
     else{
@@ -86,7 +91,35 @@ const audios = async(req, res)=>{
     }
 }
 
-const renderPdfByCategory = async(req, res)=>{
+const getAudioById = async(req, res)=>{
+    const {aid} = req.params;
+    const userlogued = req.user;
+    const admin = 'admin';
+    const client = 'client';
+    const audio = await AudioManager.getById(aid);
+
+    if(!userlogued) res.render('audiodetails', {audio});
+    else{
+        if(req.user.rol === client ){
+            const user = req.user;
+            res.render('audiodetails', {userlogued, audio});
+        } 
+        if(req.user.rol === admin){
+            let position = 0;
+            const adminLogued = audio.comments.map(coment => ({
+                ...coment,
+                admin: true,
+                posicion: position++
+            }))
+            audio.comments = adminLogued;
+            const adminUser = req.user;
+            res.render('audiodetails', {adminUser, userlogued, audio});
+        } 
+    }
+
+}
+
+const renderPdfByCategory = async(req, res, next)=>{
     const userlogued = req.user;
     const {cat} = req.params;
     const admin = 'admin';
@@ -96,14 +129,14 @@ const renderPdfByCategory = async(req, res)=>{
 
     const categoryImage = categoryImgs[cat];
 
-    const formatDate = pdfs.map(pdf => ({
-        ...pdf,
-        comments: pdf.comments.map(coment => ({
-            ...coment,
-            created_at: utils.newFormDate(coment)
-        }))
-    }))
-    const escritos = formatDate.map(pdf => ({
+    // const formatDate = pdfs.map(pdf => ({
+    //     ...pdf,
+    //     comments: pdf.comments.map(coment => ({
+    //         ...coment,
+    //         created_at: utils.newFormDate(coment)
+    //     }))
+    // }))
+    const escritos = pdfs.map(pdf => ({
         ...pdf,
         comments: pdf.comments.slice(-3)
       }));
@@ -138,11 +171,9 @@ const pdfdetails = async(req, res)=>{
     const admin = 'admin';
     const client = 'client';
     const pdf = await PdfManager.getById(pid);
-    const date = pdf.comments.map(coment => ({
-        ...coment,
-        created_at:`${coment.created_at.getDate()}/${coment.created_at.getMonth() + 1}/${coment.created_at.getFullYear()} ${String(coment.created_at.getHours()).padStart(2, '0')}:${String(coment.created_at.getMinutes()).padStart(2, '0')}`
-    }))
-    pdf.comments = date;
+    // console.log(pdf)
+    // console.log(pdf.comments[3].comment)
+
     if(!userlogued) res.render('details', {pdf});
     else{
         if(req.user.rol === client ){
@@ -185,4 +216,4 @@ const resetPassword = async(req, res)=>{
     res.render('resetpassword', {uid});
 }
 
-export default {register, login, home, detalles, book, audios, uploadpdf, uploadaudio, pdfdetails, charlas, enviarMail, resetPassword, renderPdfByCategory};
+export default {register, login, home, detalles, book, audios, uploadpdf, uploadaudio, pdfdetails, charlas, enviarMail, resetPassword, renderPdfByCategory, getAudioById};

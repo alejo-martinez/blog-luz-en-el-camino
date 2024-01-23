@@ -85,8 +85,8 @@ const formatDate = (date)=> {
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
 };
 
-const newFormDate = (coment)=>{
-    return `${coment.created_at.getDate()}/${coment.created_at.getMonth() + 1}/${coment.created_at.getFullYear()} ${String(coment.created_at.getHours()).padStart(2, '0')}:${String(coment.created_at.getMinutes()).padStart(2, '0')}`
+const newFormDate = (date)=>{
+    return `${date.created_at.getDate()}/${date.created_at.getMonth() + 1}/${date.created_at.getFullYear()} ${String(date.created_at.getHours()).padStart(2, '0')}:${String(date.created_at.getMinutes()).padStart(2, '0')}`
 }
 
 const __dirname = dirname(__filename);

@@ -52,38 +52,38 @@ const createPdf = async (req, res, next) => {
     }
 }
 
-const comentarPdf = async(req, res, next)=> {
-    try {
-        const {pid} = req.params;
-        const {name, text} = req.body;
-        await PdfManager.coment(name, text, pid);
-        res.status(200).send({status:'succes', message: 'Pdf comentado !'})
-    } catch (error) {
-        next(error);
-    }
-}
+// const comentarPdf = async(req, res, next)=> {
+//     try {
+//         const {pid} = req.params;
+//         const {name, text} = req.body;
+//         await PdfManager.coment(name, text, pid);
+//         res.status(200).send({status:'succes', message: 'Pdf comentado !'})
+//     } catch (error) {
+//         next(error);
+//     }
+// }
 
-const responseComent = async(req, res, next)=>{
-    try {
-        const {pid, cid} = req.params;
-        const {coment} = req.body;
-        const comentario = {text: coment, name: 'Luz en el camino'}
-        await PdfManager.responseComent(pid, cid, comentario);
-        res.status(200).send({status:"succes",message:"Respuesta enviada!"});
-    } catch (error) {
-        next(error)
-    }
-}
+// const responseComent = async(req, res, next)=>{
+//     try {
+//         const {pid, cid} = req.params;
+//         const {coment} = req.body;
+//         const comentario = {text: coment, name: 'Luz en el camino'}
+//         await PdfManager.responseComent(pid, cid, comentario);
+//         res.status(200).send({status:"succes",message:"Respuesta enviada!"});
+//     } catch (error) {
+//         next(error)
+//     }
+// }
 
-const deleteComentPdf = async(req, res, next)=>{
-    try {
-        const {id, index} = req.body;
-        await PdfManager.deleteComent(id, index);
-        res.status(200).send({status:'succes', message: 'Comentario borrado!'})
-    } catch (error) {
-        next(error)
-    }
-}
+// const deleteComentPdf = async(req, res, next)=>{
+//     try {
+//         const {id, index} = req.body;
+//         await PdfManager.deleteComent(id, index);
+//         res.status(200).send({status:'succes', message: 'Comentario borrado!'})
+//     } catch (error) {
+//         next(error)
+//     }
+// }
 
 const updatePdf = async (req, res, next) => {
     try {
@@ -140,4 +140,4 @@ const deletePdf = async (req, res, next) => {
 //     }
 // }
 
-export default { getAll, getById, createPdf, updatePdf, deletePdf, comentarPdf, deleteComentPdf, responseComent }
+export default { getAll, getById, createPdf, updatePdf, deletePdf}

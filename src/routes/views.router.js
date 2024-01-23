@@ -13,10 +13,7 @@ router.get('/audios', authToken, viewsController.audios);
 
 //PDFS POR CATEGORIA
 router.get('/category/:cat', authToken, viewsController.renderPdfByCategory);
-// router.get('/category/:cat', authToken, viewsController.withmagic);
-// router.get('/category/:cat', authToken, viewsController.roadsanity);
-// router.get('/category/:cat', authToken, viewsController.weare);
-// router.get('/category/:cat', authToken, viewsController.trues);
+
 
 //RUTAS ADMIN
 router.get('/uploadpdf', authToken, adminUser, viewsController.uploadpdf);
@@ -24,6 +21,7 @@ router.get('/uploadaudio', authToken, adminUser, viewsController.uploadaudio);
 
 
 router.get('/details/:pid', authToken, viewsController.pdfdetails);
+router.get('/audios/:aid', authToken, viewsController.getAudioById);
 router.get('/chat', noUser, viewsController.charlas);
 router.get('/sendreset', viewsController.enviarMail);
 router.get('/resetpassword/:uid', viewsController.resetPassword);

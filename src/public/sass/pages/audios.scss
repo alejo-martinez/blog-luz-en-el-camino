@@ -17,12 +17,19 @@
 .container-audios{
     display: flex;
     flex-flow: row wrap;
+    justify-content: space-around;
 }
 
 .div-audio{
-    margin: auto;
+    // margin: auto;
+    display: flex;
+    flex-flow: column nowrap;
     margin-top: 5px;
     margin-bottom: 5px;
+    width: 350px;
+    background-color: #fff;
+    padding: 4px;
+    border-radius: 6px;
     & h3 {
         text-align: center;
         color: $colorTitle;
@@ -30,7 +37,8 @@
     }
 
     & audio {
-        padding: 3px;
+        // padding: 3px;
+        margin: auto;
     }
 }
 

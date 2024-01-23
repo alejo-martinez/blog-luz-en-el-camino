@@ -4,6 +4,7 @@ import utils, { s3 } from "../utils.js";
 import path from 'path';
 import fs from 'fs';
 import config from "../config/config.js";
+import { audioModel } from "../dao/models/audio.model.js";
 
 const getAll = async (req, res, next) => {
     try {
@@ -93,5 +94,39 @@ const deleteAudio = async (req, res, next) => {
         next(error);
     }
 };
+
+// const comentarAudio = async(req, res, next)=> {
+//     try {
+//         const {pid} = req.params;
+//         const {name, text} = req.body;
+//         await AudioManager.coment(name, text, pid);
+//         res.status(200).send({status:'succes', message: 'Pdf comentado !'})
+//     } catch (error) {
+//         next(error);
+//     }
+// }
+
+// const responseComent = async(req, res, next)=>{
+//     try {
+//         const {pid, cid} = req.params;
+//         const {coment} = req.body;
+//         const comentario = {text: coment, name: 'Luz en el camino'}
+//         await AudioManager.responseComent(pid, cid, comentario);
+//         res.status(200).send({status:"succes",message:"Respuesta enviada!"});
+//     } catch (error) {
+//         next(error)
+//     }
+// }
+
+// const deleteComentAudio = async(req, res, next)=>{
+//     try {
+//         const {id, index} = req.body;
+//         console.log(id)
+//         await AudioManager.deleteComent(id, index);
+//         res.status(200).send({status:'succes', message: 'Comentario borrado!'})
+//     } catch (error) {
+//         next(error)
+//     }
+// }
 
 export default { getAll, getById, createAudio, updateAudio, deleteAudio };

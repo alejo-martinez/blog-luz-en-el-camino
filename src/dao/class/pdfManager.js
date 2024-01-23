@@ -3,7 +3,7 @@ import CustomError from "../../errors/custom.error.js";
 
 export class PdfManager {
     static async getAll() {
-        const pdfs = await pdfModel.find().lean();
+        const pdfs = await pdfModel.find().populate('comments.comment').lean();
         if (pdfs.length === 0) throw new CustomError('No data', 'No se encontraron los pdfs o no existen', 5);
         try {
             return pdfs;
@@ -13,7 +13,7 @@ export class PdfManager {
     };
 
     static async getByCategory(category){
-        const pdfs = await pdfModel.find({category: category}).lean();
+        const pdfs = await pdfModel.find({category: category}).populate('comments.comment').lean();
         if (pdfs.length === 0) return undefined;
         try {
             return pdfs;
@@ -24,7 +24,7 @@ export class PdfManager {
 
     static async getOne(prop, value) {
         try {
-            const pdf = await pdfModel.findOne({ [prop]: value }).lean();;
+            const pdf = await pdfModel.findOne({ [prop]: value }).populate('comments.comment').lean();;
             if (!pdf) return undefined;
             return pdf;
         } catch (error) {
@@ -33,7 +33,7 @@ export class PdfManager {
     }
 
     static async getById(id) {
-        const pdf = await pdfModel.findOne({ _id: id }).lean();
+        const pdf = await pdfModel.findOne({ _id: id }).populate('comments.comment').lean();
         if (!pdf) throw new CustomError('No data', 'No se encontro el pdf o no existe', 5);
         try {
             return pdf;
@@ -50,12 +50,9 @@ export class PdfManager {
         }
     };
 
-    static async coment(name, text, id){
-        if(!text) throw new CustomError('No data', 'Debes proporcionar un comentario', 2);
+    static async coment(pid, cid){
         try {
-            const date = new Date();
-            const comentario = {name: name? name:'Anónimo', coment: text, created_at: date};
-            await pdfModel.updateOne({_id: id}, {$push: {comments: comentario}});
+            await pdfModel.updateOne({_id: pid}, {$push: {comments: cid}});
         } catch (error) {
             throw new CustomError('Error desconocido', error, -999);
         }

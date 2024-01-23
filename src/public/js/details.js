@@ -12,7 +12,7 @@ const socket = io();
 let currentPage = 1;
 
 const sendComment = (name, text, id) => {
-    const data = { name: name ? name : 'Anónimo', text: text, id: id};
+    const data = { author: name, text: text, id: id, type:'pdf'};
     socket.emit('comment', data);
 }
 
@@ -72,16 +72,16 @@ const comentar = async (id) => {
 
 socket.on('comment', (data)=>{
     divComents.innerHTML += `<div class="pdf-section-coments-all">
-    <p><strong class="coment-name">${data.name}</strong>: ${data.text}
+    <p><strong class="coment-name">${data.author}</strong>: ${data.text}
     </p>
     <p class="coment-date">${data.created_at}</p>
 </div>`
 })
 
-const borrarcoment = async(index)=>{
-    const response = await fetch('/api/pdf/coment', {
+const borrarcoment = async(cid)=>{
+    const response = await fetch(`/api/coment/delete/${cid}`, {
         method:'DELETE',
-        body: JSON.stringify({id: pdfId, index: index}),
+        body: JSON.stringify({id: pdfId, type: 'pdf'}),
         headers:{
             'Content-Type':"application/json",
         }
@@ -104,16 +104,17 @@ const borrarcoment = async(index)=>{
 const abrirComent = (id)=>{
     const div = document.getElementById(`divResp${id}`);
     div.innerHTML = `<input type='text' id='inptResp${id}' />
-    <button onclick="sendResponse('${id}', '${pdfId}')">Enviar</button>`;
+    <button onclick="sendResponse('${id}')">Enviar</button>`;
     div.classList.remove('div-response');
     div.classList.add('div-response-input');
 }
 
-const sendResponse = async(cid, pid) =>{
+const sendResponse = async(cid) =>{
     const input = document.getElementById(`inptResp${cid}`);
-    const response = await fetch(`/api/pdf/coment/${pid}/${cid}`, {
-        method:'POST',
-        body:JSON.stringify({coment: input.value}),
+    const data = {text: input.value}
+    const response = await fetch(`/api/comment/update/${cid}`, {
+        method:'PUT',
+        body:JSON.stringify(data),
         headers:{
             'Content-type':'application/json'
         }
