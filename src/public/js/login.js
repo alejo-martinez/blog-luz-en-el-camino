@@ -1,6 +1,8 @@
 const btnLogin = document.getElementById('btnLogin');
 const errorFieldLogin = document.getElementById('errorfieldlogin');
 const formLogin = document.getElementById('formlogin');
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
 
 const error = 'error';
 
@@ -19,6 +21,7 @@ btnLogin.addEventListener('click', async (e)=>{
     const objeto={};
     data.forEach((value,key)=>objeto[key]=value);
     const err = 'Missing credentials';
+    const redirectParam = urlParams.get('redirect')
 
     const response = await fetch('/api/session/login', {
         method:'POST',
@@ -32,6 +35,7 @@ btnLogin.addEventListener('click', async (e)=>{
         if(json.error === err) errorFieldLogin.innerHTML = `<p>Debes proporcionar todos los datos</p>`;
         else errorFieldLogin.innerHTML = `<p>${json.error}</p>`;
     } else{
-        redireccionarAPaginaAnterior();
+        if(redirectParam && redirectParam === 'chat') window.location.href = '/chat';
+        else redireccionarAPaginaAnterior();
     }
 })

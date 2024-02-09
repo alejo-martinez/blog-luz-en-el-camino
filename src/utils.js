@@ -1,11 +1,12 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import multer, { memoryStorage } from 'multer';
+import multer from 'multer';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from './config/config.js';
 import nodemailer from 'nodemailer';
 import AWS from 'aws-sdk';
+import {S3Client} from '@aws-sdk/client-s3';
 
 
 
@@ -29,6 +30,15 @@ const isValidPassword = (user, password) => {
 }
 
 const __filename = fileURLToPath(import.meta.url);
+
+
+export const client = new S3Client({
+    region: config.awsregion,
+    credentials:{
+        accessKeyId: config.awsacceskey,
+        secretAccessKey: config.awssecretkey
+    }
+})
 
 //MULTER CONFIG
 
@@ -66,10 +76,22 @@ const audioFileFilter = (req, file, cb)=>{
 }
 
 
-
 const uploadAudio = multer({
     storage : multer.memoryStorage(),
     fileFilter: audioFileFilter
+});
+
+const videoFilter = (req, file, cb)=>{
+    if(file.mimetype === 'video/mp4' || file.mimetype === 'video/webm' || file.mimetype === 'video/quicktime'){
+        cb(null, true);
+    } else{
+        cb(new Error('El formato proporcionado para el video no es válido. Formatos aceptados: MP4, WebM o QuickTime'), false);
+    }
+}
+
+const uploadVideo = multer({
+    storage: multer.memoryStorage(),
+    fileFilter: videoFilter,
 })
 
 const transporte = nodemailer.createTransport({
@@ -91,4 +113,4 @@ const newFormDate = (date)=>{
 
 const __dirname = dirname(__filename);
 
-export default { generateToken, createHash, isValidPassword, cookieExtractor, formatDate, transporte, uploadPdf, uploadAudio, __dirname, newFormDate };
+export default { generateToken, createHash, isValidPassword, cookieExtractor, formatDate, transporte, uploadPdf, uploadAudio, uploadVideo, __dirname, newFormDate };

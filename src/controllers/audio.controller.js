@@ -4,11 +4,11 @@ import utils, { s3 } from "../utils.js";
 import path from 'path';
 import fs from 'fs';
 import config from "../config/config.js";
-import { audioModel } from "../dao/models/audio.model.js";
 
 const getAll = async (req, res, next) => {
     try {
-        const audios = await AudioManager.getAll();
+        const {page=1} = req.query;
+        const audios = await AudioManager.getAll(page);
         return res.status(200).send({ status: 'succes', payload: audios })
     } catch (error) {
         next(error);
@@ -80,53 +80,20 @@ const updateAudio = async (req, res, next) => {
 const deleteAudio = async (req, res, next) => {
     try {
         const { pid } = req.params;
-        const audio = await AudioManager.getById(pid);
-        const params = {Bucket: config.awsbucketaudios, Key: audio.key}
+        // const audio = await AudioManager.getById(pid);
+        // const params = {Bucket: config.awsbucketaudios, Key: audio.key}
         await AudioManager.delete(pid);
-        s3.deleteObject(params, (err, data)=>{
-            if(err){
-                throw new CustomError('Error en la bdd', `Error al borrar el archivo: ${err}`, 5)
-            } else {
-                res.status(200).send({ status: 'succes', message: 'Audio eliminado !' });
-            }
-        })
+        // s3.deleteObject(params, (err, data)=>{
+        //     if(err){
+        //         throw new CustomError('Error en la bdd', `Error al borrar el archivo: ${err}`, 5)
+        //     } else {
+        //         res.status(200).send({ status: 'succes', message: 'Audio eliminado !' });
+        //     }
+        // })
     } catch (error) {
         next(error);
     }
 };
 
-// const comentarAudio = async(req, res, next)=> {
-//     try {
-//         const {pid} = req.params;
-//         const {name, text} = req.body;
-//         await AudioManager.coment(name, text, pid);
-//         res.status(200).send({status:'succes', message: 'Pdf comentado !'})
-//     } catch (error) {
-//         next(error);
-//     }
-// }
-
-// const responseComent = async(req, res, next)=>{
-//     try {
-//         const {pid, cid} = req.params;
-//         const {coment} = req.body;
-//         const comentario = {text: coment, name: 'Luz en el camino'}
-//         await AudioManager.responseComent(pid, cid, comentario);
-//         res.status(200).send({status:"succes",message:"Respuesta enviada!"});
-//     } catch (error) {
-//         next(error)
-//     }
-// }
-
-// const deleteComentAudio = async(req, res, next)=>{
-//     try {
-//         const {id, index} = req.body;
-//         console.log(id)
-//         await AudioManager.deleteComent(id, index);
-//         res.status(200).send({status:'succes', message: 'Comentario borrado!'})
-//     } catch (error) {
-//         next(error)
-//     }
-// }
 
 export default { getAll, getById, createAudio, updateAudio, deleteAudio };

@@ -4,6 +4,9 @@ const errorPdf = document.getElementById('errorPdf');
 
 btnPdf.addEventListener('click', async(e)=>{
     e.preventDefault();
+    const loaderDiv = document.getElementById('loader');
+    loaderDiv.classList.remove('loader-container');
+    loaderDiv.classList.add('loading');
     const formData = new FormData(formPdf);
 
     const response = await fetch('/api/pdf', {
@@ -12,13 +15,16 @@ btnPdf.addEventListener('click', async(e)=>{
     })
     const json = await response.json();
     if(json.status === 'succes'){
+        loaderDiv.classList.remove('loading');
+        loaderDiv.classList.add('loader-container');
         Toastify({
             text: json.message,
             duration: 3000,
             }).showToast();
         
     } else{
-        errorPdf.innerHTML = `<span>${json.error}</span>`;
+        // errorPdf.innerHTML = `<span>${json.error}</span>`;
+        console.log(error);
     }
 })
 

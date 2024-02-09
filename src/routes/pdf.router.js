@@ -13,6 +13,7 @@ router.get('/:pid', pdfController.getById);
 // router.post('/:pid', pdfController.comentarPdf);
 router.put('/:pid', authToken, adminUser, utils.uploadPdf.single('file'), pdfController.updatePdf);
 router.delete('/:pid', authToken, adminUser, pdfController.deletePdf);
+// router.put('/updatedate/:id', pdfController.updateDate);
 // router.post('/coment/:pid/:cid', authToken, adminUser, pdfController.responseComent);
 
 

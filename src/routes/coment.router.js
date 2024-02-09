@@ -6,6 +6,7 @@ const router = Router();
 
 router.post('/create', comentController.createComent);
 router.put('/update/:cid', authToken, adminUser, comentController.responseComent);
+
 router.delete('/delete/:cid', authToken, adminUser, comentController.deleteComent);
 
 export default router;

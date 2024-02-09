@@ -1,4 +1,27 @@
-<div>
+<div class="body-pdf-category">
+        <div class="div-paginate-pages">
+            {{#if hasPrevPage}}
+            <a href="/category/{{cat}}?page={{prevPage}}"><i class="fa-solid fa-chevron-left"></i></a>
+            {{/if}}
+            {{#if backPages}}
+            <div class="pages">
+            {{#each backPages}}
+            <a href="/category/{{../cat}}?page={{this}}">{{this}}</a>
+            {{/each}}
+            </div>
+            {{/if}}
+            <span>{{page}}</span>
+            {{#if nextPages}}
+            <div class="pages">
+            {{#each nextPages}}
+            <a href="/category/{{../cat}}?page={{this}}">{{this}}</a>
+            {{/each}}
+            </div>
+            {{/if}}
+            {{#if hasNextPage}}
+            <a href="/category/{{cat}}?page={{nextPage}}"><i class="fa-solid fa-chevron-right"></i></a>
+            {{/if}}
+        </div>
     <div class="pdf-section">
         {{#if escritos}}
         <div class="pdf-section-show">
@@ -6,7 +29,7 @@
             <div class="pdf-section-each">
                 <div class="pdf-section-each-header">
                     <h5>{{this.title}}</h5>
-                    <p><a class="" href="/details/{{this._id}}">Ver pdf <i class="bi bi-filetype-pdf"></i></a></p>
+                    <p><a class="" href="/details/pdf/{{this._id}}">Ver pdf <i class="bi bi-filetype-pdf"></i></a></p>
                 </div>
                 {{#if this.comments}}
                 <div class="div-pdf-coments">

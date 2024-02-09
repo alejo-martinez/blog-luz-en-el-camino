@@ -55,3 +55,47 @@
         color: red;
     }
 }
+
+.div-paginate-pages{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 258px;
+    align-self: center;
+    margin: 3rem 0;
+
+
+    & a{
+        // font-weight: bold;
+        color: #594270;
+        border: 1px solid #2e004d2c;
+        padding: 4px;
+        margin: 0 4px;
+        // background-color: #fff;
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        border-radius: 3px;
+        transition: all 0.3s;
+
+        &:hover{
+            font-weight: bold;
+            border: 1px solid black;
+        }
+    }
+
+    & span{
+        font-weight: bold;
+        color: #5942708e;
+        margin: 0 1.5rem;
+    }
+}
+
+.pages{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    width: fit-content;
+    max-width: 30%;
+}

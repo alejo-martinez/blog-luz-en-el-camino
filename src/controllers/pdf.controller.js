@@ -1,4 +1,4 @@
-import utils,{s3} from "../utils.js";
+import utils, { s3 } from "../utils.js";
 import path from 'path';
 import fs from 'fs';
 import { PdfManager } from "../dao/class/pdfManager.js";
@@ -52,39 +52,6 @@ const createPdf = async (req, res, next) => {
     }
 }
 
-// const comentarPdf = async(req, res, next)=> {
-//     try {
-//         const {pid} = req.params;
-//         const {name, text} = req.body;
-//         await PdfManager.coment(name, text, pid);
-//         res.status(200).send({status:'succes', message: 'Pdf comentado !'})
-//     } catch (error) {
-//         next(error);
-//     }
-// }
-
-// const responseComent = async(req, res, next)=>{
-//     try {
-//         const {pid, cid} = req.params;
-//         const {coment} = req.body;
-//         const comentario = {text: coment, name: 'Luz en el camino'}
-//         await PdfManager.responseComent(pid, cid, comentario);
-//         res.status(200).send({status:"succes",message:"Respuesta enviada!"});
-//     } catch (error) {
-//         next(error)
-//     }
-// }
-
-// const deleteComentPdf = async(req, res, next)=>{
-//     try {
-//         const {id, index} = req.body;
-//         await PdfManager.deleteComent(id, index);
-//         res.status(200).send({status:'succes', message: 'Comentario borrado!'})
-//     } catch (error) {
-//         next(error)
-//     }
-// }
-
 const updatePdf = async (req, res, next) => {
     try {
         const { pid } = req.params;
@@ -92,15 +59,15 @@ const updatePdf = async (req, res, next) => {
         let updatedFields = [];
         if (title) {
             await PdfManager.update(pid, 'title', title);
-            updatedFields.push(`Título actualizado en: ${title}`) ;
+            updatedFields.push(`Título actualizado en: ${title}`);
         }
         if (category) {
             await PdfManager.update(pid, 'category', category);;
-            updatedFields.push(`Categoría actualizada en: ${category}`)  
+            updatedFields.push(`Categoría actualizada en: ${category}`)
         }
-        if(!title && !category) throw new CustomError('Faltan argumentos', 'Debes actualizar algun campo', 2);
+        if (!title && !category) throw new CustomError('Faltan argumentos', 'Debes actualizar algun campo', 2);
         let fieldsReponse = updatedFields.join(', ');
-        return res.status(200).send({status:'succes', message: updatedFields.length > 1? `Campos actualizados: ${fieldsReponse}`: fieldsReponse});
+        return res.status(200).send({ status: 'succes', message: updatedFields.length > 1 ? `Campos actualizados: ${fieldsReponse}` : fieldsReponse });
     } catch (error) {
         next(error)
     }
@@ -109,35 +76,22 @@ const updatePdf = async (req, res, next) => {
 const deletePdf = async (req, res, next) => {
     try {
         const { pid } = req.params;
-        const pdf = await PdfManager.getById(pid);
-        const params = {Bucket: config.awsbucketpdfs, Key: pdf.key}
+        // const pdf = await PdfManager.getById(pid);
+        // const params = { Bucket: config.awsbucketpdfs, Key: pdf.key }
         await PdfManager.delete(pid);
-        s3.deleteObject(params, (err, data)=>{
-            if(err){
-                throw new CustomError('Error en la bdd', `Error al borrar el archivo: ${err}`, 5)
-            } else {
-                res.status(200).send({ status: 'succes', message: 'Audio eliminado !' });
-            }
-        })
+        // s3.deleteObject(params, (err, data) => {
+        //     if (err) {
+        //         throw new CustomError('Error en la bdd', `Error al borrar el archivo: ${err}`, 5)
+        //     } else {
+        //         res.status(200).send({ status: 'succes', message: 'Pdf eliminado !' });
+        //     }
+        // })
         res.status(200).send({ status: 'succes', message: 'Pdf eliminado con éxito !' });
     } catch (error) {
         next(error)
     }
 }
 
-// const fastUpdate = async(req, res, next)=>{
-//     console.log('entro')
-//     try {
-//         const {body} = req.body;
-//         console.log(body)
-//         await pdfModel.updateMany({category: 'camino de la sanacion'}, {$set:{category: 'el-camino-de-la-sanacion'}});
-//         await pdfModel.updateMany({category: 'escritos con magia'}, {$set:{category: 'escritos-con-magia'}})
-//         await pdfModel.updateMany({category: 'lo que somos'}, {$set:{category: 'lo-que-somos'}})
-//         await pdfModel.updateMany({category: 'nobles verdades'}, {$set:{category: 'nobles-verdades'}})
-//         res.status(200).send({status:'succes', message:'updated'})
-//     } catch (error) {
-//         next(error)
-//     }
-// }
+
 
 export default { getAll, getById, createPdf, updatePdf, deletePdf}

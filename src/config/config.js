@@ -15,5 +15,7 @@ export default {
     awssecretkey: process.env.AWS_SECRET_ACCESS_KEY,
     awsbucketaudios: process.env.AWS_BUCKET_AUDIO,
     awsbucketpdfs: process.env.AWS_BUCKET_PDF,
-    awsregion: process.env.AWS_REGION
+    awsbucketvideos: process.env.AWS_BUCKET_VIDEO,
+    awsregion: process.env.AWS_REGION,
+    adminId: process.env.USER_ID,
 }

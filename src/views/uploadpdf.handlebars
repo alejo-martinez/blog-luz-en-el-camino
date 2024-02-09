@@ -1,5 +1,5 @@
 <div>
-        {{> navbar adminUser=adminUser userlogued=userlogued}}
+    {{> navbar admin=admin userlogued=user}}
     <div class="div-uploadpdf">
         <h3>Subir pdf</h3>
         <form class="form-upload" id="formPdf">
@@ -17,12 +17,19 @@
             <input type="file" name="file">
         </form>
         <button id="btnPdf" class="btnuploadpdf">Subir pdf</button>
+        <div class="loader-container" id="loader">
+            <div class="loader"></div>
+        </div>
         <div id="errorPdf" class="errorpdf"></div>
     </div>
 
     <div class="panel-delete">
         <div class="div-delete">
             <h2>Eliminar pdf</h2>
+            <div class="body-pdf-category">
+                {{> pagination hasPrevPage=hasPrevPage hasNextPage=hasNextPage prevPage=prevPage nextPage=nextPage
+                backPages=backPages nextPages=nextPages pages=pages}}
+            </div>
             {{#each pdfs}}
             <div class="div-delete-pdf">
                 <p>{{this.title}}</p>

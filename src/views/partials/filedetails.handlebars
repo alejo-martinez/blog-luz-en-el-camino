@@ -1,0 +1,42 @@
+{{#if pdf}}
+<div class="div-btnsnav-pdf">
+    <button id="prev-page" class="btn-pdf-nav"><i class="bi bi-arrow-left"></i></button>
+    <div>
+        <canvas id="pdf-viewer" class="book"></canvas>
+        <div class="div-download">
+            <p><a class="panel-user-link" href="{{dataFile.path}}">Descargar</a></p>
+        </div>
+    </div>
+    <button id="next-page" class="btn-pdf-nav"><i class="bi bi-arrow-right"></i></button>
+</div>
+
+<div id="pdf-error-message" class="pdf-error-message">
+    Tu navegador no puede mostrar este PDF. Puedes <a class="panel-user-link" href="{{dataFile.path}}">descargarlo
+        aquí.</a>.
+</div>
+{{/if}}
+
+{{#if audio}}
+<div class="div-btnsnav-pdf">
+    <div>
+        <audio controls>
+            <source src="{{dataFile.path}}">Tu navegador no soporta el audio, descargalo acá: <a
+                href="{{dataFile.path}}">Descargar</a>
+        </audio>
+    </div>
+</div>
+
+<div id="pdf-error-message" class="pdf-error-message">
+    Tu navegador no puede mostrar este Audio. Puedes <a class="panel-user-link" href="{{dataFile.path}}">descargarlo
+        aquí.</a>.
+</div>
+{{/if}}
+
+{{#if video}}
+<div>
+    <video width="700" height="550" controls>
+        <source src="{{dataFile.path}}" type="video/mp4">
+        Tu navegador no soporta la reproducción de este video, descargalo aquí: <a href="{{video.path}}">Descargar</a>
+    </video>
+</div>
+{{/if}}

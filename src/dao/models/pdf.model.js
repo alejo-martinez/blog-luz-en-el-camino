@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const collection = 'pdf';
 
@@ -16,5 +17,7 @@ const schema = new mongoose.Schema({
 
     key: String
 });
+
+schema.plugin(mongoosePaginate);
 
 export const pdfModel = mongoose.model(collection, schema);

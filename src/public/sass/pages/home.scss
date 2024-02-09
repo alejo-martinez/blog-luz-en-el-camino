@@ -1,3 +1,10 @@
+@import 'animations/animations';
+
+.body-home{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
 .panel-user {
     background-color: #f9f9f9;
     padding: 3px;
@@ -6,15 +13,45 @@
     &-link {
         color: $colorLinks;
         transition: all 0.3s;
-        &:hover{
+
+        &:hover {
             color: $colorLinksHover;
         }
     }
 }
 
+.icon-chat{
+    font-size: 30px;
+    text-align: center;
+    color: #594270;
+}
+
 .div-parrafo-pdf {
+    display: flex;
+    flex-flow: column nowrap;
     margin-top: 4rem;
     margin-bottom: 2rem;
+
+    &-chat {
+        display: flex;
+        flex-flow: column nowrap;
+        align-self: flex-end;
+
+        bottom: 10px;
+        right: 10px;
+
+        margin-right: 7px;
+        position: fixed;
+        animation: heartbeat 2.5s infinite;
+
+
+        & span {
+        font-size: 14px;
+        background-color: #fff;
+        padding: 4px;
+        border-radius: 6px;
+        }
+    }
 }
 
 .parrafo {
@@ -39,6 +76,7 @@
 
     &-pdf {
         text-align: center;
+        grid-area: texto;
     }
 }
 
@@ -51,7 +89,7 @@
 .div-footer {
     text-align: center;
 
-    & img{
+    & img {
         object-fit: contain;
     }
 }

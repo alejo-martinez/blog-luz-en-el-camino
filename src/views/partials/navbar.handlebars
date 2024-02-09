@@ -5,62 +5,76 @@
 </div>
 <nav class="nav" id="navMenu">
     <ul class="navbuttons">
-        <div class="navbuttons-bar">
-            {{#if adminUser}}
-            <li>
-                <button class="btnnav" onclick="navegar('/uploadpdf')"><a href="/uploadpdf" class="btnnav-a">Subir
-                        pdf</a></button>
-            </li>
-            <li>
-                <button class="btnnav" onclick="navegar('/uploadaudio')"><a href="/uploadaudio" class="btnnav-a">Subir
-                        audio</a></button>
-            </li>
-            {{/if}}
-            <li>
-                <button class="btnnav" onclick="navegar('/')"><a href="/" class="btnnav-a">Inicio</a></button>
-            </li>
-            <li>
-                <button class="btnnav" onclick="navegar('/book')">
+        <div class="navbuttons-header">
+            <div class="navbuttons-bar">
+                <li class="navbuttons-li">
+                    <a href="/" class="btnnav-a">Inicio</a>
+                </li>
+                <li class="navbuttons-li">
                     <a href="/book" class="btnnav-a">Libro</a>
-                </button>
-            </li>
-            <li class="dropdown">
-                <button class="dropdown-button">Escritos del alma</button>
-                <ul class="dropdown-content">
-                    <li><a href="/category/escritos-con-magia">Escritos con magia</a></li>
-                    <li><a href="/category/el-camino-de-la-sanacion">El camino de la sanación</a></li>
-                    <li><a href="/category/lo-que-somos">Lo que somos</a></li>
-                    <li><a href="/category/nobles-verdades">Nobles verdades</a></li>
-                </ul>
-            </li>
-            <li>
-                <button class="btnnav" onclick="navegar('/audios')"><a href="/audios"
-                        class="btnnav-a">Audios</a></button>
-            </li>
-            <li>
-                <button class="btnnav" onclick="navegar('/videos')"><a href="/videos"
-                        class="btnnav-a">Videos</a></button>
-            </li>
-            <li>
-                <button class="btnnav" onclick="navegar('/chat')"><a href="/chat" class="btnnav-a">Chat</a></button>
-            </li>
-        </div>
-        {{#if userlogued}}
-        <div>
-            <li>
-                <div class="panel-user">
-                    <span>{{userlogued.name}}</span>
-                    <button onclick="logout()"><i class="bi bi-box-arrow-left"></i></button>
-                </div>
-            </li>
-        </div>
-        {{else}}
-        <li>
-            <div class="panel-user">
-                <a class="panel-user-link" href="/login">Iniciar sesión</a>
-                <a class="panel-user-link" href="/register">Registrarse</a>
+                </li>
+                <li class="dropdown navbuttons-li">
+                    <button class="dropdown-button">Escritos del alma</button>
+                    <ul class="dropdown-content">
+                        <li><a href="/category/escritos-con-magia">Escritos con magia</a></li>
+                        <li><a href="/category/el-camino-de-la-sanacion">El camino de la sanación</a></li>
+                        <li><a href="/category/lo-que-somos">Lo que somos</a></li>
+                        <li><a href="/category/nobles-verdades">Nobles verdades</a></li>
+                    </ul>
+                </li>
+                <li class="navbuttons-li">
+
+                    <a href="/audios" class="btnnav-a">Audios</a>
+
+                </li>
+                <li class="navbuttons-li">
+
+                    <a href="/videos" class="btnnav-a">Videos</a>
+
+                </li>
+                {{#if admin}}
+                <li class="navbuttons-li">
+
+                    <a href="/uploadpdf" class="btnnav-a">Subir
+                        pdf</a>
+
+                </li>
+                <li class="navbuttons-li">
+
+                    <a href="/uploadaudio" class="btnnav-a">Subir
+                        audio</a>
+
+                </li>
+                <li class="navbuttons-li">
+
+                    <a href="/uploadvideo" class="btnnav-a">Subir
+                        video</a>
+
+                </li>
+                {{/if}}
             </div>
-        </li>
-        {{/if}}
+            <div>
+                {{#if userlogued}}
+                <div class="panel-user">
+                    <span>Hola {{userlogued.name}} !</span>
+
+                    <button onclick="logout()">Cerrar sesión</button>
+                </div>
+                {{else}}
+                <li>
+                    <div class="panel-user">
+                        <a class="panel-user-link" href="/login">Iniciar sesión</a>
+                        <a class="panel-user-link" href="/register">Registrarse</a>
+                    </div>
+                </li>
+                {{/if}}
+            </div>
+
+        </div>
+        <div class="div-ig">
+            <a href="https://www.instagram.com/luzen_elcamino/?igsh=MTczYm4wNWo4bHZkNQ%3D%3D"><i
+                    class="bi bi-instagram"></i></a>
+        </div>
+
     </ul>
 </nav>

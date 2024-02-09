@@ -2,6 +2,7 @@ import { ComentManager } from "../dao/class/comentManager.js";
 import { PdfManager } from "../dao/class/pdfManager.js";
 import { AudioManager } from "../dao/class/audioManager.js";
 import { CommentDTO } from "../dto/comment.DTO.js";
+import { comentModel } from "../dao/models/coment.model.js";
 
 
 const getComentById = async(req, res, next)=>{
@@ -50,6 +51,7 @@ const deleteComent = async(req, res, next)=>{
         next(error);
     }
 }
+
 
 // const createAudioComent = async(req, res, next)=>{
 //     try {

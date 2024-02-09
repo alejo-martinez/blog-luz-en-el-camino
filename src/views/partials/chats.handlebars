@@ -1,0 +1,46 @@
+<div class="div-all-chats {{#if client}} hidden" {{/if}} id="divAllChats">
+
+    {{#if usersChatsFiltered}}
+    {{#each usersChatsFiltered}}
+    <div class="div-chats-users">
+        <div class="div-chats-users-header" id="divChat{{this._id}}">
+            <h3>Conversación con {{this.name}}</h3>
+            <div class="div-btn-close-chat">
+            <button class="hidden btn-close-chat" id="cross{{this._id}}" {{#if ../admin}}
+                onclick="closeConversation(event, '{{this._id}}', true)" {{else}}
+                onclick="closeConversation(event, '{{this._id}}', false)" {{/if}}>
+                {{!-- <i class="bi bi-x-lg"></i> --}}
+                Cerrar
+            </button>
+            </div>
+        </div>
+        <div class="hidden div-msgs" id="chat{{this._id}}">
+            {{#each this.chat}}
+            <div class="div-chats-user-all" id="msg{{this.message._id}}">
+                {{#if ../../admin}}
+                <button class="btn-delete-msg" onclick="deleteMsg(event, '{{this.message._id}}', '{{../this._id}}')"><i
+                        class="bi bi-x-lg"></i></button>
+                {{/if}}
+                <p><strong class="coment-name">{{this.message.sender}}</strong>: {{this.message.text}}
+                </p>
+                <p class="coment-date">{{this.message.created_at}}</p>
+            </div>
+            {{/each}}
+        </div>
+        <button class="btn-show-conversation" {{#if ../admin}} onclick="showConversation(event, '{{this._id}}', true)"
+            {{else}} onclick="showConversation(event, '{{this._id}}', false)" {{/if}} id="btnShow{{this._id}}">Ver
+            conversación</button>
+        {{#if ../admin}}
+        <div class="div-form-chat hidden" id="divFormChat{{this._id}}" data-user="{{user._id}}"
+            data-name="{{user.name}}">
+            <input type="text" name="text" id="message{{this._id}}" placeholder="Mensaje...." />
+            <button id="btnmsg" class="btn-msg"
+                onclick="respuestaAdmin(event, '{{../user._id}}', '{{this._id}}')">Enviar</button>
+        </div>
+        {{/if}}
+    </div>
+    {{/each}}
+    {{else}}
+    <p>Todavía no hay otras conversaciones !</p>
+    {{/if}}
+</div>

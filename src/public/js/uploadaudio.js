@@ -4,6 +4,9 @@ const erroraudio = document.getElementById('erroraudio');
 
 btnaudio.addEventListener('click', async(e)=>{
     e.preventDefault();
+    const loaderDiv = document.getElementById('loader');
+    loaderDiv.classList.remove('loader-container');
+    loaderDiv.classList.add('loading');
     const formData = new FormData(formaudio);
 
     const response = await fetch('/api/audio', {
@@ -13,6 +16,8 @@ btnaudio.addEventListener('click', async(e)=>{
     const json = await response.json();
     console.log(json);
     if(json.status === 'succes'){
+        loaderDiv.classList.remove('loading');
+        loaderDiv.classList.add('loader-container');
         Toastify({
             text: json.message,
             duration: 3000,

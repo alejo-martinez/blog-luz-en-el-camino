@@ -6,7 +6,7 @@ const schema = new mongoose.Schema({
     text: { type: String, required: true },
     author: { type: String, default: 'Anónimo'},
     response: String,
-    created_at: String
+    created_at: Date
 })
 
 export const comentModel = mongoose.model(collection, schema);

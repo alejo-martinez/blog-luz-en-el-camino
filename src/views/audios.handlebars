@@ -1,10 +1,5 @@
 <div>
-    {{!-- <div class="nav-hamburger" id="navHamburger">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div> --}}
-    {{> navbar adminUser=adminUser userlogued=userlogued}}
+    {{> navbar admin=admin userlogued=userlogued}}
     <div class="div-audios">
         <div class="div-img">
             <img src="/static/images/mandalavioleta.webp" class="img-seccion" alt="Mandala violeta">
@@ -15,6 +10,7 @@
                 poco las
                 propias. Hay meditaciones que te guían para activar tu luz y fortaleza.</p>
         </div>
+        {{> pagination hasPrevPage=hasPrevPage hasNextPage=hasNextPage prevPage=prevPage nextPage=nextPage backPages=backPages nextPages=nextPages pages=pages}}
         <div class="container-audios">
             {{#if audios}}
             {{#each audios}}
@@ -28,9 +24,9 @@
                 <div class="div-pdf-coments">
                     {{#each this.comments}}
                     <div class="pdf-section-coments">
-                        <p class="p-coment"><strong class="coment-name">{{this.name}}</strong>: {{this.coment}}
+                        <p class="p-coment"><strong class="coment-name">{{this.comment.author}}</strong>: {{this.comment.text}}
                         </p>
-                        <p class="coment-date">{{this.created_at}}</p>
+                        <p class="coment-date">{{this.comment.created_at}}</p>
                     </div>
                     {{/each}}
                 </div>
@@ -40,7 +36,7 @@
                 </div>
                 {{/if}}
                 <div class="btn-coment" id="audio{{this._id}}">
-                    <a href="/audios/{{this._id}}">Ir a comentar</a>
+                    <a href="/details/audio/{{this._id}}">Ir a comentar</a>
                 </div>
             </div>
             {{/each}}
@@ -52,5 +48,7 @@
         </div>
     </div>
 </div>
+
+{{> chatbtn}}
 
 <script src="/js/audios.js"></script>

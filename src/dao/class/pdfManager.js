@@ -1,22 +1,24 @@
 import { pdfModel } from "../models/pdf.model.js";
 import CustomError from "../../errors/custom.error.js";
+import { comentModel } from "../models/coment.model.js";
 
 export class PdfManager {
-    static async getAll() {
-        const pdfs = await pdfModel.find().populate('comments.comment').lean();
-        if (pdfs.length === 0) throw new CustomError('No data', 'No se encontraron los pdfs o no existen', 5);
+    static async getAll(page) {
+        const {docs, hasPrevPage, hasNextPage, prevPage, nextPage, totalPages} = await pdfModel.paginate({}, {lean: true, page, limit: 12});
+        // if (pdfs.length === 0) throw new CustomError('No data', 'No se encontraron los pdfs o no existen', 5);
         try {
-            return pdfs;
+            return {docs, hasPrevPage, hasNextPage, prevPage, nextPage, totalPages, page: page};
         } catch (error) {
             throw new CustomError('Error desconocido', error, -999);
         }
     };
 
-    static async getByCategory(category){
-        const pdfs = await pdfModel.find({category: category}).populate('comments.comment').lean();
-        if (pdfs.length === 0) return undefined;
+    static async getByCategory(category, page){
+        const {docs, hasPrevPage, hasNextPage, prevPage, nextPage, totalPages} = await pdfModel.paginate({category: category}, {limit: 6, page, lean: true, populate:'comments.comment'});
+        // if (pdfs.length === 0) return undefined;
+        const pdfs = docs;
         try {
-            return pdfs;
+            return {pdfs, page: page, hasPrevPage,  hasNextPage, prevPage, nextPage, totalPages};
         } catch (error) {
             throw new CustomError('Error desconocido', error, -999);
         }
@@ -50,9 +52,10 @@ export class PdfManager {
         }
     };
 
-    static async coment(pid, cid){
+    static async coment(pid, coment){
         try {
-            await pdfModel.updateOne({_id: pid}, {$push: {comments: cid}});
+            const comentario = await comentModel.create(coment);
+            await pdfModel.updateOne({_id: pid}, {$push: {comments: {comment: comentario._id}}});
         } catch (error) {
             throw new CustomError('Error desconocido', error, -999);
         }

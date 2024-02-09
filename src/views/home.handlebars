@@ -1,19 +1,17 @@
-<div>
+<div class="body-home">
     <div class="div"><img src="static/images/cieloatardecer.webp" alt="atardecer" height="150" class="div-imgnav"></div>
-    {{!-- <div class="nav-hamburger" id="navHamburger">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div> --}}
+    {{> navbar admin=admin userlogued=userLogued}}
 
-    {{> navbar adminUser=adminUser userlogued=userlogued}}
-    
+
     <h1>Luz en el camino</h1>
     <div class="div-parrafo-pdf">
-        <p class="parrafo-pdf">El inicio del camino... <a class="panel-user-link"
-                href="https://luzenelcaminopdfs.s3.us-east-2.amazonaws.com/La+noche+oscura.pdf">La noche oscura <i
-                    class="bi bi-filetype-pdf"></i></a>
-        </p>
+
+        <div class="div-parrafo-pdf-texto">
+            <p class="parrafo-pdf">El inicio del camino... <a class="panel-user-link"
+                    href="https://luzenelcaminopdfs.s3.us-east-2.amazonaws.com/La+noche+oscura.pdf">La noche oscura <i
+                        class="bi bi-filetype-pdf"></i></a>
+            </p>
+        </div>
     </div>
     <div class="parrafo" id="texto-container">
         <p class="parrafo-principal" id="texto">Esta página es un espacio que nace de mi corazón, son mis palabras, las
@@ -26,6 +24,8 @@
     </div>
 
     <div class="div-footer"><img src="static/images/piespiedras.webp" width="200" height="150" alt=""></div>
-</div>
 
-{{> footer}}
+</div>
+{{> chatbtn}}
+
+{{!-- {{> footer}} --}}

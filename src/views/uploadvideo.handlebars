@@ -1,35 +1,37 @@
 <div>
     {{> navbar admin=admin userlogued=user}}
     <div class="div-uploadpdf">
-        <h3>Subir audio</h3>
-        <form class="form-upload" id="formAudio">
+        <h3>Subir video</h3>
+        <form class="form-upload" id="formVideo">
             <label>Título:</label>
             <input type="text" name="title">
-            <label>Audio:</label>
+            <label>Video:</label>
             <input type="file" name="file">
         </form>
-        <button id="btnaudio" class="btnuploadaudio">Subir audio</button>
-                <div class="loader-container" id="loader">
+        <button id="btnvideo" class="btnuploadaudio">Subir video</button>
+        <div class="loader-container" id="loader">
             <div class="loader"></div>
         </div>
-        <div id="erroraudio" class="erroraudio"></div>
+        <div id="errorvideo" class="erroraudio"></div>
     </div>
+    {{#if videos}}
     <div class="panel-delete">
         <div class="div-delete">
-            <h2>Eliminar audio</h2>
+            <h2>Eliminar video</h2>
             <div class="body-pdf-category">
                 {{> pagination hasPrevPage=hasPrevPage hasNextPage=hasNextPage prevPage=prevPage nextPage=nextPage
                 backPages=backPages nextPages=nextPages pages=pages}}
             </div>
-            {{#each audios}}
+            {{#each videos}}
             <div class="div-delete-pdf">
                 <p>{{this.title}}</p>
-                <button class="btn-delete-pdf" onclick="borraraudio('{{this._id}}')"><i
+                <button class="btn-delete-pdf" onclick="borrarvideo('{{this._id}}', event)"><i
                         class="bi bi-x-circle"></i></button>
             </div>
             {{/each}}
         </div>
     </div>
+    {{/if}}
 </div>
 
-<script src="/js/uploadaudio.js"></script>
+<script src="/js/uploadfiles.js"></script>

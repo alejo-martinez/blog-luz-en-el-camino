@@ -1,7 +1,7 @@
 .div-chats {
-    display: grid;
-    grid-template-columns: 30% 70%;
-    margin: 8px;
+    display: flex;
+    flex-flow: column nowrap;
+    // margin: 8px;
 
     &-admin {
         display: flex;
@@ -9,23 +9,80 @@
     }
 
     &-form{
+        // margin: auto;
+        // margin-right: 2rem;
+        width: 97%;
         margin: auto;
-        margin-right: 2rem;
+        // border: 2px solid black;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        background-color: rgb(89, 66, 112);
+
+        & h3{
+            text-align: center;
+            margin-top: 5px;
+            color: rgba(255, 255, 255, 0.829);
+        }
+
     }
 
     &-users{
         display: flex;
         flex-flow: column nowrap;
-        margin: 0 8px;
-        width: 400px;
-        height: 300px;
-        background-color: #f3f3f3;
-        padding: 4px;
-        border-radius: 7px;
+        background-color: #594270;
+        // text-align: justify;
+        // background-color: #f1f0f0d3;
+        width: 500px;
+        height: fit-content;
+        max-height: 500px;
         overflow: auto;
+        padding: 3px;
+        border-radius: 5px;
+        
+        &::-webkit-scrollbar {
+            width: 7px;
+            // margin: 4px;
+        }
+        
+        &::-webkit-scrollbar-thumb{
+            // margin-right: 3px;
+            padding: 3px;
+            border-radius: 4px;
+            background: #faf6f6b6;
+        }
 
-        & h2{
+        &-header{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            justify-items: center;
+            align-items: center;
+            // flex-direction:row-reverse;
+            width: 100%;
 
+            & h3{
+                text-align: center;
+                color: rgba(255, 255, 255, 0.829);;
+            }
+
+            & button{
+                align-self: flex-end;
+                border: none;
+                padding: 0;
+                background-color: transparent;
+                // margin: auto;
+                align-self: flex-end;
+
+                &:hover{
+                    cursor: pointer;
+                }
+                & i{
+                    font-weight: bold;
+                    font-size: 130%;
+                    color: red;
+                    align-self: flex-end;
+                }
+            }
         }
 
         &-admin {
@@ -44,31 +101,79 @@
         text-align: justify;
         background-color: #f1f0f0d3;
         padding: 3px;
-        border-radius: 5px;
-        margin: auto;
-        margin-top: 4px;
-        margin-bottom: 4px;
         white-space: normal;
+        transition: all 0.3s;
+
+        &:hover{
+            box-shadow: inset -6px -6px 16px rgba(7, 17, 27, .1);
+        }
+
+        & div{
+            display: flex;
+            flex-flow: row wrap;
+            & strong{
+                color: rgb(89, 66, 112);
+                text-transform: capitalize;
+            }
+        }
+
 
         &-all {
-            text-align: justify;
-            background-color: #ccc;
+            display: flex;
+            flex-flow: column nowrap;
+            // text-align: justify;
+            background-color: #f1f0f0d3;
             padding: 3px;
-            border-radius: 5px;
-            margin: auto;
-            margin-top: 4px;
-            margin-bottom: 4px;
             white-space: normal;
-            width: 80%;
+            transition: all 0.3s;
+            // margin: auto;
+            width: 100%;
             font-size: 90%;
+
+            &:hover{
+                box-shadow: inset -6px -6px 16px rgba(7, 17, 27, .1);
+            }
+
+            & strong{
+                text-transform: capitalize;
+                color: #594270;
+            }
         }
     }
+}
+
+.div-each-msg{
+    display: flex;
+    flex-flow: column nowrap;
+    height: fit-content;
+    max-height: 350px;
+    overflow: auto;
+    padding: 8px;
+
+    &::-webkit-scrollbar {
+        width: 7px;
+    }
+    
+    &::-webkit-scrollbar-thumb{
+        // margin-right: 3px;
+        border-radius: 4px;
+        background: #faf6f6b6;
+    }
+}
+
+.div-no-msgs{
+    margin: auto;
 }
 
 .div-all-chats {
     display: flex;
     flex-flow: row wrap;
-    justify-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    // justify-items: center;
+    margin-top: 12px;
+    // margin: auto;
+    // width: 70%;
 
     &-admin {
         width: 30%;
@@ -80,10 +185,18 @@
 }
 
 .div-form-chat {
-    background-color: #f1eded;
-    padding: 3px;
-    width: fit-content;
-    border-radius: 9px;
+    background-color: #efc4f3e1;
+    margin-top: 8px;
+    // border: 2px solid rgba(255, 255, 255, 0.911);
+    padding: 5px;
+    width: 100%;
+    // border-radius: 9px;
+    & input{
+        width: 90%;
+        padding: 4px;
+        border-radius: 3px;
+        border: none;
+    }
 
     &-admin {
         width: fit-content;
@@ -97,10 +210,11 @@
 
 .btn-msg{
     border: none;
-    padding: 4px;
+    padding: 2px;
     background-color: #361bd1;
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 3px;
+    width: fit-content;
 
     &:hover{
         cursor: pointer;
@@ -121,13 +235,75 @@
     margin: auto;
   }
   
-  .cruz-roja {
-    font-size: 20px;
-    font-weight: bold;
-  }
+//   .cruz-roja {
+//     font-size: 20px;
+//     font-weight: bold;
+//   }
 
   .titlename {
     text-align: justify;
     font-family: 'Playfair Display', serif;
     font-size: 98%;
   }
+
+  .hidden{
+    display: none;
+  }
+
+  .btn-show-conversation{
+    width: fit-content;
+    margin: auto;
+    border: none;
+    padding: 0;
+    margin-top: 4px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: transparent;
+    text-align: center;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.div-btns-showcontent{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 2rem;
+}
+
+.btn-chat{
+    border: none;
+    padding: 8px;
+    border-radius: 3px;
+    background-color: #391a58;
+    color: #f1eded;
+
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.btn-pressed{
+    background-color: #391a586c;
+}
+
+.btn-delete-msg{
+    border: none;
+    background-color: transparent;
+    align-self: flex-end;
+    & i{
+        color: red;
+    }
+
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.btn-close-chat{
+    color: rgb(236, 109, 109);
+    font-weight: bold;
+
+}

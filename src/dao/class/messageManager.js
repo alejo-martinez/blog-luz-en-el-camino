@@ -1,42 +1,33 @@
 import { messageModel } from "../models/message.model.js";
-import CustomError from "../../errors/custom.error.js";
+import { userModel } from "../models/user.model.js";
+import utils from "../../utils.js";
+import config from "../../config/config.js";
 
 export class MessageManager {
-    static async get(id) {
-        try {
-            const coments = await messageModel.find({ pdf: id });
-            return coments;
-        } catch (error) {
-            throw new CustomError('Error desconocido', error, -999);
-        }
+    static async getUserChat(uid){
+        const messages = await messageModel.find({sender: uid}).populate('sender').lean();
+        messages.forEach(msg =>{
+            msg.created_at = utils.formatDate(msg.created_at);
+        })
+        return messages;
     }
 
-    static async getLastPdfComents(id) {
-        const latestComents = await messageModel.find({ pdf: id }).sort({ created_at: -1 }).limit(3);
-        if (latestComents.length < 1) return undefined;//throw new CustomError('No data', 'No es posible traer los comentarios o no existen', 5);
-        try {
-            return latestComents;
-        } catch (error) {
-            throw new CustomError('Error desconocido', error, -999);
-        }
+    static async getChatsOtherUsers(filterId){
+        return await messageModel.find({sender:{$ne: filterId}}).populate('sender').lean();
     }
 
-    static async createComent(id, name, text) {
-        if (!text) throw new CustomError('Faltan argumentos', 'Debes escribir un comentario', 2);
-        try {
-            const nombre = name ? name : 'Anónimo';
-            const date = new Date();
-            await messageModel.create({ name: nombre, text: text, created_at: date, pdf: id });
-        } catch (error) {
-            throw new CustomError('Error desconocido', error, -999);
-        }
+    static async createMessage(message){
+        const msg = await messageModel.create({sender: message.name, text: message.text, created_at: message.created_at});
+        await userModel.updateOne({_id: message.sender}, {$push:{chat: {message: msg._id}}});
     }
 
-    static async deleteComent(id) {
-        try {
-            await messageModel.deleteOne({ _id: id });
-        } catch (error) {
-            throw new CustomError('Error desconocido', error, -999);
-        }
+    static async responseMessage(uid, message){
+        const msg = await messageModel.create(message);
+        await userModel.updateOne({_id: uid}, {$push:{chat:{message:msg._id}}});
+    }
+
+    static async deleteMessage(mid, uid){
+            await userModel.updateOne({_id: uid}, {$pull: {chat: {message: mid}}}); 
+            await messageModel.deleteOne({_id: mid});
     }
 }

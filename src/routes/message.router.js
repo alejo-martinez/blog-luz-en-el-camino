@@ -1,15 +1,12 @@
 import { Router } from "express";
 import messageController from "../controllers/message.controller.js";
-import { authToken } from "../middlewares/auth.middleware.js";
+import { authToken, adminUser } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.get('/:id', messageController.getLastestPdfComents);
-
-router.post('/:id', messageController.createComentPdf);
-
-router.delete('/:id', authToken, messageController.deleteComentPdf);
-
-router.get('/details/:id', messageController.getComentFile);
+router.get('/', authToken, messageController.getChat);
+router.post('/create', messageController.createMessage);
+router.put('/response/:mid', authToken, adminUser, messageController.responseMessage);
+router.delete('/delete/:mid/:uid', authToken, adminUser, messageController.deleteMessage);
 
 export default router;

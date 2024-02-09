@@ -2,10 +2,10 @@ import { audioModel } from "../models/audio.model.js";
 import CustomError from "../../errors/custom.error.js";
 
 export class AudioManager {
-    static async getAll() {
-        const audios = await audioModel.find().populate('comments.comment').lean();
+    static async getAll(page) {
+        const {docs, hasPrevPage, hasNextPage, prevPage, nextPage, totalPages} = await audioModel.paginate({}, {limit: 10, page, lean: true, populate:'comments.comment'});
         try {
-            return audios;
+            return {docs,  page: page, hasPrevPage,  hasNextPage, prevPage, nextPage, totalPages};
         } catch (error) {
             throw new CustomError('Error desconocido', error, -999);
         }

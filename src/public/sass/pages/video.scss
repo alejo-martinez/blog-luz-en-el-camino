@@ -1,0 +1,35 @@
+.div-all-videos{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.div-video{
+    display: flex;
+    flex-flow: column nowrap;
+    width: fit-content;
+    align-items: center;
+    justify-content: space-between;
+    // width: 50%;
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+    margin: auto;
+
+    & div{
+        & p{
+            color: #594270;
+        }
+    }
+
+    & a{
+        color: #594270;
+        transition: all 0.4s;
+
+        &:hover{
+            font-weight: bold;
+            color: #59427081;
+        }
+    }
+    
+}

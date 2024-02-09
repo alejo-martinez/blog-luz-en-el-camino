@@ -30,7 +30,7 @@
 
     &-coments {
         text-align: justify;
-        background-color: #e2e2ec;
+        background-color: #402a57;
         padding: 3px;
         border-radius: 5px;
         // margin-top: 7px;
@@ -46,11 +46,16 @@
         & p{
             max-width: 100%;
             word-wrap: break-word;
+            color: #ffffff;
+        }
+
+        & strong{
+            color: #ffffff;
         }
 
         &-all{
             text-align: justify;
-            background-color: #c3c3c334;
+            background-color: #402a57;
             padding: 3px;
             border-radius: 5px;
             margin: auto;
@@ -62,8 +67,10 @@
             & p{
                 max-width: 100%;
                 word-wrap: break-word;
+                color: #ffffff;
     
                 & strong {
+                    color: #ffffff;
                     max-width: 100%;
                 }
             }
@@ -74,10 +81,10 @@
     &-each {
         display: flex;
         flex-flow: column nowrap;
-        border: 1px solid #ccc;
+        border: 1px solid #535353;
         box-shadow: 1px 1px 2px #494949;
         padding: 5px;
-        background-color: #f3f3f3;
+        background-color: #594270;
         border-radius: 5px;
         width: 400px;
         height: 250px;
@@ -94,19 +101,19 @@
         h5 {
             margin: 0;
             font-size: 18px;
-            color: #2e0b44 ;
+            color: #ffffff;
         }
 
         p{
             // text-align: end;
          & a {
-            color: #3c3ead;
+            color: #cdcdce;
             transition: all 0.3s;
             font-size: 112%;
             font-weight: bold;
 
             &:hover{
-                color: #484ad83b;
+                color: #797a9e3b;
             }
         }}
     }
@@ -121,6 +128,7 @@
     &-date {
         font-size: 60%;
         text-align: right;
+        align-self: flex-end;
     }
 }
 
@@ -156,6 +164,7 @@
 
 .p-nocoments {
     margin: auto;
+    color: #ffffff;
 
     & p{
         text-align: center;
@@ -176,9 +185,10 @@
     &-details{
         text-align: start;
         margin: auto;
-        background-color: #f9f9f9;
+        // background-color: #f9f9f9;
         width: fit-content;
         padding: 6px;
+        color: #ffffff;
 
         & label {
             font-weight: bold;
@@ -207,6 +217,7 @@
 
 .btn-delete-pdf {
     border: none;
+    background-color: transparent;
     border-radius: 10px;
     font-size: 120%;
 
@@ -215,15 +226,17 @@
     }
 
     & i{
-        color: red;
+        color: rgb(255, 43, 43);
     }
 }
 
 .container-coments {
-    background-color: #f3f3f3;
+    background-color: #594270;
     padding: 12px;
     margin: auto;
     width: 500px;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
 }
 
 .btn-response {
@@ -246,8 +259,12 @@
         &-input {
             display: flex;
             padding: 9px;
+            gap: 10px;
             & input {
+                padding: 4px;
+                border: none;
                 width: 100%;
+                border-radius: 5px;
             }
 
             & button {
@@ -261,14 +278,20 @@
         }
 
         &-text {
-            background-color: #e6e0e0;
+            background-color: #5942705b;
             max-width: fit-content;
             padding: 5px;
             border-radius: 4px;
+            margin-top: 3px;
 
             & p {
                 font-size: 90%;
             }
         }
     }
+}
+
+.body-pdf-category{
+    display: flex;
+    flex-flow: column nowrap;
 }

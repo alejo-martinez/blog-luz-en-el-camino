@@ -1,87 +1,39 @@
 <div>
-    <div class="nav-hamburger" id="navHamburger">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
-    <nav class="nav" id="navMenu">
-        <ul class="navbuttons">
-            <div class="navbuttons-bar">
-                <li>
-                    <button class="btnnav" onclick="navegar('/')"><a href="/" class="btnnav-a">Inicio</a></button>
-                </li>
-                <li>
-                    <button class="btnnav" onclick="navegar('/book')">
-                        <a href="/book" class="btnnav-a">Libro</a>
-                    </button>
-                </li>
-                <li class="dropdown">
-                    <button class="dropdown-button">Escritos del alma</button>
-                    <ul class="dropdown-content">
-                        <li><a href="/escritosconmagia">Escritos con magia</a></li>
-                        <li><a href="/caminodelasanacion">El camino de la sanación</a></li>
-                        <li><a href="/loquesomos">Lo que somos</a></li>
-                        <li><a href="/noblesverdades">Nobles verdades</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <button class="btnnav" onclick="navegar('/audios')"><a href="/audios"
-                            class="btnnav-a">Audios</a></button>
-                </li>
-            </div>
-            <div>
-                <li>
-                    <div class="panel-user">
-                        <span>{{user.name}}</span>
-                        <button onclick="logout()"><i class="bi bi-box-arrow-left"></i></button>
-                    </div>
-                </li>
-            </div>
-        </ul>
-    </nav>
+    {{> navbar admin=admin userlogued=user}}
     <div class="div-chats">
-        <div class="div-chats-form">
-            {{#if myChats}}
-            {{#each myChats}}
-            <div class="div-chats-user">
-                <p><strong>{{this.user}}</strong>: {{this.text}}
-                </p>
-                <p class="coment-date">{{this.created_at}}</p>
-            </div>
-            {{/each}}
-
-            {{else}}
-            <div>
-                <p>No hay mensajes, envía uno!</p>
-            </div>
-            {{/if}}
-            <div class="div-form-chat">
-                <form class="form-chat">
-                    <div>
-                        <label>Mensaje: </label>
-                        <input type="text" name="text" id="message" />
-                        <button id="btnmsg" class="btn-msg">Enviar</button>
-                    </div>
-                </form>
-            </div>
+        {{#if client}}
+        <div class="div-btns-showcontent">
+            <button class="btn-chat btn-pressed" id="btnChat" onclick="handleChangeContent(event)">Mi chat</button>
+            <button class="btn-chat" id="btnUsersChats" onclick="handleChangeContent(event)">Otros chats</button>
         </div>
-        <div class="div-all-chats">
-            {{#each usersFiltred}}
-            {{#if this.chat}}
-            <div class="div-chats-users">
-                <h2>Conversación con {{this.name}}:</h2>
-                {{#each this.chat}}
-                <div class="div-chats-user-all">
-                    <p><strong class="coment-name">{{this.user}}</strong>: {{this.text}}
-                    </p>
-                    <p class="coment-date">{{this.created_at}}</p>
+        <div class="div-chats-form" id="divMsgUser">
+            <h3>Tu conversación con Luz en el Camino</h3>
+            {{#if userChat.chat}}
+            <div class="div-each-msg" id="divEachMsg">
+                {{#each userChat.chat}}
+                <div class="div-chats-user">
+                    <div>
+                    <strong>{{this.message.sender}}</strong>
+                    <p>: {{this.message.text}}</p>
+                    </div>
+                    <p class="coment-date">{{this.message.created_at}}</p>
                 </div>
                 {{/each}}
             </div>
+            {{else}}
+            <div class="div-no-msgs">
+                <p>No hay mensajes, envía uno!</p>
+            </div>
             {{/if}}
-            {{/each}}
+            <div class="div-form-chat" id="divFormChat" data-user="{{user._id}}" data-name="{{user.name}}">
+                    <input type="text" name="text" id="message" placeholder="Mensaje...." />
+                    <button id="btnmsg" onclick="enviarMsg(event)" class="btn-msg">Enviar</button>
+            </div>
         </div>
+        {{/if}}
+        {{> chats usersChatsFiltered=usersChatsFiltered admin=admin}}
     </div>
 </div>
 
+<script src="/socket.io/socket.io.js"></script>
 <script src="/js/charlas.js"></script>

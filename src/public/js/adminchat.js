@@ -1,49 +1,46 @@
-const recargar = ()=>{
-    setTimeout(()=>{
-        window.location.href = window.location.href;
-    }, 2000)
-}
 
-const sendMessage = async (id) => {
-    const input = document.getElementById(`message${id}`);
-    const data = input.value;
-    const response = await fetch('/api/user/admin', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ text: data, id: id })
-    });
-    const json = await response.json();
-    if(json.status === 'succes'){
-        Toastify({
-            text: json.message,
-            duration: 3000,
-            }).showToast();
-            input.value = ''
-    } else{
-        Toastify({
-            text: json.error,
-            duration: 3000,
-            }).showToast();
+
+const socket = io()
+
+socket.on('newMessage', (data)=>{
+    console.log(data);
+    divEachMsg.innerHTML +=`<div class="div-chats-user">
+    <p><strong>${data.name}</strong>: ${data.text}
+    </p>
+    <p class="coment-date">${data.created_at}</p>
+</div>`
+})
+
+const enviarMsg = async(event, id)=>{
+    try {
+
+        const dataText = texto.value;
+        const obj = {sender: userId, text: dataText, name: userName}
+        socket.emit('message', obj);        
+    } catch (error) {
+        console.log(error)
     }
 }
 
-const deleteChat = async(id)=>{
-    const response = await fetch(`/api/user/chat/${id}`, {
-        method:'DELETE'
-    });
-    const json = await response.json();
-    if(json.status === 'succes'){
-        Toastify({
-            text: json.message,
-            duration: 2000,
-            callback: recargar()
-            }).showToast();
-    } else {
-        Toastify({
-            text: json.error,
-            duration: 2000,
-            }).showToast();
-    }
+
+const showConversation = (event, id)=>{
+    event.preventDefault();
+    const btnCross = document.getElementById(`cross${id}`);
+    const divMsgs = document.getElementById(`chat${id}`);
+    const btnShow = document.getElementById(`btnShow${id}`);
+
+    btnCross.classList.remove('hidden');
+    divMsgs.classList.remove('hidden');
+    btnShow.classList.add('hidden');
+}
+
+const closeConversation = (event, id)=>{
+    event.preventDefault();
+    const btnCross = document.getElementById(`cross${id}`);
+    const divMsgs = document.getElementById(`chat${id}`);
+    const btnShow = document.getElementById(`btnShow${id}`);
+
+    btnCross.classList.add('hidden');
+    divMsgs.classList.add('hidden');
+    btnShow.classList.remove('hidden');
 }

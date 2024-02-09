@@ -1,219 +1,309 @@
 import { AudioManager } from "../dao/class/audioManager.js";
 import { PdfManager } from "../dao/class/pdfManager.js";
 import { UserManager } from "../dao/class/userManager.js";
-import utils from "../utils.js";
 
-const register = async(req, res)=>{
+import utils from "../utils.js";
+import { VideoManager } from "../dao/class/videoManager.js";
+
+const register = async (req, res) => {
     res.render('register');
 }
 
-const login = async(req, res)=>{
+const login = async (req, res) => {
     res.render('login');
 }
 
-const home = async(req, res)=>{
-    const userlogued = req.user;
+const home = async (req, res) => {
+    const userLogued = req.user;
     const admin = 'admin';
     const client = 'client';
 
-    if(!userlogued) res.render('home');
-    else{
-        if(req.user.rol === client ){
-            const user = req.user;
-            res.render('home', {userlogued});
-        } 
-        if(req.user.rol === admin){
-            const adminUser = req.user;
-            res.render('home', {adminUser, userlogued});
-        } 
-    }
+    if (userLogued && userLogued.rol === client) res.render('home', { userLogued });
+    if (userLogued && userLogued.rol === admin) res.render('home', { userLogued, admin });
+    if (!userLogued) res.render('home');
 }
 
-const detalles = async(req, res)=>{
-    const userlogued = req.user;
-    const admin = 'admin';
-    const client = 'client';
-
-    if(!userlogued) res.render('details');
-    else{
-        if(req.user.rol === client ){
-            const user = req.user;
-            res.render('details', {userlogued});
-        } 
-        if(req.user.rol === admin){
-            const adminUser = req.user;
-            res.render('details', {adminUser, userlogued});
-        } 
-    }
-}
-
-const book = async(req, res)=>{
+const book = async (req, res) => {
     const userlogued = req.user;
     const admin = 'admin';
     const client = 'client';
     const libro = await PdfManager.getOne('category', 'libro');
-    
-    if(!userlogued) res.render('libro', {libro});
-    else{
-        if(req.user.rol === client ){
-            const user = req.user;
-            res.render('libro', {userlogued, libro});
-        } 
-        if(req.user.rol === admin){
-            const adminUser = req.user;
-            res.render('libro', {adminUser, userlogued, libro});
-        } 
+
+    if (!userlogued) res.render('libro', { libro });
+    else {
+        if (req.user.rol === client) {
+            res.render('libro', { userlogued, libro });
+        }
+        if (req.user.rol === admin) {
+            res.render('libro', { admin, userlogued, libro });
+        }
     }
 }
 
-const audios = async(req, res)=>{
+const audios = async (req, res) => {
+    const { page = 1 } = req.query;
     const userlogued = req.user;
     const admin = 'admin';
     const client = 'client';
+    const response = await AudioManager.getAll(page);
+    const range = 2;
+    const pagesToRender = [];
+    const url= '/audios'
 
-    const allAudios = await AudioManager.getAll();
-
-    const audios = allAudios.map(audio => ({
+    const audios = response.docs.map(audio => ({
         ...audio,
+        title: audio.title.charAt(0).toUpperCase() + audio.title.slice(1),
         comments: audio.comments?.slice(-3)
-      }));
+    }));
 
-    if(!userlogued) res.render('audios', {audios});
-    else{
-        if(req.user.rol === client ){
-            const user = req.user;
-            res.render('audios', {userlogued, audios});
-        } 
-        if(req.user.rol === admin){
-            const adminUser = req.user;
-            res.render('audios', {adminUser, userlogued, audios});
-        } 
+    audios.forEach(audio => {
+        if (audio.comments.length === 0) return;
+        else {
+            audio.comments.forEach(coment => {
+                coment.comment.created_at = utils.formatDate(coment.comment.created_at);
+            })
+        }
+    })
+
+
+    for (let i = Math.max(1, page - range); i <= Math.min(response.totalPages, page + range); i++) {
+        pagesToRender.push(i);
+    }
+
+    const backPages = pagesToRender.filter(p => p < page);
+    const nextPages = pagesToRender.filter(p => p > page).slice(0, range);
+
+    const objResponse = { audios, hasPrevPage: response.hasPrevPage, hasNextPage: response.hasNextPage, prevPage: response.prevPage, nextPage: response.nextPage, totalPages: response.totalPages, page, nextPages, backPages, url }
+
+    if (!userlogued) res.render('audios', objResponse);
+    else {
+        objResponse.userlogued = userlogued;
+        if (req.user.rol === client) {
+
+            res.render('audios', objResponse);
+        }
+        if (req.user.rol === admin) {
+            objResponse.admin = admin;
+            res.render('audios', objResponse);
+        }
     }
 }
 
-const getAudioById = async(req, res)=>{
-    const {aid} = req.params;
+
+const renderPdfByCategory = async (req, res, next) => {
     const userlogued = req.user;
+    const { page = 1 } = req.query;
+    const { cat } = req.params;
     const admin = 'admin';
     const client = 'client';
-    const audio = await AudioManager.getById(aid);
-
-    if(!userlogued) res.render('audiodetails', {audio});
-    else{
-        if(req.user.rol === client ){
-            const user = req.user;
-            res.render('audiodetails', {userlogued, audio});
-        } 
-        if(req.user.rol === admin){
-            let position = 0;
-            const adminLogued = audio.comments.map(coment => ({
-                ...coment,
-                admin: true,
-                posicion: position++
-            }))
-            audio.comments = adminLogued;
-            const adminUser = req.user;
-            res.render('audiodetails', {adminUser, userlogued, audio});
-        } 
-    }
-
-}
-
-const renderPdfByCategory = async(req, res, next)=>{
-    const userlogued = req.user;
-    const {cat} = req.params;
-    const admin = 'admin';
-    const client = 'client';
-    const pdfs = await PdfManager.getByCategory(cat);
-    const categoryImgs = {'lo-que-somos': '/static/images/dosmanos.webp', 'el-camino-de-la-sanacion': '/static/images/mirandoalcielo.webp', 'nobles-verdades': '/static/images/mandalaazul.webp', 'escritos-con-magia': '/static/images/duendesobremano.webp'};
+    const response = await PdfManager.getByCategory(cat, page);
+    const categoryImgs = { 'lo-que-somos': '/static/images/dosmanos.webp', 'el-camino-de-la-sanacion': '/static/images/mirandoalcielo.webp', 'nobles-verdades': '/static/images/mandalaazul.webp', 'escritos-con-magia': '/static/images/duendesobremano.webp' };
+    const range = 2;
+    const pagesToRender = [];
+    const url= `/category/${cat}`
 
     const categoryImage = categoryImgs[cat];
 
-    // const formatDate = pdfs.map(pdf => ({
-    //     ...pdf,
-    //     comments: pdf.comments.map(coment => ({
-    //         ...coment,
-    //         created_at: utils.newFormDate(coment)
-    //     }))
-    // }))
-    const escritos = pdfs.map(pdf => ({
+    const escritos = response.pdfs.map(pdf => ({
         ...pdf,
+        title: pdf.title.charAt(0).toUpperCase() + pdf.title.slice(1),
         comments: pdf.comments.slice(-3)
-      }));
+    }));
 
-      if(!userlogued) res.render('showpdfs',{escritos, categoryImage});
-      else{
-          if(req.user.rol === client ){
-              res.render('showpdfs', {userlogued, escritos, categoryImage});
-          } 
-          if(req.user.rol === admin){
-              const adminUser = req.user;
-              res.render('showpdfs', {adminUser, userlogued, escritos, categoryImage});
-          } 
-      }
-}
+    escritos.forEach(pdf => {
+        if (pdf.comments.length !== 0) {
+            pdf.comments.forEach(coment => {
+                coment.comment.created_at = utils.formatDate(coment.comment.created_at);
+            })
+        }
+    })
 
-const uploadpdf = async(req, res)=>{
-    const user = req.user;
-    const pdfs = await PdfManager.getAll();
-    res.render("uploadpdf", {user, pdfs});
-}
+    for (let i = Math.max(1, page - range); i <= Math.min(response.totalPages, page + range); i++) {
+        pagesToRender.push(i);
+    }
 
-const uploadaudio = async(req, res)=>{
-    const user = req.user;
-    const audios = await AudioManager.getAll();
-    res.render("uploadaudio", {user, audios});
-}
+    const backPages = pagesToRender.filter(p => p < page);
+    const nextPages = pagesToRender.filter(p => p > page).slice(0, range);
 
-const pdfdetails = async(req, res)=>{
-    const {pid} = req.params;
-    const userlogued = req.user;
-    const admin = 'admin';
-    const client = 'client';
-    const pdf = await PdfManager.getById(pid);
-    // console.log(pdf)
-    // console.log(pdf.comments[3].comment)
+    const objResponse = { escritos, categoryImage, hasPrevPage: response.hasPrevPage, hasNextPage: response.hasNextPage, prevPage: response.prevPage, nextPage: response.nextPage, totalPages: response.totalPages, page, nextPages, backPages, cat: cat, url }
 
-    if(!userlogued) res.render('details', {pdf});
-    else{
-        if(req.user.rol === client ){
-            const user = req.user;
-            res.render('details', {userlogued, pdf});
-        } 
-        if(req.user.rol === admin){
-            let position = 0;
-            const adminLogued = pdf.comments.map(coment => ({
-                ...coment,
-                admin: true,
-                posicion: position++
-            }))
-            pdf.comments = adminLogued;
-            const adminUser = req.user;
-            res.render('details', {adminUser, userlogued, pdf});
-        } 
+    if (!userlogued) res.render('showpdfs', objResponse);
+    else {
+        objResponse.userlogued = userlogued;
+        if (req.user.rol === client) {
+            res.render('showpdfs', objResponse);
+        }
+        if (req.user.rol === admin) {
+            objResponse.admin = admin;
+            res.render('showpdfs', objResponse);
+        }
     }
 }
 
-const charlas = async(req, res)=>{
+const allVideos = async (req, res, next) => {
+    try {
+        const userLogued = req.user;
+        const { page = 1 } = req.query;
+        const response = await VideoManager.getAll(page);
+        const range = 2;
+        const pagesToRender = [];
+        const videos = response.docs?.map(video => ({
+            ...video,
+            title: video.title.charAt(0).toUpperCase() + video.title.slice(1),
+        }));
+        const url= '/videos'
+
+        for (let i = Math.max(1, page - range); i <= Math.min(response.totalPages, page + range); i++) {
+            pagesToRender.push(i);
+        }
+
+        const backPages = pagesToRender.filter(p => p < page);
+        const nextPages = pagesToRender.filter(p => p > page).slice(0, range);
+
+        const objResponse = { videos, hasPrevPage: response.hasPrevPage, hasNextPage: response.hasNextPage, prevPage: response.prevPage, nextPage: response.nextPage, totalPages: response.totalPages, page, nextPages, backPages, url }
+
+        if (!userLogued) res.render('videos', objResponse)
+        else {
+            objResponse.userLogued = userLogued;
+            if (userLogued && userLogued.rol === 'admin') {
+                const admin = true;
+                objResponse.admin = admin;
+                res.render('videos', objResponse)
+            }
+            if (userLogued && userLogued.rol === 'client') {
+                const client = true;
+                objResponse.client = client;
+                res.render('videos', objResponse)
+            }
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
+const uploadpdf = async (req, res) => {
+    const {page=1} = req.query;
+    const user = req.user;
+    const admin = true;
+    const range = 2;
+    const pagesToRender = [];
+    const response = await PdfManager.getAll(page);
+    for (let i = Math.max(1, page - range); i <= Math.min(response.totalPages, page + range); i++) {
+        pagesToRender.push(i);
+    }
+
+    const backPages = pagesToRender.filter(p => p < page);
+    const nextPages = pagesToRender.filter(p => p > page).slice(0, range);
+
+    const url = '/uploadpdf'
+    const objResponse = {pdfs: response.docs, hasPrevPage: response.hasPrevPage, hasNextPage: response.hasNextPage, prevPage: response.prevPage, nextPage: response.nextPage, totalPages: response.totalPages, page, nextPages, backPages, user, admin, url}
+
+    res.render("uploadpdf", objResponse);
+}
+
+const uploadaudio = async (req, res) => {
+    const {page=1} = req.query;
+    const user = req.user;
+    const admin = true;
+    const pagesToRender = [];
+    const range = 2;
+    const response = await AudioManager.getAll(page);
+    for (let i = Math.max(1, page - range); i <= Math.min(response.totalPages, page + range); i++) {
+        pagesToRender.push(i);
+    }
+
+    const backPages = pagesToRender.filter(p => p < page);
+    const nextPages = pagesToRender.filter(p => p > page).slice(0, range);
+
+    const url = '/uploadaudio'
+    const objResponse = {audios: response.docs, hasPrevPage: response.hasPrevPage, hasNextPage: response.hasNextPage, prevPage: response.prevPage, nextPage: response.nextPage, totalPages: response.totalPages, page, nextPages, backPages, user, admin, url}
+
+    res.render("uploadaudio", objResponse);
+}
+
+const uploadvideo = async(req, res)=>{
+    const {page=1} = req.query;
+    const user = req.user;
+    const admin = true;
+    const pagesToRender = [];
+    const range = 2;
+    const response = await VideoManager.getAll(page);
+    for (let i = Math.max(1, page - range); i <= Math.min(response.totalPages, page + range); i++) {
+        pagesToRender.push(i);
+    }
+
+    const backPages = pagesToRender.filter(p => p < page);
+    const nextPages = pagesToRender.filter(p => p > page).slice(0, range);
+
+    const url = '/uploadvideo';
+    const objResponse = {videos: response.docs, hasPrevPage: response.hasPrevPage, hasNextPage: response.hasNextPage, prevPage: response.prevPage, nextPage: response.nextPage, totalPages: response.totalPages, page, nextPages, backPages, user, admin, url}
+
+    res.render("uploadvideo", objResponse);
+}
+
+const fileDetails = async (req, res, next) => {
+    try {
+        const { file, id } = req.params;
+        const userLogued = req.user;
+        const admin = 'admin';
+        const client = 'client';
+        let pdf;
+        let audio;
+        let video;
+        let dataFile;
+        if (file === 'pdf') {
+            dataFile = await PdfManager.getById(id);
+            pdf = true;
+        }
+        if (file === 'audio') {
+            dataFile = await AudioManager.getById(id);
+            audio = true;
+        }
+        if( file === 'video'){
+            dataFile = await VideoManager.getById(id);
+            video = true;
+        }
+        if (dataFile.comments.length !== 0) {
+            dataFile.comments.forEach(coment => coment.comment.created_at = utils.formatDate(coment.comment.created_at))
+        }
+        if (userLogued && userLogued.rol === admin) res.render('details', { file, userLogued, admin, dataFile, pdf, audio, video });
+        if (userLogued && userLogued.rol === client) res.render('details', { file, userLogued, client, dataFile, pdf, audio, video });
+        if (!userLogued) res.render('details', { file, dataFile, pdf, audio, video });
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+const chat = async (req, res) => {
+    const user = req.user;
     const users = await UserManager.getAll();
-    const usersFiltred = users.filter(user => user.email !== req.user.email);
-    if(req.user.rol === 'client'){
-        const user = await UserManager.getById(req.user._id);
-        const myChats = user.chat
-        res.render('charlas', {user, myChats, usersFiltred})
+    let usersChatsFiltered = [];
+    users.forEach(usuario => {
+        if (usuario.chat.length === 0) return;
+        else {
+            usersChatsFiltered.push(usuario);
+        }
+    })
+    if (user.rol === 'client') {
+        const userChat = await UserManager.getById(user._id);
+
+        usersChatsFiltered = usersChatsFiltered.filter(usuario => usuario._id != user._id);
+        const client = true;
+        res.render('charlas', { user, userChat, usersChatsFiltered, client });
     } else {
-        const user = req.user;
-        res.render('admincharlas', {user, usersFiltred});
+        const admin = true;
+        res.render('charlas', { user, usersChatsFiltered, admin });
     }
 }
 
-const enviarMail = async(req, res)=>{
+const enviarMail = async (req, res) => {
     res.render('sendmailreset')
 }
 
-const resetPassword = async(req, res)=>{
+const resetPassword = async (req, res) => {
     const uid = req.params;
-    res.render('resetpassword', {uid});
+    res.render('resetpassword', { uid });
 }
 
-export default {register, login, home, detalles, book, audios, uploadpdf, uploadaudio, pdfdetails, charlas, enviarMail, resetPassword, renderPdfByCategory, getAudioById};
+export default { register, login, home, book, audios, uploadpdf, uploadaudio, uploadvideo, chat, enviarMail, resetPassword, renderPdfByCategory, fileDetails, allVideos };

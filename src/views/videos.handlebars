@@ -1,0 +1,32 @@
+{{> navbar admin=admin userlogued=userLogued}}
+<div>
+    {{#if videos}}
+    <div class="body-videos">
+        <div class="body-pdf-category">
+            {{> pagination hasPrevPage=hasPrevPage hasNextPage=hasNextPage prevPage=prevPage nextPage=nextPage
+            backPages=backPages nextPages=nextPages pages=pages}}
+        </div>
+        <div class="div-all-videos">
+        {{#each videos}}
+        <div class="div-video">
+            <h3>{{this.title}}</h5>
+            {{#if this.comments}}
+            <span>Comentarios: {{this.comments.length}}</span>
+            {{else}}
+            <div class="p-nocoments">
+                <p>Todavia no hay comentarios</p>
+            </div>
+            {{/if}}
+            <a href="/details/video/{{this._id}}">Ver video</a>
+        </div>
+        {{/each}}
+        </div>
+    </div>
+    {{else}}
+    <div>
+        <p>Todavía no hay videos disponibles!</p>
+    </div>
+    {{/if}}
+</div>
+
+{{> chatbtn}}

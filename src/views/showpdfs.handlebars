@@ -1,2 +1,4 @@
-    {{> navbar adminUser=adminUser userlogued=userlogued}}
-    {{> pdfcategory escritos=escritos userlogued=userlogued adminUser=adminUser categoryImage=categoryImage}}
+    {{> navbar admin=admin userlogued=userlogued}}
+
+    {{> pdfcategory escritos=escritos userlogued=userlogued admin=admin categoryImage=categoryImage hasPrevPage=hasPrevPage hasNextPage=hasNextPage prevPage=prevPage nextPage=nextPage backPages=backPages nextPages=nextPages pages=pages }}
+    {{> chatbtn}}

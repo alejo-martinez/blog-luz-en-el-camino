@@ -1,3 +1,3 @@
-const navegar = (url)=>{
-    window.location.href = url
-};
+// const navegar = (url)=>{
+//     window.location.href = url
+// };

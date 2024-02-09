@@ -1,57 +1,33 @@
 <div>
-    <div class="nav-hamburger" id="navHamburger">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
-        {{> navbar adminUser=adminUser userlogued=userlogued}}
-    <div data-path="{{pdf.path}}" data-id="{{pdf._id}}" id="divPdf" class="pdf-libro">
-        <h2 class="book-title">{{pdf.title}}</h2>
-        <div class="div-btnsnav-pdf">
-            <button id="prev-page" class="btn-pdf-nav"><i class="bi bi-arrow-left"></i></button>
-            <div>
-                <canvas id="pdf-viewer" class="book"></canvas>
-                <div class="div-download">
-                    <p><a class="panel-user-link" href="{{pdf.path}}">Descargar</a></p>
-                </div>
-            </div>
-            <button id="next-page" class="btn-pdf-nav"><i class="bi bi-arrow-right"></i></button>
-        </div>
-
-        <div id="pdf-error-message" class="pdf-error-message">
-            Tu navegador no puede mostrar este PDF. Puedes <a class="panel-user-link" href="{{pdf.path}}">descargarlo
-                aquí.</a>.
-        </div>
+    {{> navbar admin=admin userlogued=userLogued}}
+    <div data-path="{{dataFile.path}}" data-id="{{dataFile._id}}" data-pdfName="{{dataFile.title}}" id="divPdf" class="pdf-libro">
+        <h2 class="book-title">{{dataFile.title}}</h2>
+        {{> filedetails pdf=pdf audio=audio dataFile=dataFile }}
         <div class="container-coments">
-            {{#if pdf.comments}}
-            <div class="div-coments" id="divComents">
-                {{#each pdf.comments}}
-                <div class="pdf-section-coments-all">
-                    {{#if this.admin}}
+            {{#if dataFile.comments}}
+            <div class="div-coments" id="divComents{{dataFile._id}}">
+                {{#each dataFile.comments}}
+                <div class="pdf-section-coments-all" id="coment{{this.comment._id}}">
+                    {{#if ../admin}}
                     <div class="div-response">
-                        <button class="btn-delete-pdf" onclick="borrarcoment('{{this.comment._id}}')"><i
+                        <button class="btn-delete-pdf" onclick="borrarcoment('{{this.comment._id}}', '{{../dataFile._id}}', '{{../file}}', event)"><i
                                 class="bi bi-x-circle"></i></button>
                     </div>
-                    <p><strong class="coment-name">{{this.comment.author}}</strong>: {{this.comment.text}}
-                    </p>
-                    <p class="coment-date">{{this.comment.created_at}}</p>
+                    {{/if}}
+                        <p><strong class="coment-name">{{this.comment.author}}</strong>: {{this.comment.text}}
+                        </p>
+                        <p class="coment-date">{{this.comment.created_at}}</p>
                     {{#if this.comment.response}}
                     <div class="div-response-text">
                         <p><strong>Luz en el camino</strong>: {{this.comment.response}}</p>
                     </div>
                     {{/if}}
+                    {{#if ../admin}}
+                    {{#unless this.comment.response}}
                     <div class="div-response" id="divResp{{this.comment._id}}">
                         <button class="btn-response" onclick="abrirComent('{{this.comment._id}}')">Responder</button>
                     </div>
-                    {{else}}
-                    <p><strong class="coment-name">{{this.comment.author}}</strong>: {{this.comment.text}}
-                    </p>
-                    <p class="coment-date">{{this.comment.created_at}}</p>
-                    {{#if this.comment.response}}
-                    <div class="div-response-text">
-                        <p>Luz en el camino: {{this.comment.response}}</p>
-                    </div>
-                    {{/if}}
+                    {{/unless}}
                     {{/if}}
                 </div>
                 {{/each}}
@@ -61,24 +37,31 @@
                 <p>Todavia no hay comentarios</p>
             </div>
             {{/if}}
+            {{#unless admin}}
             <div class="div-form-coment-details">
-                <form id="formComent{{pdf._id}}" class="form-coment-details">
+                <form id="formComent{{dataFile._id}}" class="form-coment-details">
                     <div>
                         <label>Nombre: </label>
-                        <input type="text" name="name" placeholder="(opcional)" id="name{{pdf._id}}" />
+                        <input type="text" name="name" placeholder="(opcional)" id="name{{dataFile._id}}" />
                     </div>
                     <div>
                         <label>Comentario: </label>
-                        <input type="text" name="text" id="txt{{pdf._id}}" />
+                        <input type="text" name="text" id="txt{{dataFile._id}}" />
                     </div>
                     <div class="btn-coment">
-                        <button type="button" onclick="comentar('{{pdf._id}}')">Comentar</button>
+                        <button type="button" onclick="comentar('{{dataFile._id}}', '{{file}}', '{{dataFile.title}}', event)">Comentar</button>
                     </div>
                 </form>
             </div>
+            {{/unless}}
         </div>
     </div>
 
-    <script src="https://unpkg.com/pdfjs-dist@2.11.338/build/pdf.js"></script>
+    {{> chatbtn}}
+
     <script src="/socket.io/socket.io.js"></script>
+    {{#if pdf}}
+    <script src="https://unpkg.com/pdfjs-dist@2.11.338/build/pdf.js"></script>
     <script src="/js/details.js"></script>
+    {{/if}}
+    <script src="/js/coment.js"></script>
