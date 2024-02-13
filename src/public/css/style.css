@@ -997,14 +997,17 @@
   margin: 5px 0;
   transition: background-color 0.3s ease; }
 
+@media screen and (max-width: 802px) {
+  .admin-bar {
+    flex-flow: column nowrap; }
+    .admin-bar-li {
+      width: 100%; } }
+
 @media screen and (max-width: 723px) {
-  .navbuttons-bar {
-    flex-flow: column nowrap;
-    margin-left: 0; }
-  .div-audio h3 {
-    font-size: 60%; }
-  .parrafo-principal {
-    font-size: 60%; }
+  .container-audios {
+    gap: 10px; }
+  .parrafo {
+    padding: 8px; }
   .nav-hamburger {
     display: block; }
   #navMenu {
@@ -1020,8 +1023,7 @@
 @media screen and (max-width: 701px) {
   .pdf-section {
     display: flex;
-    flex-flow: column;
-    flex-direction: column-reverse; }
+    flex-flow: column; }
     .pdf-section-show {
       margin: auto; }
   .container-img {
@@ -1051,9 +1053,20 @@
     width: unset;
     margin: 15px 0; } }
 
+@media screen and (max-width: 599px) {
+  .pdf-section-show {
+    gap: 10px; }
+  .pdf-section-each {
+    width: 100%;
+    margin: 0; } }
+
 @media screen and (max-width: 516px) {
   .container-coments {
-    width: unset; } }
+    width: unset; }
+  .navbuttons-bar {
+    flex-flow: column nowrap; }
+  .navbuttons-li {
+    width: 100%; } }
 
 @media screen and (max-width: 478px) {
   .form-coment-details {
@@ -1061,7 +1074,7 @@
     margin: auto;
     width: unset; }
   .pdf-section-each {
-    margin: 0; }
+    gap: 10px; }
   .p-nocoments {
     font-size: 70%;
     text-align: center; }
@@ -1076,17 +1089,12 @@
 
 @media screen and (max-width: 408px) {
   .pdf-section-coments {
-    font-size: 50%; }
-  .pdf-section-each-header h5 {
-    font-size: 90%; }
-  .pdf-section-each-header a {
-    font-size: 80% !important; }
-  .p-nocoments {
-    font-size: 55%; }
+    font-size: 80%; }
   .parrafo-pdf {
-    font-size: 60%; }
+    font-size: 90%; }
   .parrafo {
-    padding: 5px; } }
+    padding: 5px;
+    width: 80%; } }
 
 @media screen and (max-width: 336px) {
   .btn-message {
@@ -1095,12 +1103,8 @@
 @media screen and (max-width: 320px) {
   .div-all-chats {
     margin-top: 10px; }
-  .pdf-section-show {
-    flex-flow: column wrap; }
   .pdf-section-each {
     margin: auto;
-    width: 100%;
-    flex-flow: column wrap;
     margin-top: 8px;
     margin-bottom: 8px; } }
 

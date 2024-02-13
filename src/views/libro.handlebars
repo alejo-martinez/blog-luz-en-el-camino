@@ -1,9 +1,4 @@
 <div>
-    <div class="nav-hamburger" id="navHamburger">
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-        <div class="hamburger-line"></div>
-    </div>
         {{> navbar admin=admin userlogued=userlogued}}
     <div data-path="{{libro.path}}" id="divLibro" class="pdf-libro">
         <h2 class="book-title">{{libro.title}}</h2>
@@ -27,6 +22,7 @@
 </div>
 
 {{> chatbtn}}
+{{> footer}}
 
 <script src="https://unpkg.com/pdfjs-dist@2.11.338/build/pdf.js"></script>
 <script src="/js/libro.js"></script>

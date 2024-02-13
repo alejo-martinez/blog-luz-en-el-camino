@@ -21,7 +21,7 @@ pdfjsLib.getDocument(pdfPath).promise.then(pdfDoc => {
 
     function renderPage(pageNumber) {
         pdfDoc.getPage(pageNumber).then(page => {
-            const scale = 0.8;
+            const scale = 1.1;
             const viewport = page.getViewport({ scale });
             pdfViewer.height = viewport.height;
             pdfViewer.width = viewport.width;

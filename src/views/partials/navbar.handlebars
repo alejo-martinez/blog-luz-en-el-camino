@@ -6,11 +6,11 @@
 <nav class="nav" id="navMenu">
     <ul class="navbuttons">
         <div class="navbuttons-header">
-            <div class="navbuttons-bar">
-                <li class="navbuttons-li">
+            <div class={{#if admin}}"navbuttons-bar admin-bar" {{else}} "navbuttons-bar" {{/if}}>
+                <li class={{#if admin}}"navbuttons-li admin-bar-li" {{else}} "navbuttons-li" {{/if}}>
                     <a href="/" class="btnnav-a">Inicio</a>
                 </li>
-                <li class="navbuttons-li">
+                <li class={{#if admin}}"navbuttons-li admin-bar-li" {{else}} "navbuttons-li" {{/if}}>
                     <a href="/book" class="btnnav-a">Libro</a>
                 </li>
                 <li class="dropdown navbuttons-li">
@@ -22,30 +22,30 @@
                         <li><a href="/category/nobles-verdades">Nobles verdades</a></li>
                     </ul>
                 </li>
-                <li class="navbuttons-li">
+                <li class={{#if admin}}"navbuttons-li admin-bar-li" {{else}} "navbuttons-li" {{/if}}>
 
                     <a href="/audios" class="btnnav-a">Audios</a>
 
                 </li>
-                <li class="navbuttons-li">
+                <li class={{#if admin}}"navbuttons-li admin-bar-li" {{else}} "navbuttons-li" {{/if}}>
 
                     <a href="/videos" class="btnnav-a">Videos</a>
 
                 </li>
                 {{#if admin}}
-                <li class="navbuttons-li">
+                <li class={{#if admin}}"navbuttons-li admin-bar-li" {{else}} "navbuttons-li" {{/if}}>
 
                     <a href="/uploadpdf" class="btnnav-a">Subir
                         pdf</a>
 
                 </li>
-                <li class="navbuttons-li">
+                <li class={{#if admin}}"navbuttons-li admin-bar-li" {{else}} "navbuttons-li" {{/if}}>
 
                     <a href="/uploadaudio" class="btnnav-a">Subir
                         audio</a>
 
                 </li>
-                <li class="navbuttons-li">
+                <li class={{#if admin}}"navbuttons-li admin-bar-li" {{else}} "navbuttons-li" {{/if}}>
 
                     <a href="/uploadvideo" class="btnnav-a">Subir
                         video</a>
@@ -71,10 +71,5 @@
             </div>
 
         </div>
-        <div class="div-ig">
-            <a href="https://www.instagram.com/luzen_elcamino/?igsh=MTczYm4wNWo4bHZkNQ%3D%3D"><i
-                    class="bi bi-instagram"></i></a>
-        </div>
-
     </ul>
 </nav>
