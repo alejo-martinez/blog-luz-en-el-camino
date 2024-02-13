@@ -92,7 +92,7 @@ io.on('connection', async (socket) => {
         obj.created_at = utils.formatDate(obj.created_at);
         obj.author = obj.author ? obj.author : 'Anónimo';
         obj.id = data.id;
-        await utils.transporte.sendMail({ to: config.adminEmail, sender: config.adminEmail, subject: `Un ${data.type} ha sido comentado`, text: `El ${data.type} "${response.title}" recibió un comentario.` });
+        // await utils.transporte.sendMail({ to: config.adminEmail, sender: config.adminEmail, subject: `Un ${data.type} ha sido comentado`, text: `El ${data.type} "${response.title}" recibió un comentario.` });
         io.emit('newComment', obj);
     })
 
@@ -120,15 +120,6 @@ io.on('connection', async (socket) => {
         io.emit('newResponseMsg', obj);
     })
 
-
-    // socket.on('audiocomment', async (data) => {
-    //     const date = new Date();
-    //     // const newData = {name: data.name, text: data.text, created_at: utils.formatDate(date)};
-    //     await AudioManager.coment(data.name, data.text, data.id);
-    //     const audio = await AudioManager.getById(data.id);
-    //     // await utils.transporte.sendMail({to: config.adminEmail, sender: config.adminEmail, subject: 'Un audio ha sido comentado', text: `El audio "${audio.title}" recibió un comentario`});
-    //     io.emit('audiocomment', newData);
-    // })
 });
 
 
