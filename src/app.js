@@ -88,11 +88,11 @@ io.on('connection', async (socket) => {
         let obj;
         if (data.author) obj = { author: data.author, text: data.text, created_at: date };
         else obj = { text: data.text, created_at: date };
-        const response = await ComentManager.create(obj, data.type, data.id);
+        await ComentManager.create(obj, data.type, data.id);
         obj.created_at = utils.formatDate(obj.created_at);
         obj.author = obj.author ? obj.author : 'Anónimo';
         obj.id = data.id;
-        // await utils.transporte.sendMail({ to: config.adminEmail, sender: config.adminEmail, subject: `Un ${data.type} ha sido comentado`, text: `El ${data.type} "${response.title}" recibió un comentario.` });
+        await utils.transporte.sendMail({ to: 'lucianabeguelin@hotmail.com', sender: config.adminEmail, subject: `Un ${data.type} ha sido comentado`, text: `El ${data.type} "${data.title}" recibió un comentario.` });
         io.emit('newComment', obj);
     })
 

@@ -15,6 +15,7 @@ export class ComentManager {
             if (type === 'pdf') await pdfModel.findOneAndUpdate({_id: id}, {$push: {comments: {comment: newComent._id}}});
             if (type === 'audio') await audioModel.findOneAndUpdate({_id: id}, {$push: {comments: {comment: newComent._id}}});
             if(type === 'video') await videoModel.findOneAndUpdate({_id: id}, {$push: {comments: {comment: newComent._id}}});
+            return newComent;
         } catch (error) {
             throw new CustomError('Error desconocido', error, -999);
         }

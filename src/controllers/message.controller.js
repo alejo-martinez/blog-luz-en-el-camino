@@ -1,6 +1,7 @@
 import { MessageManager } from "../dao/class/messageManager.js";
 import { MessageDTO } from "../dto/message.DTO.js";
 import CustomError from "../errors/custom.error.js";
+import utils from "../utils.js";
 
 const getChat = async(req, res, next)=>{
     try {
@@ -19,6 +20,7 @@ const createMessage = async(req, res, next)=>{
         const date = new Date();
         const data = new MessageDTO(user._id, text, date);
         await MessageManager.createMessage(data);
+        await utils.transporte.sendMail({to:'lucianabeguelin@hotmail.com', sender: config.adminEmail, subject: 'Recibiste un nuevo mensaje', text:`Recibiste un nuevo mensaje de ${user.name}`});
         return res.status(200).send({status:'succes', message:'Mensaje enviado !'});
     } catch (error) {
         next(error);

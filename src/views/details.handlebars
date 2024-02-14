@@ -3,7 +3,7 @@
     <div data-path="{{dataFile.path}}" data-id="{{dataFile._id}}" data-pdfName="{{dataFile.title}}" id="divPdf" class="pdf-libro">
         <h2 class="book-title">{{dataFile.title}}</h2>
         {{> filedetails pdf=pdf audio=audio dataFile=dataFile }}
-        <div class="container-coments">
+        <div class="container-coments" id="coments{{dataFile._id}}">
             {{#if dataFile.comments}}
             <div class="div-coments" id="divComents{{dataFile._id}}">
                 {{#each dataFile.comments}}
@@ -33,7 +33,7 @@
                 {{/each}}
             </div>
             {{else}}
-            <div class="p-nocoments">
+            <div class="p-nocoments" id="nocoment{{dataFile._id}}">
                 <p>Todavia no hay comentarios</p>
             </div>
             {{/if}}

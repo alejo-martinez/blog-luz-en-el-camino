@@ -12,7 +12,6 @@ const comentar = async (id, type, title, event) => {
     const name = inptName.value;
     const text = inptTxt.value;
     const typeCapitalize = type.charAt(0).toUpperCase() + type.slice(1);
-    // const audioTitle = document.getElementById('divAudio').getAttribute('data-title');
 
     sendComment(name, text, id, title, type);
 
@@ -24,29 +23,15 @@ const comentar = async (id, type, title, event) => {
     inptName.value = '';
 }
 
-// socket.on('audioComment', (data)=>{
-//     document.getElementById(`divComents${data.id}`).innerHTML += `<div class="pdf-section-coments-all">
-//     <p><strong class="coment-name">${data.author}</strong>: ${data.text}
-//     </p>
-//     <p class="coment-date">${data.created_at}</p>
-// </div>`
-// });
-
 socket.on('newComment', (data)=>{
+    const divNoComents = document.getElementById(`nocoment${data.id}`);
+    if(divNoComents) window.location.reload();
     document.getElementById(`divComents${data.id}`).innerHTML += `<div class="pdf-section-coments-all">
     <p><strong class="coment-name">${data.author}</strong>: ${data.text}
     </p>
     <p class="coment-date">${data.created_at}</p>
 </div>`
 });
-
-// socket.on('pdfComment', (data) => {
-//     document.getElementById(`divComents${data.id}`).innerHTML += `<div class="pdf-section-coments-all">
-//     <p><strong class="coment-name">${data.author}</strong>: ${data.text}
-//     </p>
-//     <p class="coment-date">${data.created_at}</p>
-// </div>`
-// })
 
 const borrarcoment = async(cid, fid, type, event)=>{
     event.preventDefault();
