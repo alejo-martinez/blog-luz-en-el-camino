@@ -155,14 +155,20 @@
     }
     
     &::-webkit-scrollbar-thumb{
-        // margin-right: 3px;
         border-radius: 4px;
         background: #faf6f6b6;
     }
 }
 
 .div-no-msgs{
-    margin: auto;
+    // margin: auto;
+    margin-top: 14px;
+
+    & p{
+        text-align: center;
+        color: #ffffff9c;
+        font-weight: bold;
+    }
 }
 
 .div-all-chats {
@@ -170,10 +176,8 @@
     flex-flow: row wrap;
     justify-content: space-around;
     gap: 20px;
-    // justify-items: center;
     margin-top: 12px;
-    // margin: auto;
-    // width: 70%;
+
 
     &-admin {
         width: 30%;
@@ -185,12 +189,14 @@
 }
 
 .div-form-chat {
+    display: flex;
+    flex-flow: row nowrap;
     background-color: #efc4f3e1;
     margin-top: 8px;
-    // border: 2px solid rgba(255, 255, 255, 0.911);
     padding: 5px;
-    width: 100%;
-    // border-radius: 9px;
+
+    gap: 10px;
+
     & input{
         width: 90%;
         padding: 4px;
@@ -215,6 +221,7 @@
     color: #ffffff;
     border-radius: 3px;
     width: fit-content;
+    width: 10%;
 
     &:hover{
         cursor: pointer;
@@ -234,11 +241,7 @@
     justify-content: center;
     margin: auto;
   }
-  
-//   .cruz-roja {
-//     font-size: 20px;
-//     font-weight: bold;
-//   }
+
 
   .titlename {
     text-align: justify;
@@ -306,4 +309,14 @@
     color: rgb(236, 109, 109);
     font-weight: bold;
 
+}
+
+.text-chat{
+    background-color: #fff;
+    width: 60%;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    padding: 8px;
+    border-radius: 6px;
 }

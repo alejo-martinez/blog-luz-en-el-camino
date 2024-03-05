@@ -1,4 +1,6 @@
+import config from "../config/config.js";
 import { MessageManager } from "../dao/class/messageManager.js";
+import { UserManager } from "../dao/class/userManager.js";
 import { MessageDTO } from "../dto/message.DTO.js";
 import CustomError from "../errors/custom.error.js";
 import utils from "../utils.js";
@@ -31,7 +33,9 @@ const responseMessage = async(req, res, next)=>{
     try {
         const {mid} = req.params;
         const {text} = req.body;
+        const user = await UserManager.getById(mid);
         await MessageManager.responseMessage(mid, text);
+        await utils.transporte.sendMail({to: user.email, from: config.adminEmail, subject: 'Te respondieron un mensaje.', text: `Hola ${user.name} ! Luz en el camino te respondió el mensaje que le enviaste. http://localhost:8007/ accede para poder responder. Saludos !` })
         return res.status(200).send({status:'succes', message:'Respuesta enviada !'});
     } catch (error) {
         next(error);

@@ -1,9 +1,13 @@
+import config from "../config/config.js";
 import { AudioManager } from "../dao/class/audioManager.js";
 import { PdfManager } from "../dao/class/pdfManager.js";
 import { UserManager } from "../dao/class/userManager.js";
-
-import utils from "../utils.js";
 import { VideoManager } from "../dao/class/videoManager.js";
+
+import utils, {client} from "../utils.js";
+
+import {GetObjectCommand} from '@aws-sdk/client-s3';
+
 
 const register = async (req, res) => {
     res.render('register');
@@ -246,11 +250,12 @@ const fileDetails = async (req, res, next) => {
         const { file, id } = req.params;
         const userLogued = req.user;
         const admin = 'admin';
-        const client = 'client';
+        const cliente = 'client';
         let pdf;
         let audio;
         let video;
         let dataFile;
+
         if (file === 'pdf') {
             dataFile = await PdfManager.getById(id);
             pdf = true;
@@ -261,13 +266,14 @@ const fileDetails = async (req, res, next) => {
         }
         if( file === 'video'){
             dataFile = await VideoManager.getById(id);
+
             video = true;
         }
         if (dataFile.comments.length !== 0) {
             dataFile.comments.forEach(coment => coment.comment.created_at = utils.formatDate(coment.comment.created_at))
         }
         if (userLogued && userLogued.rol === admin) res.render('details', { file, userLogued, admin, dataFile, pdf, audio, video });
-        if (userLogued && userLogued.rol === client) res.render('details', { file, userLogued, client, dataFile, pdf, audio, video });
+        if (userLogued && userLogued.rol === cliente) res.render('details', { file, userLogued, cliente, dataFile, pdf, audio, video });
         if (!userLogued) res.render('details', { file, dataFile, pdf, audio, video });
     } catch (error) {
         next(error);

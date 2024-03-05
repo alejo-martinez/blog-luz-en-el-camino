@@ -1,6 +1,7 @@
 .div-all-videos{
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
+    gap: 16px;
 }
 
 .div-video{
@@ -9,7 +10,7 @@
     width: fit-content;
     align-items: center;
     justify-content: space-between;
-    // width: 50%;
+
     background-color: #fff;
     padding: 8px;
     border-radius: 6px;
@@ -32,4 +33,11 @@
         }
     }
     
+}
+
+.div-no-videos{
+
+    & p{
+        text-align: center;
+    }
 }

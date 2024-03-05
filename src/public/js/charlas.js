@@ -36,10 +36,12 @@ const enviarMsg = async (event, id) => {
         const texto = document.getElementById('message');
         const userId = document.getElementById('divFormChat').getAttribute('data-user');
         const userName = document.getElementById('divFormChat').getAttribute('data-name');
+        const divNoMsg = document.getElementById('noMsg');
         const dataText = texto.value;
         const obj = { sender: userId, text: dataText, name: userName }
         socket.emit('message', obj);
         texto.value = ''
+        if(divNoMsg) window.location.reload();
     } catch (error) {
         console.log(error)
     }

@@ -2,6 +2,9 @@
     {{> navbar admin=admin userlogued=user}}
     <div class="div-chats">
         {{#if client}}
+        <div class="text-chat">
+            <p class="parrafo-pdf">Este es un espacio para que dialoguemos. Podés dejarme dudas, opiniones sobre lo que encontrás en la página, sugerencias de temas que te gustaría abordar. Te leo. Este espacio es nuestro.</p>
+        </div>
         <div class="div-btns-showcontent">
             <button class="btn-chat btn-pressed" id="btnChat" onclick="handleChangeContent(event)">Mi chat</button>
             <button class="btn-chat" id="btnUsersChats" onclick="handleChangeContent(event)">Otros chats</button>
@@ -21,7 +24,7 @@
                 {{/each}}
             </div>
             {{else}}
-            <div class="div-no-msgs">
+            <div class="div-no-msgs" id="noMsg">
                 <p>No hay mensajes, envía uno!</p>
             </div>
             {{/if}}

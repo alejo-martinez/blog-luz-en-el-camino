@@ -877,7 +877,11 @@
     background: #faf6f6b6; }
 
 .div-no-msgs {
-  margin: auto; }
+  margin-top: 14px; }
+  .div-no-msgs p {
+    text-align: center;
+    color: #ffffff9c;
+    font-weight: bold; }
 
 .div-all-chats {
   display: flex;
@@ -893,10 +897,12 @@
     border-radius: 4px; }
 
 .div-form-chat {
+  display: flex;
+  flex-flow: row nowrap;
   background-color: #efc4f3e1;
   margin-top: 8px;
   padding: 5px;
-  width: 100%; }
+  gap: 10px; }
   .div-form-chat input {
     width: 90%;
     padding: 4px;
@@ -916,7 +922,8 @@
   background-color: #361bd1;
   color: #ffffff;
   border-radius: 3px;
-  width: fit-content; }
+  width: fit-content;
+  width: 10%; }
   .btn-msg:hover {
     cursor: pointer; }
 
@@ -985,6 +992,15 @@
 .btn-close-chat {
   color: #ec6d6d;
   font-weight: bold; }
+
+.text-chat {
+  background-color: #fff;
+  width: 60%;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  padding: 8px;
+  border-radius: 6px; }
 
 .nav-hamburger {
   display: none;
@@ -1085,7 +1101,9 @@
 
 @media screen and (max-width: 456px) {
   .pdf-section-show {
-    grid-template-columns: 50% 50%; } }
+    grid-template-columns: 50% 50%; }
+  .btn-msg {
+    font-size: 77%; } }
 
 @media screen and (max-width: 408px) {
   .pdf-section-coments {
@@ -1094,7 +1112,9 @@
     font-size: 90%; }
   .parrafo {
     padding: 5px;
-    width: 80%; } }
+    width: 80%; }
+  .btn-msg {
+    font-size: 60%; } }
 
 @media screen and (max-width: 336px) {
   .btn-message {
@@ -1110,7 +1130,8 @@
 
 .div-all-videos {
   display: flex;
-  flex-flow: row nowrap; }
+  flex-flow: row wrap;
+  gap: 16px; }
 
 .div-video {
   display: flex;
@@ -1131,6 +1152,9 @@
     .div-video a:hover {
       font-weight: bold;
       color: #59427081; }
+
+.div-no-videos p {
+  text-align: center; }
 
 * {
   box-sizing: border-box;

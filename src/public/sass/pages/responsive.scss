@@ -143,8 +143,6 @@
     }
 
     .pdf-section-each {
-        // margin: 10px;
-
         gap: 10px;
 
     }
@@ -167,6 +165,10 @@
     .pdf-section-show {
         grid-template-columns: 50% 50%;
     }
+
+    .btn-msg{
+        font-size: 77%;
+    }
 }
 
 @media screen and (max-width: 408px) {
@@ -181,9 +183,10 @@
     .parrafo {
         padding: 5px;
         width: 80%;
-        // &-principal{
-        //     font-size: 80%;
-        // }
+    }
+
+    .btn-msg{
+        font-size: 60%;
     }
 }
 
@@ -201,8 +204,6 @@
 
     .pdf-section-each {
         margin: auto;
-        // width: 100%;
-        // flex-flow: column wrap;
         margin-top: 8px;
         margin-bottom: 8px;
         
