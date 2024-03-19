@@ -10,6 +10,9 @@
     margin: 5px 0;
     transition: background-color 0.3s ease;
 }
+@media screen and (max-width: 1024px){
+    
+}
 
 @media screen and (max-width: 802px) {
     .admin-bar{
@@ -71,6 +74,22 @@
 }
 
 @media screen and (max-width: 666px){
+    .div-parrafo-pdf-chat{
+        position: absolute;
+        top: 10px;
+        bottom: unset;
+    }
+
+    .div-ig{
+        display: flex;
+        position: relative;
+        margin-top: 10px;
+    }
+
+    .icon-chat{
+        display: none;
+    }
+
     .div-form-chat {
         margin: auto;
     }

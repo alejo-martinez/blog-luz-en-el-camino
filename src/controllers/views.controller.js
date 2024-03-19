@@ -57,8 +57,16 @@ const audios = async (req, res) => {
     const audios = response.docs.map(audio => ({
         ...audio,
         title: audio.title.charAt(0).toUpperCase() + audio.title.slice(1),
-        comments: audio.comments?.slice(-3)
+        comments: audio.comments?.slice(-3),
+        // path: `${config.distributionDomain}/${audio.key}`
     }));
+
+    for (let index = 0; index < audios.length; index++) {
+        // console.log(audios[index].id)
+        // await AudioManager.update(audios[index].id, 'path', `${config.distributionDomain}/${audios[index].key}`)
+        // const element = audios[index];
+        
+    }
 
     audios.forEach(audio => {
         if (audio.comments.length === 0) return;

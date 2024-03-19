@@ -8,3 +8,8 @@ const logout = async () => {
         else window.location.href = window.location.href;
     }
 }
+
+if (window.location.pathname === '/') {
+    const btnDivChat = document.getElementById('btnDivChat');
+    btnDivChat.style.top = '160px';
+}

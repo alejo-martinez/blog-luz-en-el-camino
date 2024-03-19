@@ -18,4 +18,5 @@ export default {
     awsbucketvideos: process.env.AWS_BUCKET_VIDEO,
     awsregion: process.env.AWS_REGION,
     adminId: process.env.USER_ID,
+    distributionDomain: process.env.DISTRIBUTION_DOMAIN,
 }

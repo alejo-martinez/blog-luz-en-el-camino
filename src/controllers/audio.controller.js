@@ -35,7 +35,7 @@ const createAudio = async (req, res, next) => {
             const tituloExist = await AudioManager.getOne('title', title);
             if (tituloExist) throw new CustomError('Argumento existente', `Ya existe un audio con el titulo: ${title}`, 6);
             else {
-                filePaTh = `https://${config.awsbucketaudios}.s3.${config.awsregion}.amazonaws.com/${req.file.originalname}`;
+                filePaTh = `${config.distributionDomain}/${req.file.originalname}`;
                 const params = {
                     Bucket: config.awsbucketaudios,
                     Key: req.file.originalname,
