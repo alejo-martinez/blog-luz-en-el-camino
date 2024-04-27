@@ -17,6 +17,13 @@
     text-align: center;
     margin: auto;
 
+    &-details{
+        & video{
+            max-width: 320px
+            
+        }
+    }
+
     & div{
         & p{
             color: #594270;

@@ -725,7 +725,7 @@
   background-color: #594270;
   padding: 12px;
   margin: auto;
-  width: 500px;
+  max-width: 500px;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px; }
 
@@ -1154,6 +1154,8 @@
   border-radius: 6px;
   text-align: center;
   margin: auto; }
+  .div-video-details video {
+    max-width: 320px; }
   .div-video div p {
     color: #594270; }
   .div-video a {
