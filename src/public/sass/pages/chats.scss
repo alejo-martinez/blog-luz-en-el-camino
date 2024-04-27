@@ -1,7 +1,6 @@
 .div-chats {
     display: flex;
     flex-flow: column nowrap;
-    // margin: 8px;
 
     &-admin {
         display: flex;
@@ -9,11 +8,8 @@
     }
 
     &-form{
-        // margin: auto;
-        // margin-right: 2rem;
         width: 97%;
         margin: auto;
-        // border: 2px solid black;
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
         background-color: rgb(89, 66, 112);
