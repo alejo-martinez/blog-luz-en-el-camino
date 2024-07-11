@@ -20,12 +20,13 @@ router.get('/category/:cat', authToken, viewsController.renderPdfByCategory);
 router.get('/uploadpdf', authToken, adminUser, viewsController.uploadpdf);
 router.get('/uploadaudio', authToken, adminUser, viewsController.uploadaudio);
 router.get('/uploadvideo', authToken, adminUser, viewsController.uploadvideo);
-
+router.get('/uploadfrase', authToken, adminUser, viewsController.uploadfrase);
 
 router.get('/details/:file/:id', authToken, viewsController.fileDetails);
 // router.get('/audios/:aid', authToken, viewsController.getAudioById);
 router.get('/chat', noUser, viewsController.chat);
 router.get('/sendreset', viewsController.enviarMail);
 router.get('/resetpassword/:uid', viewsController.resetPassword);
+router.get('/frasesparameditar', authToken, viewsController.renderFrases)
 
 export default router;

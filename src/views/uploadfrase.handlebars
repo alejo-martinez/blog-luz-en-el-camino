@@ -1,0 +1,33 @@
+<div>
+    {{> navbar admin=admin userlogued=user}}
+    <div class="div-uploadpdf">
+        <h3>Subir audio</h3>
+        {{!-- <form class="form-upload" id="formFrase"> --}}
+            <label>Frase:</label>
+            <input type="text" name="frase" id="inptFrase">
+        {{!-- </form> --}}
+        <button id="btnfrase" class="btnuploadaudio">Subir frase</button>
+                <div class="loader-container" id="loader">
+            <div class="loader"></div>
+        </div>
+        <div id="errorfrase" class="erroraudio"></div>
+    </div>
+    <div class="panel-delete">
+        <div class="div-delete">
+            <h2>Eliminar frase</h2>
+            <div class="body-pdf-category">
+                {{> pagination hasPrevPage=hasPrevPage hasNextPage=hasNextPage prevPage=prevPage nextPage=nextPage
+                backPages=backPages nextPages=nextPages pages=pages}}
+            </div>
+            {{#each frases}}
+            <div class="div-delete-pdf">
+                <p>{{this.frase}}</p>
+                <button class="btn-delete-pdf" onclick="borrarfrase('{{this._id}}')"><i
+                        class="bi bi-x-circle"></i></button>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+<script src="/js/uploadfrase.js"></script>

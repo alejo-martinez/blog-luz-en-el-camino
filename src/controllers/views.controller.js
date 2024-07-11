@@ -1,5 +1,6 @@
 import config from "../config/config.js";
 import { AudioManager } from "../dao/class/audioManager.js";
+import { FraseManager } from "../dao/class/fraseManager.js";
 import { PdfManager } from "../dao/class/pdfManager.js";
 import { UserManager } from "../dao/class/userManager.js";
 import { VideoManager } from "../dao/class/videoManager.js";
@@ -193,6 +194,36 @@ const allVideos = async (req, res, next) => {
     }
 }
 
+const renderFrases = async(req, res)=>{
+    const userLogued = req.user;
+    const { page = 1 } = req.query;
+    const admin = 'admin';
+    const client = 'client';
+    const response = await FraseManager.getAll(page);
+    const range = 2;
+    const pagesToRender = [];
+    for (let i = Math.max(1, page - range); i <= Math.min(response.totalPages, page + range); i++) {
+        pagesToRender.push(i);
+    }
+    console.log(response)
+    const backPages = pagesToRender.filter(p => p < page);
+    const nextPages = pagesToRender.filter(p => p > page).slice(0, range);
+    const url = '/frasesparameditar';
+    const objResponse = { frases: response.docs, hasPrevPage: response.hasPrevPage, hasNextPage: response.hasNextPage, prevPage: response.prevPage, nextPage: response.nextPage, totalPages: response.totalPages, page, nextPages, backPages, url }
+    if (!userLogued) res.render('frases', objResponse);
+    else {
+        objResponse.userlogued = userLogued;
+        if (req.user.rol === client) {
+
+            res.render('frases', objResponse);
+        }
+        if (req.user.rol === admin) {
+            objResponse.admin = admin;
+            res.render('frases', objResponse);
+        }
+    }
+}
+
 const uploadpdf = async (req, res) => {
     const {page=1} = req.query;
     const user = req.user;
@@ -251,6 +282,26 @@ const uploadvideo = async(req, res)=>{
     const objResponse = {videos: response.docs, hasPrevPage: response.hasPrevPage, hasNextPage: response.hasNextPage, prevPage: response.prevPage, nextPage: response.nextPage, totalPages: response.totalPages, page, nextPages, backPages, user, admin, url}
 
     res.render("uploadvideo", objResponse);
+}
+
+const uploadfrase = async(req, res)=>{
+    const {page=1} = req.query;
+    const user = req.user;
+    const admin = true;
+    const pagesToRender = [];
+    const range = 2;
+    const response = await FraseManager.getAll(page);
+    for (let i = Math.max(1, page - range); i <= Math.min(response.totalPages, page + range); i++) {
+        pagesToRender.push(i);
+    }
+
+    const backPages = pagesToRender.filter(p => p < page);
+    const nextPages = pagesToRender.filter(p => p > page).slice(0, range);
+
+    const url = '/uploadfrase';
+    const objResponse = {frases: response.docs, hasPrevPage: response.hasPrevPage, hasNextPage: response.hasNextPage, prevPage: response.prevPage, nextPage: response.nextPage, totalPages: response.totalPages, page, nextPages, backPages, user, admin, url}
+
+    res.render("uploadfrase", objResponse);
 }
 
 const fileDetails = async (req, res, next) => {
@@ -320,4 +371,4 @@ const resetPassword = async (req, res) => {
     res.render('resetpassword', { uid });
 }
 
-export default { register, login, home, book, audios, uploadpdf, uploadaudio, uploadvideo, chat, enviarMail, resetPassword, renderPdfByCategory, fileDetails, allVideos };
+export default { register, login, home, book, audios, uploadpdf, uploadaudio, uploadvideo, chat, enviarMail, resetPassword, renderPdfByCategory, fileDetails, allVideos, renderFrases,  uploadfrase };

@@ -25,6 +25,7 @@ import videoRouter from './routes/video.router.js';
 import viewsRouter from './routes/views.router.js';
 import userRouter from './routes/user.router.js';
 import comentRouter from './routes/coment.router.js';
+import fraseRouter from './routes/frase.router.js';
 
 import handleErrors from './middlewares/error.middleware.js';
 import { PdfManager } from './dao/class/pdfManager.js';
@@ -72,6 +73,7 @@ app.use('/api/session', sessionRouter);
 app.use('/api/comment', comentRouter);
 app.use('/api/video', videoRouter);
 app.use('/api/user', userRouter);
+app.use('/api/frase', fraseRouter);
 app.use('/', viewsRouter);
 
 

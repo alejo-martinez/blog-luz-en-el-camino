@@ -32,6 +32,11 @@
                     <a href="/videos" class="btnnav-a">Videos</a>
 
                 </li>
+                <li class={{#if admin}}"navbuttons-li admin-bar-li" {{else}} "navbuttons-li" {{/if}}>
+
+                    <a href="/frasesparameditar" class="btnnav-a">Frases para meditar</a>
+
+                </li>
                 {{#if admin}}
                 <li class={{#if admin}}"navbuttons-li admin-bar-li" {{else}} "navbuttons-li" {{/if}}>
 
@@ -49,6 +54,12 @@
 
                     <a href="/uploadvideo" class="btnnav-a">Subir
                         video</a>
+
+                </li>
+                <li class={{#if admin}}"navbuttons-li admin-bar-li" {{else}} "navbuttons-li" {{/if}}>
+
+                    <a href="/uploadfrase" class="btnnav-a">Subir
+                        frase</a>
 
                 </li>
                 {{/if}}
