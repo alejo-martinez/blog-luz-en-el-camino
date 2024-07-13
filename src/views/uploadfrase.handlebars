@@ -1,13 +1,15 @@
 <div>
     {{> navbar admin=admin userlogued=user}}
     <div class="div-uploadpdf">
-        <h3>Subir audio</h3>
-        {{!-- <form class="form-upload" id="formFrase"> --}}
+        <h3>Subir frase</h3>
+        <form class="form-upload" id="formFrase">
+            <label>Titulo:</label>
+            <input type="text" name="title">
             <label>Frase:</label>
-            <input type="text" name="frase" id="inptFrase">
-        {{!-- </form> --}}
+            <input type="file" name="file">
+        </form>
         <button id="btnfrase" class="btnuploadaudio">Subir frase</button>
-                <div class="loader-container" id="loader">
+        <div class="loader-container" id="loader">
             <div class="loader"></div>
         </div>
         <div id="errorfrase" class="erroraudio"></div>
@@ -21,7 +23,7 @@
             </div>
             {{#each frases}}
             <div class="div-delete-pdf">
-                <p>{{this.frase}}</p>
+                <p>{{this.title}}</p>
                 <button class="btn-delete-pdf" onclick="borrarfrase('{{this._id}}')"><i
                         class="bi bi-x-circle"></i></button>
             </div>

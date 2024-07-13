@@ -23,6 +23,7 @@ router.get('/uploadvideo', authToken, adminUser, viewsController.uploadvideo);
 router.get('/uploadfrase', authToken, adminUser, viewsController.uploadfrase);
 
 router.get('/details/:file/:id', authToken, viewsController.fileDetails);
+router.get('/ver/frase/:fid', authToken, viewsController.fraseDetails);
 // router.get('/audios/:aid', authToken, viewsController.getAudioById);
 router.get('/chat', noUser, viewsController.chat);
 router.get('/sendreset', viewsController.enviarMail);

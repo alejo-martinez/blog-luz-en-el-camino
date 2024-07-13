@@ -8,16 +8,19 @@
                 <p class="parrafo-principal">Aquí les comparto frases muy breves para que las lleves al corazón cada día y sientas cada palabra. Quizás ayudan a comenzar el proceso de cambio que nos guiará a la paz interior.</p>
             </div>
         {{> pagination hasPrevPage=hasPrevPage hasNextPage=hasNextPage prevPage=prevPage nextPage=nextPage backPages=backPages nextPages=nextPages pages=pages}}
-        <div class="container-audios">
+        <div class="pdf-section-show">
             {{#if frases}}
             {{#each frases}}
-            <div class="div-audio">
-                <p>{{this.frase}}</p>
+            <div class="pdf-section-each">
+                <div class="pdf-section-each-header">
+                    <h5>{{this.title}}</h5>
+                    <p><a class="" href="/ver/frase/{{this._id}}">Ver frase <i class="bi bi-filetype-pdf"></i></a></p>
+                </div>
             </div>
             {{/each}}
             {{else}}
-            <div>
-                <p>Todavía no hay frases</p>
+            <div class="p-nopdf">
+                <p>Todavia no hay frases</p>
             </div>
             {{/if}}
         </div>

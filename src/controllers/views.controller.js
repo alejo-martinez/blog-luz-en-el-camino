@@ -339,6 +339,21 @@ const fileDetails = async (req, res, next) => {
     }
 }
 
+const fraseDetails = async(req, res, next)=>{
+    try {
+        const {fid} = req.params;
+        const userLogued = req.user;
+        const admin = 'admin';
+        const cliente = 'client';
+        const dataFile = await FraseManager.getById(fid);
+        if (userLogued && userLogued.rol === admin) res.render('frasedetails', { userLogued, admin, dataFile });
+        if (userLogued && userLogued.rol === cliente) res.render('frasedetails', { userLogued, cliente, dataFile });
+        if (!userLogued) res.render('frasedetails', { dataFile });
+    } catch (error) {
+        next(error);
+    }
+}
+
 
 const chat = async (req, res) => {
     const user = req.user;
@@ -371,4 +386,4 @@ const resetPassword = async (req, res) => {
     res.render('resetpassword', { uid });
 }
 
-export default { register, login, home, book, audios, uploadpdf, uploadaudio, uploadvideo, chat, enviarMail, resetPassword, renderPdfByCategory, fileDetails, allVideos, renderFrases,  uploadfrase };
+export default { register, login, home, book, audios, uploadpdf, uploadaudio, uploadvideo, chat, enviarMail, resetPassword, renderPdfByCategory, fileDetails, allVideos, renderFrases,  uploadfrase, fraseDetails };

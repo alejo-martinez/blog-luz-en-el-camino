@@ -16,6 +16,7 @@ export default {
     awsbucketaudios: process.env.AWS_BUCKET_AUDIO,
     awsbucketpdfs: process.env.AWS_BUCKET_PDF,
     awsbucketvideos: process.env.AWS_BUCKET_VIDEO,
+    awsbucketfrases: process.env.AWS_BUCKET_FRASES,
     awsregion: process.env.AWS_REGION,
     adminId: process.env.USER_ID,
     distributionDomain: process.env.DISTRIBUTION_DOMAIN,

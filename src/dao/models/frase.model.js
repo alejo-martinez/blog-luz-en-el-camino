@@ -5,7 +5,9 @@ const collection = 'frases';
 
 const schema = mongoose.Schema({
     created_at: Date,
-    frase: String,
+    path: String,
+    title: String,
+    key: String
 });
 
 schema.plugin(mongoosePaginate);
