@@ -10,6 +10,7 @@ import session from 'express-session';
 import passport from 'passport';
 import { Server } from 'socket.io';
 import MongoStore from 'connect-mongo';
+import sass from 'sass';
 
 //CONFIG
 import config from './config/config.js';
@@ -82,6 +83,7 @@ app.engine('handlebars', handlebars.engine());
 app.set('views', utils.__dirname + '/views');
 app.set('view engine', 'handlebars');
 
+// const result = sass.compile('style.scss');
 
 io.on('connection', async (socket) => {
 

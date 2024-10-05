@@ -1,4 +1,4 @@
-@import 'animations/animations';
+@import '../animations/animations.scss';
 
 .body-home{
     display: flex;
@@ -13,6 +13,13 @@
     &-link {
         color: $colorLinks;
         transition: all 0.3s;
+        font-size: 16px;
+
+        &-register {
+            color: $colorLinks;
+            transition: all 0.3s;
+            font-size: 12px;
+        }
 
         &:hover {
             color: $colorLinksHover;
