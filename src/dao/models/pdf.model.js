@@ -14,8 +14,8 @@ const schema = new mongoose.Schema({
         required: true
     },
     comments:{type:[{comment:{type: mongoose.Schema.Types.ObjectId, ref: 'coments'}}]},
-
-    key: String
+    key: String,
+    commentsCount: Number
 });
 
 schema.plugin(mongoosePaginate);

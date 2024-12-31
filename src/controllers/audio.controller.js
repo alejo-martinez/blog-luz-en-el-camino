@@ -2,13 +2,15 @@ import { AudioManager } from "../dao/class/audioManager.js";
 import CustomError from "../errors/custom.error.js";
 import utils, { s3 } from "../utils.js";
 import path from 'path';
+import { Readable } from 'stream';
 import fs from 'fs';
 import config from "../config/config.js";
+import * as musicMetadata from 'music-metadata';
 
 const getAll = async (req, res, next) => {
     try {
-        const {page=1} = req.query;
-        const audios = await AudioManager.getAll(page);
+        const {page=1, sort} = req.query;
+        const audios = await AudioManager.getAll(page, sort);
         return res.status(200).send({ status: 'succes', payload: audios })
     } catch (error) {
         next(error);
@@ -35,6 +37,8 @@ const createAudio = async (req, res, next) => {
             const tituloExist = await AudioManager.getOne('title', title);
             if (tituloExist) throw new CustomError('Argumento existente', `Ya existe un audio con el titulo: ${title}`, 6);
             else {
+                const metadata = await musicMetadata.parseBuffer(req.file.buffer);
+                const duration = metadata.format.duration;
                 filePaTh = `${config.distributionDomain}/${req.file.originalname}`;
                 const params = {
                     Bucket: config.awsbucketaudios,
@@ -42,7 +46,7 @@ const createAudio = async (req, res, next) => {
                     Body: req.file.buffer
                 }
                 s3.upload(params).promise();
-                await AudioManager.create({ title: title, path: filePaTh, key: req.file.originalname });
+                await AudioManager.create({ title: title, path: filePaTh, key: req.file.originalname, duration: duration });
                 return res.status(200).send({ status: 'succes', message: 'Audio subido !' });
             }
         }
@@ -95,5 +99,49 @@ const deleteAudio = async (req, res, next) => {
     }
 };
 
+const fastUpdate = async (req, res, next) => {
+    try {
+      const audios = await AudioManager.get();
+  
+      for (const audio of audios) {
+        const params = {
+          Bucket: config.awsbucketaudios,
+          Key: audio.key,
+        };
+  
+        const audioFile = await s3.getObject(params).promise();
+        let audioBuffer;
+  
+        // Verifica si Body es un stream
+        if (audioFile.Body instanceof Readable) {
+          const chunks = [];
+          for await (const chunk of audioFile.Body) {
+            chunks.push(chunk);
+          }
+          audioBuffer = Buffer.concat(chunks);
+        } else if (Buffer.isBuffer(audioFile.Body)) {
+          // Si es un Buffer, úsalo directamente
+          audioBuffer = audioFile.Body;
+        } else {
+          throw new Error('Body no es un stream legible ni un Buffer');
+        }
+  
+        // Extrae metadata y calcula duración
+        const metadata = await musicMetadata.parseBuffer(audioBuffer);
+        const duration = metadata.format.duration; // Duración en segundos
+  
+        // Actualiza la duración en la base de datos
+        await AudioManager.update(audio._id, 'duration', duration);
+  
+        console.log(`Audio ${audio._id} actualizado con duración: ${duration}s`);
+      }
+  
+      res.status(200).send({ status: 'OK !' });
+    } catch (error) {
+      console.error(`Error al procesar:`, error);
+      res.status(500).send({ error: error.message });
+    }
+  };
 
-export default { getAll, getById, createAudio, updateAudio, deleteAudio };
+
+export default { getAll, getById, createAudio, updateAudio, deleteAudio, fastUpdate };

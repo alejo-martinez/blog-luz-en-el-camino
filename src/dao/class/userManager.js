@@ -43,6 +43,16 @@ export class UserManager {
         }
     }
 
+    static async getByCode(code, uid) {
+        const user = await userModel.findOne({_id: uid, code: code});
+        if(!user) throw new CustomError('No Data', 'El código ingresado no es correcto', 4);
+        try {
+            return user
+        } catch (error) {
+            throw new CustomError('Error desconocido', error, -999);
+        }
+    }
+
     static async getWithPassword(field, value) {
         const user = await userModel.findOne({ [field]: value }).select('+password');
         try {
@@ -66,6 +76,14 @@ export class UserManager {
             const date = new Date();
             const comentario = { user: name, text: text, created_at: utils.formatDate(date) };
             await userModel.updateOne({ _id: id }, { $push: { chat: comentario } });
+        } catch (error) {
+            throw new CustomError('Error desconocido', error, -999);
+        }
+    }
+
+    static async update(id, value, field) {
+        try {
+            await userModel.updateOne({_id: id}, {$set:{[field]:value}});
         } catch (error) {
             throw new CustomError('Error desconocido', error, -999);
         }

@@ -36,7 +36,8 @@ const schema = new mongoose.Schema({
             {message: {type: mongoose.Schema.Types.ObjectId, ref:'message'}}
         ],
         default: []
-    }
+    },
+    code:String
 
 });
 

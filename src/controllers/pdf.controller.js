@@ -9,10 +9,23 @@ import { pdfModel } from "../dao/models/pdf.model.js";
 
 const getAll = async (req, res, next) => {
     try {
-        const pdfs = await PdfManager.getAll();
+        const {page=1} = req.query;
+        const pdfs = await PdfManager.getAll(page);
         return res.status(200).send({ status: 'succes', payload: pdfs });
     } catch (error) {
         next(error)
+    }
+}
+
+const getAllCategory = async(req, res, next) =>{
+    try {
+        const {page=1, sort} = req.query;
+        const {cat} = req.params;
+
+        const pdfs = await PdfManager.getByCategory(cat, page, sort);
+        return res.status(200).send({status:'success', payload:pdfs});
+    } catch (error) {
+        next(error);
     }
 }
 
@@ -94,4 +107,4 @@ const deletePdf = async (req, res, next) => {
 
 
 
-export default { getAll, getById, createPdf, updatePdf, deletePdf}
+export default { getAll, getById, createPdf, updatePdf, deletePdf, getAllCategory}

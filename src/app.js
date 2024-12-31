@@ -34,12 +34,17 @@ import { AudioManager } from './dao/class/audioManager.js';
 import { ComentManager } from './dao/class/comentManager.js';
 import { MessageManager } from './dao/class/messageManager.js';
 
-
+const urlFront = process.env.URL_FRONT || 'http://localhost:3000'
 const app = express();
 
 const httpServer = app.listen(parseFloat(config.port), () => console.log(`server arriba en el puerto: ${config.port}`))
 
-export const io = new Server(httpServer);
+export const io = new Server(httpServer,{
+    cors: {
+        origin: urlFront,
+        methods: ['GET', 'POST']
+    }
+});
 
 app.use(session({
     store: MongoStore.create({
@@ -60,7 +65,10 @@ app.use(cookieParser(config.cookieCode));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+    origin: urlFront,
+    credentials: true,
+}));
 
 app.use('/static', express.static(utils.__dirname + '/public'));
 app.use(express.static(path.join(utils.__dirname, 'views')));
@@ -75,7 +83,7 @@ app.use('/api/comment', comentRouter);
 app.use('/api/video', videoRouter);
 app.use('/api/user', userRouter);
 app.use('/api/frase', fraseRouter);
-app.use('/', viewsRouter);
+// app.use('/', viewsRouter);
 
 
 app.engine('handlebars', handlebars.engine());
@@ -96,33 +104,33 @@ io.on('connection', async (socket) => {
         obj.created_at = utils.formatDate(obj.created_at);
         obj.author = obj.author ? obj.author : 'Anónimo';
         obj.id = data.id;
-        await utils.transporte.sendMail({ to: 'lucianabeguelin@hotmail.com', sender: config.adminEmail, subject: `Un ${data.type} ha sido comentado`, text: `El ${data.type} "${data.title}" recibió un comentario.` });
+        // await utils.transporte.sendMail({ to: 'lucianabeguelin@hotmail.com', sender: config.adminEmail, subject: `Un ${data.type} ha sido comentado`, text: `El ${data.type} "${data.title}" recibió un comentario.` });
         io.emit('newComment', obj);
     })
 
-    socket.on('message', async (data) => {
-        try {
-            const date = new Date();
-            data.created_at = date;
-            await MessageManager.createMessage(data);
+    // socket.on('message', async (data) => {
+    //     try {
+    //         const date = new Date();
+    //         data.created_at = date;
+    //         await MessageManager.createMessage(data);
 
-            data.created_at = utils.formatDate(date);
-            io.emit('newMessage', data);
-        } catch (error) {
-            console.log(error);
-        }
-    })
+    //         data.created_at = utils.formatDate(date);
+    //         io.emit('newMessage', data);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // })
 
-    socket.on('responsemsg', async (data) => {
-        const date = new Date();
-        data.created_at = date;
-        const obj = { sender: 'Luz en el Camino', text: data.text, created_at: date };
-        await MessageManager.responseMessage(data.to, obj);
+    // socket.on('responsemsg', async (data) => {
+    //     const date = new Date();
+    //     data.created_at = date;
+    //     const obj = { sender: 'Luz en el Camino', text: data.text, created_at: date };
+    //     await MessageManager.responseMessage(data.to, obj);
 
-        obj.created_at = utils.formatDate(date);
-        obj.id = data.to;
-        io.emit('newResponseMsg', obj);
-    })
+    //     obj.created_at = utils.formatDate(date);
+    //     obj.id = data.to;
+    //     io.emit('newResponseMsg', obj);
+    // })
 
 });
 

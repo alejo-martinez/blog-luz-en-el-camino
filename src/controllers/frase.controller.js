@@ -2,10 +2,22 @@ import { FraseManager } from "../dao/class/fraseManager.js";
 import CustomError from "../errors/custom.error.js";
 import config from "../config/config.js";
 import {s3} from "../utils.js";
+
 const getAll = async(req, res, next)=>{
     try {
         const {page = 1} = req.query;
-        
+        const frases = await FraseManager.getAll(page);
+        return res.status(200).send({status:'success', payload:frases});
+    } catch (error) {
+        next(error);
+    }
+}
+
+const getById = async(req, res, next)=>{
+    try {
+        const {fid} = req.params;
+        const frase = await FraseManager.getById(fid);
+        return res.status(200).send({status:'success', payload:frase});
     } catch (error) {
         next(error);
     }
@@ -44,4 +56,4 @@ const deleteFrase = async(req, res, next)=>{
     }
 }
 
-export default {createFrase, deleteFrase};
+export default {createFrase, deleteFrase, getAll, getById};

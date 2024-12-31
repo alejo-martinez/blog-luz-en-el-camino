@@ -6,8 +6,20 @@ export class AudioManager {
         return await audioModel.find();
     }
 
-    static async getAll(page) {
-        const {docs, hasPrevPage, hasNextPage, prevPage, nextPage, totalPages} = await audioModel.paginate({}, {limit: 10, page, lean: true, populate:'comments.comment'});
+    static async getAll(page, filter) {
+        let queryFilter;
+        if(filter){
+            if(filter === 'newest' || filter === 'oldest'){
+                queryFilter = {_id: filter === 'newest'? -1 : 1};
+            }
+            if(filter === 'coments'){
+                queryFilter = {comentsCount: -1}
+            }
+            if(filter === 'alfabetic' || filter === 'reversed'){
+                queryFilter = {title: filter === 'alfabetic'? 1 : -1};
+            }
+        }
+        const {docs, hasPrevPage, hasNextPage, prevPage, nextPage, totalPages} = await audioModel.paginate({}, {limit: 10, page, lean: true, populate:'comments.comment', sort: queryFilter});
         try {
             return {docs,  page: page, hasPrevPage,  hasNextPage, prevPage, nextPage, totalPages};
         } catch (error) {

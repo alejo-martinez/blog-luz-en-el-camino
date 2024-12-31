@@ -5,6 +5,26 @@ import {s3} from '../utils.js';
 import { PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import {client} from '../utils.js';
 
+const getVideos = async(req, res, next)=>{
+    try {
+        const {page=1, sort} = req.query;
+        const videos = await VideoManager.getAll(page, sort);
+        res.status(200).send({status:'success', payload: videos});
+    } catch (error) {
+        next(error);
+    }
+}
+
+const getVideoById = async(req, res, next)=>{
+    try {
+        const {vid} = req.params;
+        const video = await VideoManager.getById(vid);
+        res.status(200).send({status:'success', payload:video});
+    } catch (error) {
+        next(error);
+    }
+}
+
 const createVideo = async(req, res, next)=>{
     try {
         const { title } = req.body;
@@ -63,4 +83,4 @@ const deleteVideo = async(req, res, next)=>{
     }
 }
 
-export default {createVideo, updateVideo, deleteVideo};
+export default {createVideo, updateVideo, deleteVideo, getVideos, getVideoById};

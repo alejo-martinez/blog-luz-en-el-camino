@@ -5,7 +5,8 @@ import fraseController from "../controllers/frase.controller.js";
 
 const router = Router();
 
-// router.get();
+router.get('/', fraseController.getAll);
+router.get('/:fid', fraseController.getById);
 router.post('/', authToken, adminUser, utils.uploadPdf.single('file'), fraseController.createFrase);
 // router.put();
 router.delete('/:fid', authToken, adminUser, fraseController.deleteFrase);

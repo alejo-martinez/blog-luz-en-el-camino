@@ -13,7 +13,7 @@ router.get('/current', strategyPassport('jwt'), sessionController.current);
 
 router.post('/reset', sessionController.sendMail);
 
-router.get('/reset/:uid', sessionController.resetPassword);
+router.post('/reset/:uid', sessionController.resetPassword);
 
 router.put('/update/:uid', sessionController.updatePassword);
 

@@ -48,7 +48,13 @@ AWS.config.update({
     region: 'us-east-2'
 })
 
-export const s3 = new AWS.S3();
+export const s3 = new AWS.S3({
+    region: config.awsregion,
+    credentials:{
+        accessKeyId: config.awsacceskey,
+        secretAccessKey: config.awssecretkey
+    }
+});
 
 
 

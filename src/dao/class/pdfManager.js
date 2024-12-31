@@ -13,8 +13,20 @@ export class PdfManager {
         }
     };
 
-    static async getByCategory(category, page){
-        const {docs, hasPrevPage, hasNextPage, prevPage, nextPage, totalPages} = await pdfModel.paginate({category: category}, {limit: 6, page, lean: true, populate:'comments.comment'});
+    static async getByCategory(category, page, filter){
+        let queryFilter;
+        if(filter){
+            if(filter === 'newest' || filter === 'oldest'){
+                queryFilter = {_id: filter === 'newest'? -1 : 1};
+            }
+            if(filter === 'coments'){
+                queryFilter = {comentsCount: -1}
+            }
+            if(filter === 'alfabetic' || filter === 'reversed'){
+                queryFilter = {title: filter === 'alfabetic'? 1 : -1};
+            }
+        }
+        const {docs, hasPrevPage, hasNextPage, prevPage, nextPage, totalPages} = await pdfModel.paginate({category: category}, {limit: 12, page, lean: true, populate:'comments.comment', sort:queryFilter});
         // if (pdfs.length === 0) return undefined;
         const pdfs = docs;
         try {
