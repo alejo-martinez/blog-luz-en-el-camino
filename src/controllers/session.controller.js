@@ -15,7 +15,7 @@ const userLogued = async (req, res, next) => {
         const usuario = req.user;
         const accesToken = utils.generateToken(usuario);
         
-        res.cookie('accesToken', accesToken, { maxAge: 60 * 60 * 2000, signed: true, httpOnly: true, domain: urlFront, sameSite:'None', secure: true }).send({ status: 'succes', payload: usuario });
+        res.cookie('accesToken', accesToken, { maxAge: 60 * 60 * 2000, signed: true, httpOnly: true, domain: '.luzenelcamino.com.ar', sameSite:'None', secure: true }).send({ status: 'succes', payload: usuario });
     } catch (error) {
         next(error);
     }
