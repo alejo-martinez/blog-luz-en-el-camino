@@ -27,7 +27,7 @@ const logOut = async (req, res, next) => {
             res.send({ status: 'error', message: 'no pudimos cerrar la sesion: ' + error });
         }
         else {
-            res.clearCookie('accesToken').send({ status: 'succes', message: 'sesion cerrada con exito' })
+            res.clearCookie('accesToken', {domain: '.luzenelcamino.com.ar'}).send({ status: 'succes', message: 'sesion cerrada con exito' })
         }
     })
 }
