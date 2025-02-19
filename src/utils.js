@@ -7,8 +7,11 @@ import config from './config/config.js';
 import nodemailer from 'nodemailer';
 import AWS from 'aws-sdk';
 import {S3Client} from '@aws-sdk/client-s3';
+import ffmpeg from 'fluent-ffmpeg';
+import ffmpegStatic from 'ffmpeg-static';
+import fs from 'fs';
 
-
+const ffmpegService = ffmpeg.setFfmpegPath(ffmpegStatic);
 
 const cookieExtractor = (req) => {
     let token = null;
@@ -119,4 +122,16 @@ const newFormDate = (date)=>{
 
 const __dirname = dirname(__filename);
 
-export default { generateToken, createHash, isValidPassword, cookieExtractor, formatDate, transporte, uploadPdf, uploadAudio, uploadVideo, __dirname, newFormDate };
+const cleanUpFiles = (files) => {
+    files.forEach(file => {
+        fs.unlink(file, (err) => {
+            if (err) {
+                console.error(`Error al eliminar ${file}:`, err);
+            } else {
+                console.log(`[${new Date().toLocaleString()}] - Archivo eliminado: ${file}`);
+            }
+        });
+    });
+};
+
+export default { generateToken, createHash, isValidPassword, cookieExtractor, formatDate, transporte, uploadPdf, uploadAudio, uploadVideo, __dirname, newFormDate, ffmpegService, cleanUpFiles };

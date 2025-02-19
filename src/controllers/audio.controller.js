@@ -6,6 +6,7 @@ import { Readable } from 'stream';
 import fs from 'fs';
 import config from "../config/config.js";
 import * as musicMetadata from 'music-metadata';
+import ffmpeg from "../config/ffmpeg.config.js";
 
 const getAll = async (req, res, next) => {
     try {
