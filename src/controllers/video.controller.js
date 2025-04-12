@@ -56,7 +56,7 @@ const createVideo = async (req, res, next) => {
                         ffmpeg.ffprobe(tempInputPath, (err, metadata) => {
                             if (err) {
                                 console.error('Error al obtener metadatos:', err);
-                                return;
+                                return err;
                             }
                             totalDuration = metadata.format.duration;
                         });
@@ -104,6 +104,7 @@ const createVideo = async (req, res, next) => {
                         }
                     } catch (error) {
                         console.log('error al convertir el archivo ' + error);
+                        return error;
                     }
                 })
             }
