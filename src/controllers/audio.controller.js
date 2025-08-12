@@ -10,7 +10,7 @@ import ffmpeg from "../config/ffmpeg.config.js";
 
 const getAll = async (req, res, next) => {
     try {
-        const {page=1, sort} = req.query;
+        const { page = 1, sort } = req.query;
         const audios = await AudioManager.getAll(page, sort);
         return res.status(200).send({ status: 'succes', payload: audios })
     } catch (error) {
@@ -28,9 +28,19 @@ const getById = async (req, res, next) => {
     }
 };
 
+const getUCDMAudios = async (req, res, next) => {
+    try {
+        const { page = 1, sort, type } = req.query;
+        const audios = await AudioManager.getAll(page, sort, type);
+        return res.status(200).send({ status: 'succes', payload: audios })
+    } catch (error) {
+        next(error);
+    }
+}
+
 const createAudio = async (req, res, next) => {
     try {
-        const title = req.body.title;
+        const { title, type } = req.body;
         let filePaTh;
         if (!title) throw new CustomError('Faltan argumentos', 'Debes ingresar un título', 2);
         if (!req.file) throw new CustomError('Faltan argumentos', 'Debes subir un archivo', 2);
@@ -46,8 +56,8 @@ const createAudio = async (req, res, next) => {
                     Key: req.file.originalname,
                     Body: req.file.buffer
                 }
-                s3.upload(params).promise();
-                await AudioManager.create({ title: title, path: filePaTh, key: req.file.originalname, duration: duration });
+                await s3.upload(params).promise();
+                await AudioManager.create({ title: title, path: filePaTh, key: req.file.originalname, duration: duration, type: type });
                 return res.status(200).send({ status: 'succes', message: 'Audio subido !' });
             }
         }
@@ -102,47 +112,47 @@ const deleteAudio = async (req, res, next) => {
 
 const fastUpdate = async (req, res, next) => {
     try {
-      const audios = await AudioManager.get();
-  
-      for (const audio of audios) {
-        const params = {
-          Bucket: config.awsbucketaudios,
-          Key: audio.key,
-        };
-  
-        const audioFile = await s3.getObject(params).promise();
-        let audioBuffer;
-  
-        // Verifica si Body es un stream
-        if (audioFile.Body instanceof Readable) {
-          const chunks = [];
-          for await (const chunk of audioFile.Body) {
-            chunks.push(chunk);
-          }
-          audioBuffer = Buffer.concat(chunks);
-        } else if (Buffer.isBuffer(audioFile.Body)) {
-          // Si es un Buffer, úsalo directamente
-          audioBuffer = audioFile.Body;
-        } else {
-          throw new Error('Body no es un stream legible ni un Buffer');
+        const audios = await AudioManager.get();
+
+        for (const audio of audios) {
+            const params = {
+                Bucket: config.awsbucketaudios,
+                Key: audio.key,
+            };
+
+            const audioFile = await s3.getObject(params).promise();
+            let audioBuffer;
+
+            // Verifica si Body es un stream
+            if (audioFile.Body instanceof Readable) {
+                const chunks = [];
+                for await (const chunk of audioFile.Body) {
+                    chunks.push(chunk);
+                }
+                audioBuffer = Buffer.concat(chunks);
+            } else if (Buffer.isBuffer(audioFile.Body)) {
+                // Si es un Buffer, úsalo directamente
+                audioBuffer = audioFile.Body;
+            } else {
+                throw new Error('Body no es un stream legible ni un Buffer');
+            }
+
+            // Extrae metadata y calcula duración
+            const metadata = await musicMetadata.parseBuffer(audioBuffer);
+            const duration = metadata.format.duration; // Duración en segundos
+
+            // Actualiza la duración en la base de datos
+            await AudioManager.update(audio._id, 'duration', duration);
+
+            console.log(`Audio ${audio._id} actualizado con duración: ${duration}s`);
         }
-  
-        // Extrae metadata y calcula duración
-        const metadata = await musicMetadata.parseBuffer(audioBuffer);
-        const duration = metadata.format.duration; // Duración en segundos
-  
-        // Actualiza la duración en la base de datos
-        await AudioManager.update(audio._id, 'duration', duration);
-  
-        console.log(`Audio ${audio._id} actualizado con duración: ${duration}s`);
-      }
-  
-      res.status(200).send({ status: 'OK !' });
+
+        res.status(200).send({ status: 'OK !' });
     } catch (error) {
-      console.error(`Error al procesar:`, error);
-      res.status(500).send({ error: error.message });
+        console.error(`Error al procesar:`, error);
+        res.status(500).send({ error: error.message });
     }
-  };
+};
 
 
-export default { getAll, getById, createAudio, updateAudio, deleteAudio, fastUpdate };
+export default { getAll, getById, createAudio, updateAudio, deleteAudio, fastUpdate, getUCDMAudios };

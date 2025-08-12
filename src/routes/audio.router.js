@@ -7,7 +7,8 @@ const router = Router();
 
 router.put('/fast', audioController.fastUpdate);
 router.get('/', audioController.getAll);
-router.post('/', authToken, adminUser,utils.uploadAudio.single('file'), audioController.createAudio);
+router.get('/ucdm', audioController.getUCDMAudios);
+router.post('/', authToken, adminUser, utils.uploadAudio.single('file'), audioController.createAudio);
 router.get('/:pid', audioController.getById);
 router.put('/:pid', authToken, adminUser, utils.uploadAudio.single('file'), audioController.updateAudio);
 
