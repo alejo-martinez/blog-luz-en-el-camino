@@ -41,7 +41,7 @@ const getUCDMAudios = async (req, res, next) => {
 const createAudio = async (req, res, next) => {
     try {
         const { title, type } = req.body;
-        let filePaTh;
+        let filePath;
         if (!title) throw new CustomError('Faltan argumentos', 'Debes ingresar un título', 2);
         if (!req.file) throw new CustomError('Faltan argumentos', 'Debes subir un archivo', 2);
         else {
@@ -50,14 +50,30 @@ const createAudio = async (req, res, next) => {
             else {
                 const metadata = await musicMetadata.parseBuffer(req.file.buffer);
                 const duration = metadata.format.duration;
-                filePaTh = `${config.distributionDomain}/${req.file.originalname}`;
+                const originalFormat = metadata.format.container;
+
+                const convertedBuffer = await new Promise((resolve, reject) => {
+                    const chunks = [];
+                    ffmpeg(streamifier.createReadStream(req.file.buffer))
+                        .toFormat('mp3')
+                        .on('error', (err) => reject(err))
+                        .on('data', (chunk) => chunks.push(chunk))
+                        .on('end', () => resolve(Buffer.concat(chunks)))
+                        .save('-'); // Guardar en buffer
+                });
+
+                // Nombre de archivo en MP3
+                const fileName = req.file.originalname.replace(/\.[^/.]+$/, '') + '.mp3';
+                filePath = `${config.distributionDomain}/${fileName}`;
+
+                // filePaTh = `${config.distributionDomain}/${req.file.originalname}`;
                 const params = {
                     Bucket: config.awsbucketaudios,
-                    Key: req.file.originalname,
-                    Body: req.file.buffer
+                    Key: fileName,
+                    Body: convertedBuffer
                 }
                 await s3.upload(params).promise();
-                await AudioManager.create({ title: title, path: filePaTh, key: req.file.originalname, duration: duration, type: type });
+                await AudioManager.create({ title: title, path: filePath, key: fileName, duration: duration, type: type });
                 return res.status(200).send({ status: 'succes', message: 'Audio subido !' });
             }
         }
