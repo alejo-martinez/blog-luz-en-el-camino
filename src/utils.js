@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 import config from './config/config.js';
 import nodemailer from 'nodemailer';
 import AWS from 'aws-sdk';
-import {S3Client} from '@aws-sdk/client-s3';
+import { S3Client } from '@aws-sdk/client-s3';
 import ffmpeg from 'fluent-ffmpeg';
 import ffmpegStatic from 'ffmpeg-static';
 import fs from 'fs';
@@ -37,7 +37,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 export const client = new S3Client({
     region: config.awsregion,
-    credentials:{
+    credentials: {
         accessKeyId: config.awsacceskey,
         secretAccessKey: config.awssecretkey
     }
@@ -53,7 +53,7 @@ AWS.config.update({
 
 export const s3 = new AWS.S3({
     region: config.awsregion,
-    credentials:{
+    credentials: {
         accessKeyId: config.awsacceskey,
         secretAccessKey: config.awssecretkey
     }
@@ -63,11 +63,11 @@ export const s3 = new AWS.S3({
 
 const pdfFileFilter = (req, file, cb) => {
     if (file.mimetype === 'application/pdf') {
-      cb(null, true);
+        cb(null, true);
     } else {
-      cb(new Error('El archivo debe ser un PDF.'), false);
+        cb(new Error('El archivo debe ser un PDF.'), false);
     }
-  };
+};
 
 const uploadPdf = multer({
     storage: multer.memoryStorage(),
@@ -76,24 +76,24 @@ const uploadPdf = multer({
 
 
 
-const audioFileFilter = (req, file, cb)=>{
-    if(file.mimetype === 'audio/mp4a-latm' || file.mimetype === 'audio/mpeg' || file.mimetype === 'audio/wav' || file.mimetype === 'audio/x-wav'){
+const audioFileFilter = (req, file, cb) => {
+    if (file.mimetype === 'audio/mp4a-latm' || file.mimetype === 'audio/mpeg' || file.mimetype === 'audio/wav' || file.mimetype === 'audio/x-wav') {
         cb(null, true)
-    } else{
+    } else {
         cb(new Error('El archivo debe ser un audio en formato MP3 o WAV.'), false);
     }
 }
 
 
 const uploadAudio = multer({
-    storage : multer.memoryStorage(),
-    fileFilter: audioFileFilter
+    storage: multer.memoryStorage(),
+    // fileFilter: audioFileFilter
 });
 
-const videoFilter = (req, file, cb)=>{
-    if(file.mimetype === 'video/mp4' || file.mimetype === 'video/webm' || file.mimetype === 'video/quicktime'){
+const videoFilter = (req, file, cb) => {
+    if (file.mimetype === 'video/mp4' || file.mimetype === 'video/webm' || file.mimetype === 'video/quicktime') {
         cb(null, true);
-    } else{
+    } else {
         cb(new Error('El formato proporcionado para el video no es válido. Formatos aceptados: MP4, WebM o QuickTime'), false);
     }
 }
@@ -104,19 +104,19 @@ const uploadVideo = multer({
 })
 
 const transporte = nodemailer.createTransport({
-    service:'gmail',
+    service: 'gmail',
     port: 587,
-    auth:{
+    auth: {
         user: config.adminEmail,
         pass: config.nodemailerPass
     }
 })
 
-const formatDate = (date)=> {
+const formatDate = (date) => {
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
 };
 
-const newFormDate = (date)=>{
+const newFormDate = (date) => {
     return `${date.created_at.getDate()}/${date.created_at.getMonth() + 1}/${date.created_at.getFullYear()} ${String(date.created_at.getHours()).padStart(2, '0')}:${String(date.created_at.getMinutes()).padStart(2, '0')}`
 }
 
