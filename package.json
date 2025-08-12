@@ -42,7 +42,8 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "pdfjs-dist": "^3.9.179",
-    "socket.io": "^4.7.1"
+    "socket.io": "^4.7.1",
+    "streamifier": "^0.1.1"
   },
   "devDependencies": {
     "sass": "^1.79.4"
