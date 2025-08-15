@@ -8,6 +8,7 @@ import config from "../config/config.js";
 import * as musicMetadata from 'music-metadata';
 import ffmpeg from "../config/ffmpeg.config.js";
 import streamifier from 'streamifier';
+import { PassThrough } from 'stream';
 
 const getAll = async (req, res, next) => {
     try {
@@ -54,13 +55,16 @@ const createAudio = async (req, res, next) => {
                 const originalFormat = metadata.format.container;
 
                 const convertedBuffer = await new Promise((resolve, reject) => {
+                    const passThroughStream = new PassThrough();
                     const chunks = [];
+
                     ffmpeg(streamifier.createReadStream(req.file.buffer))
                         .toFormat('mp3')
                         .on('error', (err) => reject(err))
-                        .on('data', (chunk) => chunks.push(chunk))
-                        .on('end', () => resolve(Buffer.concat(chunks)))
-                        .save('-'); // Guardar en buffer
+                        .pipe(passThroughStream);
+
+                    passThroughStream.on('data', chunk => chunks.push(chunk));
+                    passThroughStream.on('end', () => resolve(Buffer.concat(chunks)));
                 });
 
                 // Nombre de archivo en MP3
